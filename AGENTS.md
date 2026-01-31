@@ -20,6 +20,7 @@ Per the README, the intended structure is:
 - `plans/` - Planning documents from agent sessions
 - `logs/` - Session logs from agent interactions
 - `rules/` - Detailed workflow and documentation rules
+- `tips/` - Discoveries and recommendations for working with agentic tools
 
 **Current State**: The repository is in early setup phase with only template files present. The manuscript is currently at root level rather than in a subdirectory.
 
@@ -74,11 +75,13 @@ Detailed rules for agent interactions are documented in the `rules/` directory:
 - **[rules/wip_commits.md](rules/wip_commits.md)** - WIP commit workflow for incremental development
 - **[rules/session_logs.md](rules/session_logs.md)** - Requirements for logging agent sessions to `logs/`
 - **[rules/planning_docs.md](rules/planning_docs.md)** - Guidelines for planning documents in `plans/`
+- **[tips/](tips/)** - Discoveries about agentic tools (see `tips/warp-conversation-history.md`)
 
 ### Quick Reference
 
 - Work on the `wip` branch; prefix commits with `WIP: `
 - Log all sessions that modify files to `logs/` with ISO timestamps
+- **ALWAYS** capture verbatim user input in session log frontmatter (`user_input` field)
 - Create planning docs in `plans/` for significant features
 - Include `Co-Authored-By: Warp <agent@warp.dev>` in commits
 

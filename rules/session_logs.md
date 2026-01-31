@@ -59,6 +59,7 @@ related_plans:
 | `timestamp` | ISO 8601 timestamp with timezone (e.g., `"2026-01-31T19:16:25Z"`) |
 | `session_type` | One of: `feature`, `bugfix`, `refactor`, `documentation`, `exploration` |
 | `summary` | Brief one-line description of the session outcome |
+| `user_input` | **REQUIRED** - Verbatim user input (multi-line YAML string with `\|`) |
 
 ### Optional Fields
 
@@ -66,7 +67,6 @@ related_plans:
 |-------|-------------|
 | `files_modified` | List of files created, modified, or deleted |
 | `related_plans` | List of planning documents relevant to this session |
-| `user_input` | Verbatim user input (multi-line YAML string with `\|`) |
 | `user_followup` | Additional verbatim follow-up inputs if session spans multiple exchanges |
 
 ## Session Types
@@ -81,9 +81,10 @@ related_plans:
 
 ### User Input Section
 
-- Include the user's request verbatim if brief
-- Summarize longer or multi-part requests
-- Capture the intent and any specific requirements mentioned
+- **ALWAYS** include the user's request verbatim in the `user_input` frontmatter field
+- For multi-part sessions, use `user_followup`, `user_followup_2`, etc. for subsequent inputs
+- The body section can provide summarized context if helpful, but verbatim capture is mandatory
+- If verbatim input is unavailable (e.g., recovered from context), add `user_input_note` explaining the gap
 
 ### Agent Actions Section
 
