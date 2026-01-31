@@ -7,31 +7,50 @@ target_words: 300
 
 ## Key Points
 - Brief AI timeline: transformers (2017) → GPT series → Claude/Gemini → agentic systems
-- Definition: what makes a system "agentic" (tool use, multi-step reasoning, autonomy)
-- Current state of the art: coding assistants, MCP protocol, IDE integration
-- Why now: capability threshold crossed for practical HPC workflows
+- Definition: what makes a system "agentic" (tool use, multi-step reasoning, autonomy) → cite ReAct
+- Current state of the art: coding assistants, MCP protocol, ADE integration
+- Why now: capability threshold crossed for practical HPC workflows + Genesis Mission policy
 
 ## Notes
 - This section is intentionally more formal/dry to contrast with the whimsical sections
-- See `notes/bibliography.md` for full annotated bibliography
+- See `notes/bibliography.md` for full annotated bibliography (13 references)
 
-## Key References
-- **Vaswani et al. (2017)**: "Attention Is All You Need" - Transformer architecture foundation
-- **OpenAI (2023)**: GPT-4 Technical Report - benchmark performance milestone
-- **Anthropic (2024)**: MCP announcement - standardization of tool use
-- **Godoy et al. (2024)**: LLM evaluation for HPC software development
-- **Deelman et al. (2025)**: "HPC at a Crossroads" - Science perspective
+## Key References (Complete Set)
+
+**Foundational AI:**
+- `vaswani2017attention`: Transformer architecture foundation (2017)
+- `brown2020gpt3`: GPT-3 scaling laws - 175B parameters (2020)
+- `openai2022chatgpt`: ChatGPT public launch - 100M users in 2 months (2022)
+- `yao2023react`: ReAct - defines "agentic" (reasoning + acting) (2022/2023)
+- `openai2023gpt4`: GPT-4 - "human-level" benchmarks (2023)
+- `anthropic2024claude3`: Claude 3 model family (2024)
+
+**Agentic Infrastructure:**
+- `warp2024agentmode`: Warp Agent Mode - first ADE concept (2024)
+- `anthropic2024mcp`: MCP announcement (2024)
+- `openai2025mcp`: OpenAI adopts MCP (2025)
+- `anthropic2025aaif`: MCP → Linux Foundation/AAIF (2025)
+
+**HPC + AI:**
+- `godoy2024llm`: LLM evaluation for HPC software development (2024)
+- `deelman2025hpc`: "HPC at a Crossroads" - Science (2025)
+- `whitehouse2025genesis`: Genesis Mission EO - DOE AI+science initiative (2025)
 
 ## Timeline to Cover
-| Year | Milestone |
-|------|----------|
-| 2017 | Transformer architecture (Vaswani et al.) |
-| 2020 | GPT-3 demonstrates scaling laws |
-| 2022 | ChatGPT public release (Nov 30) - public awareness explosion |
-| 2023 | GPT-4 release (March) - "human-level" benchmarks |
-| 2024 | Claude 3, MCP release (Nov), agentic capabilities emerge |
-| 2025 | MCP adopted by OpenAI/Google, IDE integration mainstream |
-| 2026 | HPC centers actively engaging with agentic AI |
+| Year | Milestone | Citation |
+|------|-----------|----------|
+| 2017 | Transformer architecture | `vaswani2017attention` |
+| 2020 | GPT-3 demonstrates scaling laws | `brown2020gpt3` |
+| 2022 | ChatGPT public release (Nov 30) | `openai2022chatgpt` |
+| 2022 | ReAct defines "agentic" systems | `yao2023react` |
+| 2023 | GPT-4 - "human-level" benchmarks | `openai2023gpt4` |
+| 2024 | Claude 3 model family | `anthropic2024claude3` |
+| 2024 | Warp Agent Mode - first ADE | `warp2024agentmode` |
+| 2024 | MCP release (November) | `anthropic2024mcp` |
+| 2025 | OpenAI/Google adopt MCP | `openai2025mcp` |
+| 2025 | Genesis Mission EO (November) | `whitehouse2025genesis` |
+| 2025 | MCP → Linux Foundation (December) | `anthropic2025aaif` |
+| 2026 | Present day - HPC centers engaging with agentic AI | — |
 
 ## Technical Context
 - What is MCP (Model Context Protocol)?
