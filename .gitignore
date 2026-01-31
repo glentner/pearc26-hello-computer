@@ -1,4 +1,10 @@
-# LaTeX auxiliary files
+# Build directory (all LaTeX artifacts go here)
+build/
+
+# Generated PDFs (release PDFs attached to GitHub releases, not committed)
+*.pdf
+
+# LaTeX auxiliary files (in case any end up at root)
 *.aux
 *.log
 *.out
@@ -15,9 +21,6 @@
 *.blg
 *.bcf
 *.run.xml
-
-# Generated PDF (we don't commit the output)
-*.pdf
 
 # Editor backup files
 *~

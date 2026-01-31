@@ -1,0 +1,38 @@
+name: Build and Release PDF
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build PDF with LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: manuscript.tex
+          latexmk_use_lualatex: false
+          args: -pdf -output-directory=build
+
+      - name: Generate release filename
+        id: filename
+        run: |
+          YEAR=$(date +"%Y")
+          HASH=$(git rev-parse --short HEAD)
+          echo "release_name=lentner-${YEAR}-${HASH}.pdf" >> $GITHUB_OUTPUT
+
+      - name: Copy PDF to release name
+        run: cp build/manuscript.pdf ${{ steps.filename.outputs.release_name }}
+
+      - name: Upload PDF as release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.filename.outputs.release_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

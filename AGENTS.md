@@ -26,27 +26,28 @@ Per the README, the intended structure is:
 ## Building the Manuscript
 
 The manuscript uses the ACM `acmart` document class for conference submissions.
+Build artifacts are isolated in the `build/` directory.
 
 ### Build Commands
 
 ```bash
-# Build PDF using pdflatex (basic build)
-pdflatex manuscript.tex
+# Incremental build (default)
+make build
 
-# Build with bibliography (if .bib file exists)
-pdflatex manuscript.tex
-bibtex manuscript
-pdflatex manuscript.tex
-pdflatex manuscript.tex
+# Full clean rebuild with release PDF (lentner-2026-{hash}.pdf)
+make release
 
-# Recommended: Use latexmk for automatic dependency handling
-latexmk -pdf manuscript.tex
+# Continuous build with file watching (for live editing)
+make watch
 
-# Clean auxiliary files
-latexmk -c manuscript.tex
+# Open PDF in Skim
+make open
 
-# Clean all generated files including PDF
-latexmk -C manuscript.tex
+# Clean build artifacts
+make clean
+
+# Clean everything including release PDFs
+make distclean
 ```
 
 ### Manuscript Configuration
