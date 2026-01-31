@@ -12,7 +12,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ### Foundational AI (2017-2023)
 
-- [ ] `vaswani2017attention` — Vaswani et al. 2017 — Attention Is All You Need
+- [x] `vaswani2017attention` — Vaswani et al. 2017 — Attention Is All You Need
 - [ ] `brown2020gpt3` — Brown et al. 2020 — Language Models are Few-Shot Learners
 - [ ] `openai2022chatgpt` — OpenAI 2022 — Introducing ChatGPT
 - [ ] `yao2023react` — Yao et al. 2023 — ReAct: Synergizing Reasoning and Acting
@@ -34,7 +34,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ## Progress
 
-**Completed**: 0/13
+**Completed**: 1/13
 
 ## Session Prompt Template
 
