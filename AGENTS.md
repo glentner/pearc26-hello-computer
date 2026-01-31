@@ -19,6 +19,7 @@ Per the README, the intended structure is:
 - `figures/` - Generated plots and diagrams (not yet created)
 - `plans/` - Planning documents from agent sessions
 - `logs/` - Session logs from agent interactions
+- `rules/` - Detailed workflow and documentation rules
 
 **Current State**: The repository is in early setup phase with only template files present. The manuscript is currently at root level rather than in a subdirectory.
 
@@ -65,56 +66,20 @@ When adding experiments or code:
 4. Reference figures and results in `manuscript.tex`
 5. If the manuscript grows, consider splitting into multiple `.tex` files in a `manuscript/` subdirectory
 
-## Agent Documentation Requirements
+## Agent Workflow Rules
 
-### Planning Documents
+Detailed rules for agent interactions are documented in the `rules/` directory:
 
-When working on significant features or tasks that require planning, store planning documents in `plans/`:
-- Use descriptive filenames (e.g., `experiment-design.md`, `data-pipeline-refactor.md`)
-- Format as Markdown
-- Include context, goals, approach, and any decisions made
-- Update plans as understanding evolves during implementation
+- **[rules/wip_commits.md](rules/wip_commits.md)** - WIP commit workflow for incremental development
+- **[rules/session_logs.md](rules/session_logs.md)** - Requirements for logging agent sessions to `logs/`
+- **[rules/planning_docs.md](rules/planning_docs.md)** - Guidelines for planning documents in `plans/`
 
-### Session Logs
+### Quick Reference
 
-All agent sessions must be logged to `logs/` with the following requirements:
-- **Filename**: ISO 8601 timestamp format: `YYYY-MM-DDTHH-MM-SS.md` (e.g., `2026-01-31T19-16-25.md`)
-- **Format**: Markdown with YAML frontmatter for metadata
-
-**Log file template**:
-
-```markdown
----
-timestamp: "2026-01-31T19:16:25Z"
-session_type: "feature" | "bugfix" | "refactor" | "documentation" | "exploration"
-summary: "Brief description of what was accomplished"
-files_modified:
-  - path/to/file1.py
-  - path/to/file2.tex
-related_plans:
-  - plans/relevant-plan.md
----
-
-# Session Log
-
-## User Input
-
-[Verbatim or summarized user requests]
-
-## Agent Actions
-
-[Summary of actions taken, decisions made, and rationale]
-
-## Outcome
-
-[What was accomplished, any issues encountered, next steps if applicable]
-```
-
-### When to Log
-
-- Log every interactive session that results in file modifications
-- For multi-step work sessions, create a single log entry at the end summarizing the full session
-- Brief Q&A sessions that don't modify files may be omitted
+- Work on the `wip` branch; prefix commits with `WIP: `
+- Log all sessions that modify files to `logs/` with ISO timestamps
+- Create planning docs in `plans/` for significant features
+- Include `Co-Authored-By: Warp <agent@warp.dev>` in commits
 
 ## Citation Information
 
