@@ -75,6 +75,7 @@ Detailed rules for agent interactions are documented in the `rules/` directory:
 - **[rules/wip_commits.md](rules/wip_commits.md)** - WIP commit workflow for incremental development
 - **[rules/session_logs.md](rules/session_logs.md)** - Requirements for logging agent sessions to `logs/`
 - **[rules/planning_docs.md](rules/planning_docs.md)** - Guidelines for planning documents in `plans/`
+- **[rules/structural_docs.md](rules/structural_docs.md)** - Keep structural documents (READMEs, indexes) in sync
 - **[tips/](tips/)** - Discoveries about agentic tools (see `tips/warp-conversation-history.md`)
 
 ### Quick Reference
