@@ -29,22 +29,31 @@ This approach ensures code is regularly pushed off the local machine to the remo
    git push origin wip
    ```
 
-### Completing a Feature
+### Completing a Feature (Release)
 
-When work on a feature is complete:
+When work on a feature is complete and ready for release:
 
-1. Review all `WIP: ` commits and collapse them into logical, higher-quality commits
-2. Use interactive rebase to squash and reword commits:
+1. Strip the `WIP: ` prefix from the most recent commit to mark the milestone:
    ```bash
-   git rebase -i main
+   git commit --amend -m "$(git log -1 --pretty=%B | sed 's/^WIP: //')"
    ```
 
-3. Force push to the `wip` branch (this is acceptable since it's a personal working branch):
+2. Force push to the `wip` branch to mark the release point:
    ```bash
    git push --force origin wip
    ```
 
-4. Open a pull request from `wip` to `main`
+3. Merge into `main` (preserving the full incremental history):
+   ```bash
+   git checkout main
+   git merge wip
+   git push origin main
+   ```
+
+4. Return to `wip` for continued development:
+   ```bash
+   git checkout wip
+   ```
 
 ## Commit Message Format
 
@@ -75,7 +84,7 @@ Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
 
 - **Safety**: Frequent commits and pushes ensure work is backed up
 - **Visibility**: Others can see progress on the `wip` branch
-- **Clean History**: Squashing before PR keeps `main` history clean and logical
+- **Preserved History**: The incremental WIP commits document the development process—valuable for a project about agentic workflows
 - **Force Push OK**: The `wip` branch is understood to be rewritten; force push is acceptable here (but never on `main`)
 
 ## Attribution
