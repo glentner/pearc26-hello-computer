@@ -45,9 +45,34 @@ target_words: 500
 - Security considerations and policies
 
 ## Notes
-- This is where the MCP/TRON joke goes (see snippets/mcp-joke.md)
+- This is where the MCP/TRON joke goes (see `snippets/mcp-joke.md`)
+- See `notes/mcp-deployment-architecture.md` for detailed 3-mode architecture
 - Could include a small code snippet or architecture diagram
 - Emphasize: we're not just allowing AI—we're actively enabling it well
+
+## Deployment Architecture (Key Technical Contribution)
+
+Three deployment modes for MCP servers:
+
+1. **Local STDIO Mode** (recommended default)
+   - Server runs locally as subprocess of IDE
+   - Relies on user's existing SSH keys/config
+   - Tools execute remotely via SSH bridge
+   - Zero infrastructure for HPC centers
+   - Pattern: "AI assistant on my laptop talks to cluster"
+
+2. **Hosted Service with JWT/OIDC**
+   - Centrally hosted MCP server
+   - Authentication via JWT/OIDC (CILogon, etc.)
+   - For web interfaces or centralized logging
+
+3. **Hosted with Identity Delegation**
+   - Server delegates to actual user identity
+   - sudo/setuid patterns for user isolation
+
+**Design Philosophy**: Build all three, default to local-first, document trade-offs. Let ecosystem discover preferences.
+
+**Key Insight**: The question isn't just "can AI manage HPC resources?" but "where should that capability live?"
 
 ## Meta-Point
 - This very paper was written using the tools we describe
