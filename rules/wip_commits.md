@@ -33,12 +33,12 @@ This approach ensures code is regularly pushed off the local machine to the remo
 
 When work on a feature is complete and ready for release:
 
-1. Strip the `WIP: ` prefix from the most recent commit to mark the milestone:
+1. Strip the `WIP: ` prefix from **all commits** since the last release:
    ```bash
-   git commit --amend -m "$(git log -1 --pretty=%B | sed 's/^WIP: //')"
+   git rebase -i <last-release-tag> --exec "git commit --amend -m \"\$(git log -1 --pretty=%B | sed 's/^WIP: //')\""
    ```
 
-2. Force push to the `wip` branch to mark the release point:
+2. Force push to the `wip` branch:
    ```bash
    git push --force origin wip
    ```
