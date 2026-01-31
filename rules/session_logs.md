@@ -66,6 +66,8 @@ related_plans:
 |-------|-------------|
 | `files_modified` | List of files created, modified, or deleted |
 | `related_plans` | List of planning documents relevant to this session |
+| `user_input` | Verbatim user input (multi-line YAML string with `\|`) |
+| `user_followup` | Additional verbatim follow-up inputs if session spans multiple exchanges |
 
 ## Session Types
 
