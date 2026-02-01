@@ -28,13 +28,13 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 - [x] `godoy2024llm` — Godoy et al. 2024 — LLM Evaluation for HPC Software Development
 - [x] `openai2025mcp` — OpenAI 2025 — MCP Adoption (TechCrunch)
-- [ ] `deelman2025hpc` — Deelman et al. 2025 — HPC at a Crossroads (Science)
+- [x] `deelman2025hpc` — Deelman et al. 2025 — HPC at a Crossroads (Science)
 - [ ] `whitehouse2025genesis` — White House 2025 — Genesis Mission Executive Order
 - [ ] `anthropic2025aaif` — Anthropic 2025 — MCP → Agentic AI Foundation
 
 ## Progress
 
-**Completed**: 10/13
+**Completed**: 11/13
 
 ## Session Prompt Template
 
