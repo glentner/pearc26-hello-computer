@@ -40,8 +40,8 @@ We have completed our research phase (13/13 reference deep-dives) and accumulate
 
 ### Phase A: Abstract
 
-- [ ] A.1: Draft abstract prose in `outline/00-abstract.md`
-- [ ] A.2: Integrate into `manuscript.tex`
+- [x] A.1: Draft abstract prose in `outline/00-abstract.md`
+- [x] A.2: Integrate into `manuscript.tex`
 
 ### Phase B: Introduction
 
@@ -69,7 +69,7 @@ We have completed our research phase (13/13 reference deep-dives) and accumulate
 
 ## Progress
 
-**Completed**: 3/14
+**Completed**: 5/14
 
 ## Session Prompt Template
 
