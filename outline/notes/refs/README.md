@@ -16,7 +16,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 - [x] `brown2020gpt3` — Brown et al. 2020 — Language Models are Few-Shot Learners
 - [x] `openai2022chatgpt` — OpenAI 2022 — Introducing ChatGPT
 - [x] `yao2023react` — Yao et al. 2023 — ReAct: Synergizing Reasoning and Acting
-- [ ] `openai2023gpt4` — OpenAI 2023 — GPT-4 Technical Report
+- [x] `openai2023gpt4` — OpenAI 2023 — GPT-4 Technical Report
 
 ### Agentic Infrastructure (2024)
 
@@ -34,7 +34,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ## Progress
 
-**Completed**: 4/13
+**Completed**: 5/13
 
 ## Session Prompt Template
 
