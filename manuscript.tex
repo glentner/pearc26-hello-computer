@@ -71,8 +71,18 @@
 \renewcommand{\shortauthors}{Lentner and Ashish}
 
 \begin{abstract}
-% TODO: Write abstract (~150 words)
-A clear and well-documented abstract goes here.
+Large language models have evolved from curiosity to co-pilot in under four years.
+With the emergence of agentic AI---systems that reason, plan, and execute multi-step
+tasks autonomously---HPC centers face a new category of user need: researchers want
+these tools integrated into their workflows, not merely tolerated. This paper offers
+a practitioner's perspective from Purdue's Rosen Center for Advanced Computing (RCAC),
+where we have begun deploying system-wide configurations, custom MCP servers, and user
+guidance for agentic tools. We discuss the balance between enablement and caution,
+share productivity gains and lessons learned from writing this very paper with agentic
+assistance, and outline an emerging framework for HPC centers navigating this
+transition. Equal parts love letter and cautionary tale, we argue that proactive
+engagement---not prohibition---is the path forward for facilitators who wish to remain
+relevant in the agentic era.
 \end{abstract}
 
 %%
@@ -98,13 +108,73 @@ A clear and well-documented abstract goes here.
 \maketitle
 
 \section{Shall We Play a Game?}
-% TODO: Write introduction
+
+On November 30, 2022, OpenAI released ChatGPT as a ``research preview.''
+Within five days it had one million users; by January 2023, one hundred
+million---the fastest-growing consumer application in history~\cite{openai2022chatgpt}.
+The game changed overnight.
+
+For those of us supporting researchers on high-performance computing systems, the
+implications arrived slowly and then all at once. At first, ChatGPT was a curiosity---a
+toy that could write passable Python functions or explain error messages with
+varying degrees of accuracy. Then came GPT-4, Claude, and their competitors, each
+iteration more capable than the last. Then came \emph{agentic} AI: systems that don't just
+respond to prompts but reason, plan, and execute multi-step workflows
+autonomously~\cite{yao2023react}.
+Today's agentic development environments---tools like Warp, Cursor, and Claude Code---can
+read files, run shell commands, edit code, and iterate toward solutions with minimal
+human intervention.
+
+HPC centers now face a question with no precedent in our field: how do we engage with
+tools that can, in some cases, do our jobs faster than we can? This paper offers one
+answer from the trenches.
 
 \subsection{Mostly Harmless}
-% TODO: Write motivations subsection
+
+\emph{The Hitchhiker's Guide to the Galaxy} famously summarized Earth in two words:
+``Mostly Harmless.'' We adopt this as our working hypothesis for agentic AI in HPC
+workflows.
+
+At Purdue's Rosen Center for Advanced Computing (RCAC), we chose proactive engagement
+over prohibition. Our reasoning was simple: users will bring these tools regardless of
+policy. A graduate student debugging a CUDA kernel at 2~AM will reach for ChatGPT whether
+or not we endorse it. The question is whether we help them use it effectively---or leave
+them to discover its hallucinations the hard way.
+
+This paper documents our early experience: system-wide configurations that expose cluster
+metadata to agentic tools, custom MCP (Model Context Protocol) servers that provide
+contextual help, and the lessons learned from using these tools ourselves---including
+writing this very paper with agentic assistance. We offer this as both practical
+guidance and invitation: the game is afoot, and HPC centers that engage early will shape
+the rules.
 
 \section{Background}
-% TODO: Write background
+
+The trajectory from research curiosity to practical tool was swift. In 2017, Vaswani et
+al.~introduced the Transformer architecture, replacing recurrence with attention
+mechanisms~\cite{vaswani2017attention}. By 2020, GPT-3's 175 billion parameters
+demonstrated that scale alone could yield emergent capabilities~\cite{brown2020gpt3}.
+ChatGPT's November 2022 launch brought these capabilities to the general public---100
+million users in two months~\cite{openai2022chatgpt}.
+
+A parallel development transformed chatbots into \emph{agents}. The ReAct framework
+formalized this shift: agentic systems interleave reasoning traces with task-specific
+actions, interfacing with external tools and knowledge sources rather than relying solely
+on training data~\cite{yao2023react}. Today's agentic development environments implement
+this pattern---reading files, executing commands, editing code, and iterating based on
+observed results~\cite{warp2024agentmode}.
+
+The infrastructure for agentic AI has matured rapidly. Anthropic's Model Context Protocol
+(MCP), released November 2024, provides a standardized interface for AI systems to connect
+with external data sources and tools---analogous to how the Language Server Protocol
+unified IDE tooling~\cite{anthropic2024mcp}. By March 2025, OpenAI and Google had adopted
+MCP~\cite{openai2025mcp}; by December, Anthropic donated it to the Linux Foundation's
+Agentic AI Foundation, with over 10,000 active public servers~\cite{anthropic2025aaif}.
+
+For HPC, this convergence is consequential. The Genesis Mission executive order (November
+2025) charges DOE with uniting national laboratories, supercomputers, and AI capabilities
+for scientific discovery~\cite{whitehouse2025genesis}. The question is no longer whether
+AI will integrate with HPC workflows, but how---and who will shape that integration.
 
 \section{Approach}
 % TODO: Write approach / our work
@@ -127,7 +197,28 @@ A clear and well-documented abstract goes here.
 % TODO: Cautionary notes discussion
 
 \section{End of Line}
-% TODO: Write conclusion
+
+We began this paper with a question: how should HPC centers engage with tools that can, in
+some cases, outperform us at our own jobs? Our answer has been proactive engagement---not
+prohibition.
+
+At RCAC, we are building the infrastructure to make agentic AI a first-class citizen of the
+HPC ecosystem: system-wide configurations that expose cluster metadata, MCP servers that
+provide contextual help, and documentation that prepares users for both the capabilities
+and limitations of these tools. This work is early. We don't yet know what patterns will
+emerge, what pitfalls await, or how dramatically these tools will reshape our profession.
+
+As a meta-demonstration, this paper was itself written with agentic assistance---the session
+logs documenting our process are available in the accompanying GitHub
+repository.\footnote{\url{https://github.com/glentner/pearc26-hello-computer}} The
+methodology we developed (markdown reference files, YAML frontmatter for context continuity,
+systematic session logging) may itself be a contribution worth exploring.
+
+The agentic era has arrived. HPC facilitators who engage early will shape its trajectory;
+those who wait may find themselves shaped by it. We choose engagement---and we invite the
+community to join us.
+
+\emph{End of line.}
 
 %%
 %% Acknowledgments

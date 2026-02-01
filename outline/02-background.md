@@ -1,6 +1,7 @@
 ---
-status: draft
+status: review
 target_words: 300
+actual_words: ~280
 ---
 
 # Background
@@ -68,4 +69,27 @@ target_words: 300
 
 ## Draft
 
-[To be written]
+The trajectory from research curiosity to practical tool was swift. In 2017, Vaswani et al.
+introduced the Transformer architecture, replacing recurrence with attention mechanisms. By
+2020, GPT-3's 175 billion parameters demonstrated that scale alone could yield emergent
+capabilities. ChatGPT's November 2022 launch brought these capabilities to the general
+public—100 million users in two months.
+
+A parallel development transformed chatbots into *agents*. The ReAct framework formalized
+this shift: agentic systems interleave reasoning traces with task-specific actions,
+interfacing with external tools and knowledge sources rather than relying solely on
+training data. Today's agentic development environments implement this pattern—reading
+files, executing commands, editing code, and iterating based on observed results.
+
+The infrastructure for agentic AI has matured rapidly. Anthropic's Model Context Protocol
+(MCP), released November 2024, provides a standardized interface for AI systems to connect
+with external data sources and tools—analogous to how the Language Server Protocol unified
+IDE tooling. By March 2025, OpenAI and Google had adopted MCP; by December, Anthropic
+donated it to the Linux Foundation's Agentic AI Foundation, with over 10,000 active public
+servers.
+
+For HPC, this convergence is consequential. The Genesis Mission executive order (November
+2025) charges DOE with uniting national laboratories, supercomputers, and AI capabilities
+for scientific discovery. Meanwhile, Hyperion Research reports 78% of HPC sites now use AI
+in some form. The question is no longer whether AI will integrate with HPC workflows, but
+how—and who will shape that integration.
