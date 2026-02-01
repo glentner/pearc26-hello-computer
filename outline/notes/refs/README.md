@@ -20,7 +20,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ### Agentic Infrastructure (2024)
 
-- [ ] `anthropic2024claude3` — Anthropic 2024 — Claude 3 Model Family
+- [x] `anthropic2024claude3` — Anthropic 2024 — Claude 3 Model Family
 - [ ] `warp2024agentmode` — Warp 2024 — Agent Mode: LLM in the Terminal
 - [ ] `anthropic2024mcp` — Anthropic 2024 — Introducing the Model Context Protocol
 
@@ -34,7 +34,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ## Progress
 
-**Completed**: 5/13
+**Completed**: 6/13
 
 ## Session Prompt Template
 
