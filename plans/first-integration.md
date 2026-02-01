@@ -51,9 +51,9 @@ We have completed our research phase (13/13 reference deep-dives) and accumulate
 
 ### Phase C: Background
 
-- [ ] C.1: Draft timeline prose from Transformers → MCP in `outline/02-background.md`
-- [ ] C.2: Synthesize key quotes from deep-dive notes
-- [ ] C.3: Integrate into `manuscript.tex`
+- [x] C.1: Draft timeline prose from Transformers → MCP in `outline/02-background.md`
+- [x] C.2: Synthesize key quotes from deep-dive notes
+- [x] C.3: Integrate into `manuscript.tex`
 
 ### Phase D: Conclusion
 
@@ -69,7 +69,7 @@ We have completed our research phase (13/13 reference deep-dives) and accumulate
 
 ## Progress
 
-**Completed**: 8/14
+**Completed**: 11/14
 
 ## Session Prompt Template
 

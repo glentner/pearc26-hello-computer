@@ -149,7 +149,32 @@ guidance and invitation: the game is afoot, and HPC centers that engage early wi
 the rules.
 
 \section{Background}
-% TODO: Write background
+
+The trajectory from research curiosity to practical tool was swift. In 2017, Vaswani et
+al.~introduced the Transformer architecture, replacing recurrence with attention
+mechanisms~\cite{vaswani2017attention}. By 2020, GPT-3's 175 billion parameters
+demonstrated that scale alone could yield emergent capabilities~\cite{brown2020gpt3}.
+ChatGPT's November 2022 launch brought these capabilities to the general public---100
+million users in two months~\cite{openai2022chatgpt}.
+
+A parallel development transformed chatbots into \emph{agents}. The ReAct framework
+formalized this shift: agentic systems interleave reasoning traces with task-specific
+actions, interfacing with external tools and knowledge sources rather than relying solely
+on training data~\cite{yao2023react}. Today's agentic development environments implement
+this pattern---reading files, executing commands, editing code, and iterating based on
+observed results~\cite{warp2024agentmode}.
+
+The infrastructure for agentic AI has matured rapidly. Anthropic's Model Context Protocol
+(MCP), released November 2024, provides a standardized interface for AI systems to connect
+with external data sources and tools---analogous to how the Language Server Protocol
+unified IDE tooling~\cite{anthropic2024mcp}. By March 2025, OpenAI and Google had adopted
+MCP~\cite{openai2025mcp}; by December, Anthropic donated it to the Linux Foundation's
+Agentic AI Foundation, with over 10,000 active public servers~\cite{anthropic2025aaif}.
+
+For HPC, this convergence is consequential. The Genesis Mission executive order (November
+2025) charges DOE with uniting national laboratories, supercomputers, and AI capabilities
+for scientific discovery~\cite{whitehouse2025genesis}. The question is no longer whether
+AI will integrate with HPC workflows, but how---and who will shape that integration.
 
 \section{Approach}
 % TODO: Write approach / our work
