@@ -51,8 +51,7 @@ open:
 # Clean build artifacts (keep release PDFs)
 clean:
 	$(LATEXMK) -output-directory=$(BUILDDIR) -C $(MAIN).tex 2>/dev/null || true
-	rm -rf $(BUILDDIR)
-	rm -f $(MAIN).aux $(MAIN).log $(MAIN).out $(MAIN).bbl $(MAIN).blg 2>/dev/null || true
+	/bin/rm -rf $(BUILDDIR)
 
 # Clean everything including release PDFs
 distclean: clean
