@@ -22,7 +22,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 - [x] `anthropic2024claude3` — Anthropic 2024 — Claude 3 Model Family
 - [x] `warp2024agentmode` — Warp 2024 — Agent Mode: LLM in the Terminal
-- [ ] `anthropic2024mcp` — Anthropic 2024 — Introducing the Model Context Protocol
+- [x] `anthropic2024mcp` — Anthropic 2024 — Introducing the Model Context Protocol
 
 ### HPC + AI Intersection (2024-2025)
 
@@ -34,7 +34,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ## Progress
 
-**Completed**: 7/13
+**Completed**: 8/13
 
 ## Session Prompt Template
 
