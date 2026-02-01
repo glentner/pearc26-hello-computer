@@ -45,9 +45,9 @@ We have completed our research phase (13/13 reference deep-dives) and accumulate
 
 ### Phase B: Introduction
 
-- [ ] B.1: Draft "Shall We Play a Game?" opener in `outline/01-introduction.md`
-- [ ] B.2: Draft "Mostly Harmless" subsection
-- [ ] B.3: Integrate both into `manuscript.tex`
+- [x] B.1: Draft "Shall We Play a Game?" opener in `outline/01-introduction.md`
+- [x] B.2: Draft "Mostly Harmless" subsection
+- [x] B.3: Integrate both into `manuscript.tex`
 
 ### Phase C: Background
 
@@ -69,7 +69,7 @@ We have completed our research phase (13/13 reference deep-dives) and accumulate
 
 ## Progress
 
-**Completed**: 5/14
+**Completed**: 8/14
 
 ## Session Prompt Template
 

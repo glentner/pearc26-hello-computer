@@ -11,7 +11,7 @@ LATEXMK  := latexmk
 OPEN     := open -a Skim
 
 # latexmk flags
-LATEXMK_FLAGS := -pdf -output-directory=$(BUILDDIR)
+LATEXMK_FLAGS := -pdf -bibtex -output-directory=$(BUILDDIR) -aux-directory=$(BUILDDIR)
 
 # Release filename: lentner-2026-{hash}.pdf
 DATE     := $(shell date +"%Y")
@@ -25,10 +25,12 @@ all: build
 
 # Incremental build
 build: builddir
+	cp references.bib $(BUILDDIR)/
 	$(LATEXMK) $(LATEXMK_FLAGS) $(MAIN).tex
 
 # Full clean rebuild for release
 release: clean builddir
+	cp references.bib $(BUILDDIR)/
 	$(LATEXMK) $(LATEXMK_FLAGS) -gg $(MAIN).tex
 	cp $(BUILDDIR)/$(MAIN).pdf ./$(RELEASE)
 	@echo "Release created: $(RELEASE)"
@@ -50,6 +52,7 @@ open:
 clean:
 	$(LATEXMK) -output-directory=$(BUILDDIR) -C $(MAIN).tex 2>/dev/null || true
 	rm -rf $(BUILDDIR)
+	rm -f $(MAIN).aux $(MAIN).log $(MAIN).out $(MAIN).bbl $(MAIN).blg 2>/dev/null || true
 
 # Clean everything including release PDFs
 distclean: clean
