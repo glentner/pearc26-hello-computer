@@ -30,11 +30,11 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 - [x] `openai2025mcp` — OpenAI 2025 — MCP Adoption (TechCrunch)
 - [x] `deelman2025hpc` — Deelman et al. 2025 — HPC at a Crossroads (Science)
 - [x] `whitehouse2025genesis` — White House 2025 — Genesis Mission Executive Order
-- [ ] `anthropic2025aaif` — Anthropic 2025 — MCP → Agentic AI Foundation
+- [x] `anthropic2025aaif` — Anthropic 2025 — MCP → Agentic AI Foundation
 
 ## Progress
 
-**Completed**: 12/13
+**Completed**: 13/13 ✓
 
 ## Session Prompt Template
 
