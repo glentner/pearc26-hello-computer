@@ -15,7 +15,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 - [x] `vaswani2017attention` — Vaswani et al. 2017 — Attention Is All You Need
 - [x] `brown2020gpt3` — Brown et al. 2020 — Language Models are Few-Shot Learners
 - [x] `openai2022chatgpt` — OpenAI 2022 — Introducing ChatGPT
-- [ ] `yao2023react` — Yao et al. 2023 — ReAct: Synergizing Reasoning and Acting
+- [x] `yao2023react` — Yao et al. 2023 — ReAct: Synergizing Reasoning and Acting
 - [ ] `openai2023gpt4` — OpenAI 2023 — GPT-4 Technical Report
 
 ### Agentic Infrastructure (2024)
@@ -34,7 +34,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ## Progress
 
-**Completed**: 3/13
+**Completed**: 4/13
 
 ## Session Prompt Template
 
