@@ -26,7 +26,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ### HPC + AI Intersection (2024-2025)
 
-- [ ] `godoy2024llm` — Godoy et al. 2024 — LLM Evaluation for HPC Software Development
+- [x] `godoy2024llm` — Godoy et al. 2024 — LLM Evaluation for HPC Software Development
 - [ ] `openai2025mcp` — OpenAI 2025 — MCP Adoption (TechCrunch)
 - [ ] `deelman2025hpc` — Deelman et al. 2025 — HPC at a Crossroads (Science)
 - [ ] `whitehouse2025genesis` — White House 2025 — Genesis Mission Executive Order
@@ -34,7 +34,7 @@ Progress tracker for systematic literature review. See `plans/` for full plan de
 
 ## Progress
 
-**Completed**: 8/13
+**Completed**: 9/13
 
 ## Session Prompt Template
 
