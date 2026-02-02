@@ -1,9 +1,8 @@
 name: Build and Release PDF
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
 
 permissions:
   contents: write
@@ -26,9 +25,8 @@ jobs:
       - name: Generate release filename
         id: filename
         run: |
-          YEAR=$(date +"%Y")
-          HASH=$(git rev-parse --short HEAD)
-          echo "release_name=lentner-${YEAR}-${HASH}.pdf" >> $GITHUB_OUTPUT
+          TAG="${{ github.event.release.tag_name }}"
+          echo "release_name=lentner-2026-${TAG}.pdf" >> $GITHUB_OUTPUT
 
       - name: Copy PDF to release name
         run: cp build/manuscript.pdf ${{ steps.filename.outputs.release_name }}

@@ -79,6 +79,10 @@ Detailed rules for agent interactions are documented in the `rules/` directory:
 - **[rules/file_deletion.md](rules/file_deletion.md)** - Use `del` instead of `rm` for file cleanup
 - **[tips/](tips/)** - Discoveries about agentic tools (see `tips/warp-conversation-history.md`)
 
+### Stored Prompts
+
+- **`/release`** - Create a GitHub release from `main` branch (triggers PDF build via CI)
+
 ### Quick Reference
 
 - Work on the `wip` branch; prefix commits with `WIP: `
