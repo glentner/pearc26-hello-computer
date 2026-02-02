@@ -1,0 +1,56 @@
+name: Warp Agent PR Bot (Secure)
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  warp_agent:
+    # SECURITY: Only run for PR comments starting with /warp from TRUSTED users
+    if: >-
+      ${{ github.event.issue.pull_request &&
+      startsWith(github.event.comment.body, '/warp') &&
+      (github.event.comment.author_association == 'OWNER' ||
+       github.event.comment.author_association == 'MEMBER' ||
+       github.event.comment.author_association == 'COLLABORATOR') }}
+
+    runs-on: ubuntu-latest
+
+    # SAFETY: Hard limit to prevent infinite loops/token runaway
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout PR Branch
+        uses: actions/checkout@v4
+        with:
+          # Check out the HEAD of the PR branch, not the merge commit
+          ref: refs/pull/${{ github.event.issue.number }}/head
+
+      - name: Install and Run Warp Agent
+        id: warp
+        uses: warpdotdev/warp-agent-action@v1
+        with:
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
+          prompt: |
+            Read AGENTS.md for project guidelines before proceeding.
+
+            ${{ github.event.comment.body }}
+          mcp: ${{ secrets.WARP_MCP_CONFIG }}
+          # GOVERNANCE: Enforce the specific model and rules defined in the profile
+          profile: "ci-gh-agent"
+        env:
+          # The MCP server looks for 'GITHUB_PERSONAL_ACCESS_TOKEN',
+          # so we fill it with the workflow's temporary 'GITHUB_TOKEN'.
+          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post Agent Reply
+        if: always()
+        run: |
+          gh pr comment ${{ github.event.issue.number }} --body "${{ steps.warp.outputs.agent_output }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
