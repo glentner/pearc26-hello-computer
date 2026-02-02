@@ -24,6 +24,18 @@ jobs:
     timeout-minutes: 5
 
     steps:
+      - name: Acknowledge Command
+        uses: actions/github-script@v7
+        continue-on-error: true
+        with:
+          script: |
+            // Adds an 'eyes' emoji to the comment to show processing has started
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'eyes'
+            });
       - name: Checkout PR Branch
         uses: actions/checkout@v4
         with:
@@ -72,4 +84,30 @@ jobs:
           gh pr comment ${{ github.event.issue.number }} --body "${{ steps.warp.outputs.agent_output }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: React on Success
+        if: success()
+        uses: actions/github-script@v7
+        continue-on-error: true
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'rocket'
+            });
+
+      - name: React on Failure
+        if: failure()
+        uses: actions/github-script@v7
+        continue-on-error: true
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'confused'
+            });
 
