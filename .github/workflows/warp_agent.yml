@@ -1,3 +1,5 @@
+# Warp Agent PR Bot - triggers on /warp commands in PR comments
+# See AGENTS.md for usage protocol
 name: Warp Agent PR Bot (Secure)
 
 on:
