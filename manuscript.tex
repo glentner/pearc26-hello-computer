@@ -130,18 +130,16 @@ HPC centers now face a question with no precedent in our field: how do we engage
 tools that can, in some cases, do our jobs faster than we can? This paper offers one
 answer from the trenches.
 
-\subsection{Mostly Harmless}
+\paragraph{Mostly Harmless}
 
 \emph{The Hitchhiker's Guide to the Galaxy} famously summarized Earth in two words:
 ``Mostly Harmless.'' We adopt this as our working hypothesis for agentic AI in HPC
 workflows.
-
 At Purdue's Rosen Center for Advanced Computing (RCAC), we chose proactive engagement
 over prohibition. Our reasoning was simple: users will bring these tools regardless of
 policy. A graduate student debugging a CUDA kernel at 2~AM will reach for ChatGPT whether
 or not we endorse it. The question is whether we help them use it effectively---or leave
 them to discover its hallucinations the hard way.
-
 This paper documents our early experience: system-wide configurations that expose cluster
 metadata to agentic tools, custom MCP (Model Context Protocol) servers that provide
 contextual help, and the lessons learned from using these tools ourselves---including
@@ -227,24 +225,22 @@ appropriate guidance.
 
 \section{Discussion}
 
-\subsection{I'm Sorry, Dave}
+\paragraph{I'm Sorry, Dave}
 
 The support dynamic is shifting. Users increasingly arrive at our help desk having already
 consulted an AI---sometimes with correct solutions, sometimes with confident hallucinations.
 We've seen tickets where the user's first message includes an AI-generated Slurm script
 that would work perfectly... on a cluster we don't operate.
-
 The irony isn't lost on us. When HAL refused to open the pod bay doors, the problem was
 an AI saying no. Our challenge is different: AI that says yes too readily, without
 understanding the constraints of a particular environment. The solution isn't to compete
 with AI for first response---it's to ensure the AI has the context to respond correctly.
 Hence our investment in system prompts and MCP servers that know our clusters.
 
-\subsection{Tea, Earl Grey, Hot}
+\paragraph{Tea, Earl Grey, Hot}
 
 Captain Picard never asked the replicator for ``a beverage.'' He specified exactly what
 he wanted: ``Tea, Earl Grey, hot.'' Effective use of agentic AI demands similar precision.
-
 We've learned this lesson firsthand writing this paper. Early prompts like ``help me
 write the background section'' produced generic prose. Prompts that referenced specific
 files\footnote{``synthesize outline/02-background.md with the deep-dive notes in outline/notes/refs/''}
@@ -254,24 +250,22 @@ produced drafts we could actually use. The same principle applies to HPC workflo
 allocation'' succeeds. Specificity is the difference between useful assistance and
 plausible-sounding noise.
 
-\subsection{I Know Kung Fu}
+\paragraph{I Know Kung Fu}
 
 Neo's instant kung fu download is a fantasy that dies hard. Users sometimes expect AI
 to make them instant experts---to transform a novice into an HPC specialist through
 conversation alone. The reality is more nuanced: AI makes you faster at what you already
 understand, not expert at what you don't.
-
 This creates what we call the expertise paradox: you need domain knowledge to verify
 whether AI output is correct, but the people most likely to rely heavily on AI are
 those without that knowledge. Our documentation explicitly addresses this: use AI to
 accelerate your learning, not to bypass it. Ask it to explain why, not just what.
 The goal is augmented expertise, not outsourced understanding.
 
-\subsection{The Answer is 42}
+\paragraph{The Answer is 42}
 
 Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
 was correct. The question was wrong.
-
 We've experienced both extremes. This paper's reference management (thirteen sources,
 each with a structured deep-dive note) emerged from a single prompt asking the agent
 to create a research workflow. The result was more thorough than anything we would
@@ -282,14 +276,13 @@ recent evaluations of LLMs for HPC software development~\cite{godoy2024llm}.
 Verification isn't optional; it's the core competency that separates productive use
 from cargo cult computing. The answer may be 42, but only if you asked the right question.
 
-\subsection{Don't Cross the Streams}
+\paragraph{Don't Cross the Streams}
 
 Egon's warning about crossing the streams applies to agentic AI in HPC: some combinations
 are dangerous. An agent with shell access can accidentally \texttt{rm -rf} a project
 directory. An agent managing job submissions can exhaust an allocation in hours. An
 agent reading environment variables might log API keys to a context window that persists
 beyond the session.
-
 We've implemented guardrails---confirmation prompts for destructive operations, rate
 limits on job submissions, explicit prohibitions on accessing credential files---but
 no guardrail is complete. The deeper concern is reproducibility: if an AI-assisted
@@ -302,7 +295,6 @@ outcomes. The streams aren't crossed yet, but we're watching carefully.
 We began this paper with a question: how should HPC centers engage with tools that can, in
 some cases, outperform us at our own jobs? Our answer has been proactive engagement---not
 prohibition.
-
 At RCAC, we are building the infrastructure to make agentic AI a first-class citizen of the
 HPC ecosystem: system-wide configurations that expose cluster metadata, MCP servers that
 provide contextual help, and documentation that prepares users for both the capabilities
