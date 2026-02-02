@@ -1,6 +1,7 @@
 ---
-status: draft
+status: review
 target_words: 500
+actual_words: ~480
 ---
 
 # Approach / Our Work
@@ -12,73 +13,106 @@ target_words: 500
 - User documentation and guidance
 - This paper itself as an example of the workflow
 
-## RCAC Initiatives
-
-### 1. System-Wide Agent Configurations
-- Where: cluster-wide dotfiles, module system integration
-- What: Rules files that tools like Gemini/Claude pick up automatically
-- Examples:
-  - "Do not do X" prohibitions (security, resource abuse)
-  - "Use the `myquota` command" tips (HPC-specific guidance)
-  - Cluster-specific context (scheduler, filesystems, policies)
-
-### 2. RCAC-MCP Server
-- Purpose: Let agents manage Slurm jobs and cluster operations
-- Capabilities:
-  - Submit/monitor/cancel jobs
-  - Query queue status
-  - Check quotas and allocations
-  - Basic file operations within policy
-- Architecture notes: Python, FastMCP framework
-
-### 3. Globus-MCP Server
-- Purpose: Agentic data transfer management
-- Capabilities:
-  - Initiate transfers between endpoints
-  - Monitor transfer status
-  - Manage collections and permissions
-- Integration with RCAC authentication
-
-### 4. User Documentation
-- Updated RCAC docs with AI guidance
-- Best practices for using agents on clusters
-- Security considerations and policies
-
 ## Notes
-- This is where the MCP/TRON joke goes (see `snippets/mcp-joke.md`)
+- MCP/TRON joke sets up "End of Line" conclusion
 - See `notes/mcp-deployment-architecture.md` for detailed 3-mode architecture
-- Could include a small code snippet or architecture diagram
-- Emphasize: we're not just allowing AI—we're actively enabling it well
-
-## Deployment Architecture (Key Technical Contribution)
-
-Three deployment modes for MCP servers:
-
-1. **Local STDIO Mode** (recommended default)
-   - Server runs locally as subprocess of IDE
-   - Relies on user's existing SSH keys/config
-   - Tools execute remotely via SSH bridge
-   - Zero infrastructure for HPC centers
-   - Pattern: "AI assistant on my laptop talks to cluster"
-
-2. **Hosted Service with JWT/OIDC**
-   - Centrally hosted MCP server
-   - Authentication via JWT/OIDC (CILogon, etc.)
-   - For web interfaces or centralized logging
-
-3. **Hosted with Identity Delegation**
-   - Server delegates to actual user identity
-   - sudo/setuid patterns for user isolation
-
-**Design Philosophy**: Build all three, default to local-first, document trade-offs. Let ecosystem discover preferences.
-
-**Key Insight**: The question isn't just "can AI manage HPC resources?" but "where should that capability live?"
-
-## Meta-Point
-- This very paper was written using the tools we describe
-- Warp + Claude 4.5 Opus as the development environment
-- Dogfooding our own approach
+- Key insight: "Where should the capability live?"
 
 ## Draft
 
-[To be written]
+Our approach at RCAC combines three complementary strategies: system-wide agent
+configurations, purpose-built MCP servers, and user documentation that acknowledges
+the reality of agentic tool adoption.
+
+### System-Wide Configurations
+
+Modern agentic tools—Warp, Cursor, Claude Code—look for rules files in well-known
+locations. We deploy cluster-wide configurations that inject HPC-specific context:
+which commands to use for quota checks (`myquota`) and interactive sessions
+(`sinteractive`), how to load software via environment modules, and which
+filesystems serve which purposes. These configurations also encode prohibitions:
+don't run computationally intensive work on login nodes, don't store sensitive
+data in world-readable locations, don't submit jobs without time limits. The
+agent learns the cluster's policies before the user asks their first question.
+
+### MCP Servers
+
+We developed MCP servers—the Model Context Protocol, not the Master Control
+Program, though the naming coincidence feels appropriate when discussing systems
+that mediate between users and computational resources. RCAC-MCP exposes Slurm
+operations (job submission, queue queries, resource monitoring), filesystem
+navigation, and cluster-specific tools like `myquota` and `jobinfo`. Globus-MCP
+mirrors the Globus CLI, enabling agentic data transfers between endpoints.
+
+Both servers implement a local-first architecture (Figure 1). The MCP server
+runs as a subprocess of the user's IDE, communicating via stdin/stdout. Commands
+execute remotely through the user's existing SSH configuration—no new credentials,
+no hosted infrastructure, no additional attack surface. This pattern respects
+the authentication investments HPC centers have already made: if you can SSH to
+the cluster, your agent can too.
+
+For environments requiring centralized control, we also support hosted deployment
+with JWT/OIDC authentication and identity delegation via sudo. But we default to
+local-first, betting that most users prefer their AI assistant on their laptop
+talking to the cluster rather than a shared service mediating every interaction.
+
+### Documentation and Guidance
+
+Perhaps most importantly, we updated our user documentation to address agentic
+tools directly. We don't pretend they don't exist or discourage their use. We
+explain what they can and cannot do, how to verify their suggestions, and how
+to report issues when AI-generated commands go wrong. We treat agentic AI as
+we would any other tool in the HPC ecosystem: powerful, useful, and requiring
+appropriate guidance.
+
+## Figures
+
+### Figure 1: Local STDIO Mode with SSH Bridge
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  USER'S WORKSTATION                                                         │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  Agentic Development Environment (Warp, Cursor, VS Code + Copilot)  │   │
+│  │                                                                     │   │
+│  │    ┌───────────────────┐         ┌───────────────────┐              │   │
+│  │    │   LLM Backend     │◄───────►│   MCP Client      │              │   │
+│  │    │   (Claude, etc.)  │         │                   │              │   │
+│  │    └───────────────────┘         └─────────┬─────────┘              │   │
+│  │                                            │ stdio                  │   │
+│  └────────────────────────────────────────────│─────────────────────────┘   │
+│                                               │                             │
+│  ┌────────────────────────────────────────────▼─────────────────────────┐   │
+│  │  MCP Server (rcac-mcp / globus-mcp)                                  │   │
+│  │  • Runs as local subprocess          • Uses ~/.ssh/config           │   │
+│  │  • Zero authentication overhead      • Executes tools via SSH       │   │
+│  └──────────────────────────────────────────────────────────────────────┘   │
+│                                               │                             │
+└───────────────────────────────────────────────│─────────────────────────────┘
+                                                │ SSH
+                                                ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  HPC CLUSTER                                                                │
+│                                                                             │
+│  ┌──────────────────────────────────────────────────────────────────────┐   │
+│  │  Login Node                                                          │   │
+│  │                                                                      │   │
+│  │    ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                 │   │
+│  │    │   Slurm     │  │   LMOD      │  │  Filesystem │                 │   │
+│  │    │   Commands  │  │   Modules   │  │  Operations │                 │   │
+│  │    └─────────────┘  └─────────────┘  └─────────────┘                 │   │
+│  │                                                                      │   │
+│  │    ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                 │   │
+│  │    │   myquota   │  │   jobinfo   │  │   sfeatures │                 │   │
+│  │    │             │  │             │  │             │                 │   │
+│  │    └─────────────┘  └─────────────┘  └─────────────┘                 │   │
+│  │                                                                      │   │
+│  └──────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+The local-first pattern: MCP server runs on the user's machine, commands execute
+remotely via SSH. No hosted infrastructure required. User's existing SSH keys and
+config provide authentication.

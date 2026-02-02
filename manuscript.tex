@@ -177,24 +177,118 @@ for scientific discovery~\cite{whitehouse2025genesis}. The question is no longer
 AI will integrate with HPC workflows, but how---and who will shape that integration.
 
 \section{Approach}
-% TODO: Write approach / our work
+
+Our approach at RCAC combines three complementary strategies: system-wide agent
+configurations, purpose-built MCP servers, and user documentation that acknowledges
+the reality of agentic tool adoption.
+
+\subsection{System-Wide Configurations}
+
+Modern agentic tools---Warp, Cursor, Claude Code---look for rules files in well-known
+locations. We deploy cluster-wide configurations that inject HPC-specific context:
+which commands to use for quota checks (\texttt{myquota}) and interactive sessions
+(\texttt{sinteractive}), how to load software via environment modules, and which
+filesystems serve which purposes. These configurations also encode prohibitions:
+don't run computationally intensive work on login nodes, don't store sensitive
+data in world-readable locations, don't submit jobs without time limits. The
+agent learns the cluster's policies before the user asks their first question.
+
+\subsection{MCP Servers}
+
+We developed MCP servers---the Model Context Protocol, not the Master Control
+Program, though the naming coincidence feels appropriate when discussing systems
+that mediate between users and computational resources. RCAC-MCP exposes Slurm
+operations (job submission, queue queries, resource monitoring), filesystem
+navigation, and cluster-specific tools like \texttt{myquota} and \texttt{jobinfo}.
+Globus-MCP mirrors the Globus CLI, enabling agentic data transfers between endpoints.
+
+Both servers implement a local-first architecture. The MCP server runs as a subprocess
+of the user's IDE, communicating via stdin/stdout. Commands execute remotely through
+the user's existing SSH configuration---no new credentials, no hosted infrastructure,
+no additional attack surface. This pattern respects the authentication investments
+HPC centers have already made: if you can SSH to the cluster, your agent can too.
+
+For environments requiring centralized control, we also support hosted deployment
+with JWT/OIDC authentication and identity delegation via sudo. But we default to
+local-first, betting that most users prefer their AI assistant on their laptop
+talking to the cluster rather than a shared service mediating every interaction.
+
+\subsection{Documentation and Guidance}
+
+Perhaps most importantly, we updated our user documentation to address agentic
+tools directly. We don't pretend they don't exist or discourage their use. We
+explain what they can and cannot do, how to verify their suggestions, and how
+to report issues when AI-generated commands go wrong. We treat agentic AI as
+we would any other tool in the HPC ecosystem: powerful, useful, and requiring
+appropriate guidance.
 
 \section{Discussion}
 
 \subsection{I'm Sorry, Dave}
-% TODO: User support discussion
+
+The support dynamic is shifting. Users increasingly arrive at our help desk having already
+consulted an AI---sometimes with correct solutions, sometimes with confident hallucinations.
+We've seen tickets where the user's first message includes an AI-generated Slurm script
+that would work perfectly... on a cluster we don't operate.
+
+The irony isn't lost on us. When HAL refused to open the pod bay doors, the problem was
+an AI saying no. Our challenge is different: AI that says yes too readily, without
+understanding the constraints of a particular environment. The solution isn't to compete
+with AI for first response---it's to ensure the AI has the context to respond correctly.
+Hence our investment in system prompts and MCP servers that know our clusters.
 
 \subsection{Tea, Earl Grey, Hot}
-% TODO: Prompt engineering discussion
+
+Captain Picard never asked the replicator for ``a beverage.'' He specified exactly what
+he wanted: ``Tea, Earl Grey, hot.'' Effective use of agentic AI demands similar precision.
+
+We've learned this lesson firsthand writing this paper. Early prompts like ``help me
+write the background section'' produced generic prose. Prompts that referenced specific
+files and established conventions produced drafts we could actually use. The same
+principle applies to HPC workflows: ``submit a job'' fails where ``submit a GPU job to
+the Gautschi cluster using my lab's allocation'' succeeds. Specificity is the difference
+between useful assistance and plausible-sounding noise.
 
 \subsection{I Know Kung Fu}
-% TODO: User expectations discussion
+
+Neo's instant kung fu download is a fantasy that dies hard. Users sometimes expect AI
+to make them instant experts---to transform a novice into an HPC specialist through
+conversation alone. The reality is more nuanced: AI makes you faster at what you already
+understand, not expert at what you don't.
+
+This creates what we call the expertise paradox: you need domain knowledge to verify
+whether AI output is correct, but the people most likely to rely heavily on AI are
+those without that knowledge. Our documentation explicitly addresses this: use AI to
+accelerate your learning, not to bypass it. The goal is augmented expertise, not
+outsourced understanding.
 
 \subsection{The Answer is 42}
-% TODO: AI outcomes discussion
+
+Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
+was correct. The question was wrong.
+
+We've experienced both extremes. This paper's reference management---thirteen sources,
+each with a structured deep-dive note---emerged from a single prompt asking the agent
+to create a research workflow. The result was more thorough than anything we would
+have built manually. Conversely, we've watched the same agent confidently generate
+Slurm commands for schedulers we don't use, citing documentation that doesn't exist.
+Verification isn't optional---it's the core competency that separates productive use
+from cargo cult computing.
 
 \subsection{Don't Cross the Streams}
-% TODO: Cautionary notes discussion
+
+Egon's warning about crossing the streams applies to agentic AI in HPC: some combinations
+are dangerous. An agent with shell access can accidentally \texttt{rm -rf} a project
+directory. An agent managing job submissions can exhaust an allocation in hours. An
+agent reading environment variables might log API keys to a context window that persists
+beyond the session.
+
+We've implemented guardrails---confirmation prompts for destructive operations, rate
+limits on job submissions, explicit prohibitions on accessing credential files---but
+no guardrail is complete. The deeper concern is reproducibility: if an AI-assisted
+workflow produces a result, can another researcher reproduce it? We're still developing
+practices for capturing the prompts and agent interactions that contributed to scientific
+outcomes. The streams aren't crossed yet, but we're watching carefully.
 
 \section{End of Line}
 
