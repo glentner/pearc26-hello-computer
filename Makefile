@@ -13,10 +13,11 @@ OPEN     := open -a Skim
 # latexmk flags
 LATEXMK_FLAGS := -pdf -bibtex -output-directory=$(BUILDDIR) -aux-directory=$(BUILDDIR)
 
-# Release filename: lentner-2026-{hash}.pdf
+# Release filename: lentner-2026-{version}.pdf
+# For local builds, uses latest tag; CI uses the release tag directly
 DATE     := $(shell date +"%Y")
-HASH     := $(shell git rev-parse --short HEAD 2>/dev/null || echo "unknown")
-RELEASE  := $(AUTHOR)-$(DATE)-$(HASH).pdf
+VERSION  := $(shell git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "dev")
+RELEASE  := $(AUTHOR)-$(DATE)-$(VERSION).pdf
 
 .PHONY: all build release watch open clean distclean builddir
 

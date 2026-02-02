@@ -35,7 +35,7 @@ Build artifacts are isolated in the `build/` directory.
 # Incremental build (default)
 make build
 
-# Full clean rebuild with release PDF (lentner-2026-{hash}.pdf)
+# Full clean rebuild with release PDF (lentner-2026-{version}.pdf)
 make release
 
 # Continuous build with file watching (for live editing)
