@@ -10,10 +10,9 @@ permissions:
 
 jobs:
   warp_agent:
-    # SECURITY: Only run for PR comments starting with /warp from TRUSTED users
+    # SECURITY: Only run for comments starting with /warp from TRUSTED users
     if: >-
-      ${{ github.event.issue.pull_request &&
-      startsWith(github.event.comment.body, '/warp') &&
+      ${{ startsWith(github.event.comment.body, '/warp') &&
       (github.event.comment.author_association == 'OWNER' ||
        github.event.comment.author_association == 'MEMBER' ||
        github.event.comment.author_association == 'COLLABORATOR') }}
