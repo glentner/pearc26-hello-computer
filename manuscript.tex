@@ -167,7 +167,7 @@ observed results~\cite{warp2024agentmode}.
 
 The infrastructure for agentic AI has matured rapidly. Anthropic's Model Context Protocol
 (MCP), released November 2024, provides a standardized interface for AI systems to connect
-with external data sources and tools---analogous to how the Language Server Protocol
+with external data sources and tools, analogous to how the Language Server Protocol
 unified IDE tooling~\cite{anthropic2024mcp}. By March 2025, OpenAI and Google had adopted
 MCP~\cite{openai2025mcp}; by December, Anthropic donated it to the Linux Foundation's
 Agentic AI Foundation, with over 10,000 active public servers~\cite{anthropic2025aaif}.
@@ -207,7 +207,7 @@ Globus-MCP mirrors the Globus CLI, enabling agentic data transfers between endpo
 
 Both servers implement a local-first architecture. The MCP server runs as a subprocess
 of the user's IDE, communicating via stdin/stdout. Commands execute remotely through
-the user's existing SSH configuration---no new credentials, no hosted infrastructure,
+the user's existing SSH configuration: no new credentials, no hosted infrastructure,
 no additional attack surface. This pattern respects the authentication investments
 HPC centers have already made: if you can SSH to the cluster, your agent can too.
 
@@ -247,10 +247,12 @@ he wanted: ``Tea, Earl Grey, hot.'' Effective use of agentic AI demands similar 
 
 We've learned this lesson firsthand writing this paper. Early prompts like ``help me
 write the background section'' produced generic prose. Prompts that referenced specific
-files and established conventions produced drafts we could actually use. The same
-principle applies to HPC workflows: ``submit a job'' fails where ``submit a GPU job to
-the Gautschi cluster using my lab's allocation'' succeeds. Specificity is the difference
-between useful assistance and plausible-sounding noise.
+files\footnote{``synthesize outline/02-background.md with the deep-dive notes in outline/notes/refs/''}
+and established conventions\footnote{``use the sample\_sentences from each reference summary''}
+produced drafts we could actually use. The same principle applies to HPC workflows:
+``submit a job'' fails where ``submit a GPU job to the Gautschi cluster using my lab's
+allocation'' succeeds. Specificity is the difference between useful assistance and
+plausible-sounding noise.
 
 \subsection{I Know Kung Fu}
 
@@ -262,22 +264,22 @@ understand, not expert at what you don't.
 This creates what we call the expertise paradox: you need domain knowledge to verify
 whether AI output is correct, but the people most likely to rely heavily on AI are
 those without that knowledge. Our documentation explicitly addresses this: use AI to
-accelerate your learning, not to bypass it. The goal is augmented expertise, not
-outsourced understanding.
+accelerate your learning, not to bypass it. Ask it to explain why, not just what.
+The goal is augmented expertise, not outsourced understanding.
 
 \subsection{The Answer is 42}
 
 Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
 was correct. The question was wrong.
 
-We've experienced both extremes. This paper's reference management---thirteen sources,
-each with a structured deep-dive note---emerged from a single prompt asking the agent
+We've experienced both extremes. This paper's reference management (thirteen sources,
+each with a structured deep-dive note) emerged from a single prompt asking the agent
 to create a research workflow. The result was more thorough than anything we would
 have built manually. Conversely, we've watched the same agent confidently generate
 Slurm commands for schedulers we don't use, citing documentation that doesn't exist.
-This pattern---plausible output requiring expert verification---is consistent with
+This pattern (plausible output requiring expert verification) is consistent with
 recent evaluations of LLMs for HPC software development~\cite{godoy2024llm}.
-Verification isn't optional---it's the core competency that separates productive use
+Verification isn't optional; it's the core competency that separates productive use
 from cargo cult computing. The answer may be 42, but only if you asked the right question.
 
 \subsection{Don't Cross the Streams}

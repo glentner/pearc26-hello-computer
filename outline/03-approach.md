@@ -46,7 +46,7 @@ mirrors the Globus CLI, enabling agentic data transfers between endpoints.
 
 Both servers implement a local-first architecture (Figure 1). The MCP server
 runs as a subprocess of the user's IDE, communicating via stdin/stdout. Commands
-execute remotely through the user's existing SSH configuration—no new credentials,
+execute remotely through the user's existing SSH configuration: no new credentials,
 no hosted infrastructure, no additional attack surface. This pattern respects
 the authentication investments HPC centers have already made: if you can SSH to
 the cluster, your agent can too.

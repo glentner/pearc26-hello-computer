@@ -91,14 +91,15 @@ The goal is augmented expertise, not outsourced understanding.
 Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
 was correct. The question was wrong.
 
-We've experienced both extremes. This paper's reference management—thirteen sources,
-each with a structured deep-dive note—emerged from a single prompt asking the agent
+We've experienced both extremes. This paper's reference management (thirteen sources,
+each with a structured deep-dive note) emerged from a single prompt asking the agent
 to create a research workflow. The result was more thorough than anything we would
 have built manually. Conversely, we've watched the same agent confidently generate
 Slurm commands for schedulers we don't use, citing documentation that doesn't exist.
 
-The pattern is consistent: AI excels at structure and synthesis but struggles with
-ground truth. Verification isn't optional—it's the core competency that separates
+This pattern (plausible output requiring expert verification) is consistent with
+recent evaluations of LLMs for HPC software development. Verification isn't optional;
+it's the core competency that separates
 productive use from cargo cult computing. The answer may be 42, but only if you
 asked the right question.
 

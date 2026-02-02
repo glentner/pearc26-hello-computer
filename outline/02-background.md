@@ -94,13 +94,13 @@ files, executing commands, editing code, and iterating based on observed results
 
 The infrastructure for agentic AI has matured rapidly. Anthropic's Model Context Protocol
 (MCP), released November 2024, provides a standardized interface for AI systems to connect
-with external data sources and tools—analogous to how the Language Server Protocol unified
+with external data sources and tools, analogous to how the Language Server Protocol unified
 IDE tooling. By March 2025, OpenAI and Google had adopted MCP; by December, Anthropic
 donated it to the Linux Foundation's Agentic AI Foundation, with over 10,000 active public
 servers.
 
-For HPC, this convergence is consequential. The Genesis Mission executive order (November
-2025) charges DOE with uniting national laboratories, supercomputers, and AI capabilities
-for scientific discovery. Meanwhile, Hyperion Research reports 78% of HPC sites now use AI
-in some form. The question is no longer whether AI will integrate with HPC workflows, but
-how—and who will shape that integration.
+For HPC, this convergence is consequential. Deelman et al. argue that high-performance
+computing stands at a crossroads. The Genesis Mission executive order (November 2025)
+charges DOE with uniting national laboratories, supercomputers, and AI capabilities for
+scientific discovery. The question is no longer whether AI will integrate with HPC
+workflows, but how—and who will shape that integration.
