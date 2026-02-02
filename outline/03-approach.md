@@ -85,8 +85,8 @@ appropriate guidance.
 │                                               │                           │
 │  ┌────────────────────────────────────────────▼────────────────────────┐  │
 │  │  MCP Server (rcac-mcp / globus-mcp)                                 │  │
-│  │  • Runs as local subprocess          • Uses ~/.ssh/config          │  │
-│  │  • Zero authentication overhead      • Executes tools via SSH      │  │
+│  │  • Runs as local subprocess          • Uses ~/.ssh/config           │  │
+│  │  • Zero authentication overhead      • Executes tools via SSH       │  │
 │  └─────────────────────────────────────────────────────────────────────┘  │
 │                                               │                           │
 └───────────────────────────────────────────────┼───────────────────────────┘
