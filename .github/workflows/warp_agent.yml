@@ -75,7 +75,7 @@ jobs:
             ${{ github.event.comment.body }}
           mcp: ${{ secrets.WARP_MCP_CONFIG }}
           # GOVERNANCE: Enforce the specific model and rules defined in the profile
-          profile: "ci-gh-agent"
+          profile: "FggyJCt8G2wDVhzynQRTQc"
         env:
           # The MCP server looks for 'GITHUB_PERSONAL_ACCESS_TOKEN',
           # so we fill it with the workflow's temporary 'GITHUB_TOKEN'.
