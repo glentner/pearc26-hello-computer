@@ -2,6 +2,8 @@
 status: review
 target_words: 600
 actual_words: ~580
+citations:
+  - godoy2024llm  # LLM for HPC eval (ADD - in "The Answer is 42" re: verification)
 ---
 
 # Discussion

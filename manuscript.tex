@@ -117,8 +117,9 @@ The game changed overnight.
 For those of us supporting researchers on high-performance computing systems, the
 implications arrived slowly and then all at once. At first, ChatGPT was a curiosity---a
 toy that could write passable Python functions or explain error messages with
-varying degrees of accuracy. Then came GPT-4, Claude, and their competitors, each
-iteration more capable than the last. Then came \emph{agentic} AI: systems that don't just
+varying degrees of accuracy. Then came GPT-4~\cite{openai2023gpt4},
+Claude~\cite{anthropic2024claude3}, and their competitors, each iteration more capable
+than the last. Then came \emph{agentic} AI: systems that don't just
 respond to prompts but reason, plan, and execute multi-step workflows
 autonomously~\cite{yao2023react}.
 Today's agentic development environments---tools like Warp, Cursor, and Claude Code---can
@@ -171,10 +172,12 @@ unified IDE tooling~\cite{anthropic2024mcp}. By March 2025, OpenAI and Google ha
 MCP~\cite{openai2025mcp}; by December, Anthropic donated it to the Linux Foundation's
 Agentic AI Foundation, with over 10,000 active public servers~\cite{anthropic2025aaif}.
 
-For HPC, this convergence is consequential. The Genesis Mission executive order (November
-2025) charges DOE with uniting national laboratories, supercomputers, and AI capabilities
-for scientific discovery~\cite{whitehouse2025genesis}. The question is no longer whether
-AI will integrate with HPC workflows, but how---and who will shape that integration.
+For HPC, this convergence is consequential. Deelman et al.\ argue that high-performance
+computing stands at a crossroads~\cite{deelman2025hpc}. The Genesis Mission executive
+order (November 2025) charges DOE with uniting national laboratories, supercomputers, and
+AI capabilities for scientific discovery~\cite{whitehouse2025genesis}. The question is no
+longer whether AI will integrate with HPC workflows, but how---and who will shape that
+integration.
 
 \section{Approach}
 
@@ -272,8 +275,10 @@ each with a structured deep-dive note---emerged from a single prompt asking the 
 to create a research workflow. The result was more thorough than anything we would
 have built manually. Conversely, we've watched the same agent confidently generate
 Slurm commands for schedulers we don't use, citing documentation that doesn't exist.
+This pattern---plausible output requiring expert verification---is consistent with
+recent evaluations of LLMs for HPC software development~\cite{godoy2024llm}.
 Verification isn't optional---it's the core competency that separates productive use
-from cargo cult computing.
+from cargo cult computing. The answer may be 42, but only if you asked the right question.
 
 \subsection{Don't Cross the Streams}
 

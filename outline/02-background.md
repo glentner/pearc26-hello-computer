@@ -2,6 +2,17 @@
 status: review
 target_words: 300
 actual_words: ~280
+citations:
+  - vaswani2017attention  # Transformer (used)
+  - brown2020gpt3         # GPT-3 scaling (used)
+  - openai2022chatgpt     # ChatGPT launch (used)
+  - yao2023react          # ReAct (used)
+  - warp2024agentmode     # Warp ADE (used)
+  - anthropic2024mcp      # MCP announcement (used)
+  - openai2025mcp         # OpenAI adopts MCP (used)
+  - anthropic2025aaif     # MCP → AAIF (used)
+  - deelman2025hpc        # HPC at Crossroads (ADD - before Genesis)
+  - whitehouse2025genesis # Genesis Mission (used)
 ---
 
 # Background

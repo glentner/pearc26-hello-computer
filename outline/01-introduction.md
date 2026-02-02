@@ -2,6 +2,11 @@
 status: review
 target_words: 400
 actual_words: ~370
+citations:
+  - openai2022chatgpt  # ChatGPT launch (used)
+  - yao2023react       # ReAct agentic definition (used)
+  - openai2023gpt4     # GPT-4 (ADD - mention by name)
+  - anthropic2024claude3  # Claude 3 (ADD - mention by name)
 ---
 
 # Introduction: "Shall We Play a Game?"
