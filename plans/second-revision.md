@@ -85,8 +85,8 @@ cycle, avoids confusion with the Phase 1 three-part numbering `FB-1.NN` through
 
 ### Tasks
 
-- [ ] 2.1: Distill `reviews/review_phase_2.md` → `outline/notes/review-feedback-phase2.md`
-- [ ] 2.2: Commit — `WIP: Distill Phase 2 review feedback`
+- [x] 2.1: Distill `reviews/review_phase_2.md` → `outline/notes/review-feedback-phase2.md`
+- [x] 2.2: Commit — `WIP: Distill Phase 2 review feedback`
 
 ## Phase 3: Update Review Synthesis
 
@@ -145,7 +145,7 @@ Once outline revisions are reviewed and approved, integrate revised prose into
 
 ## Progress
 
-**Completed**: 0/19
+**Completed**: 4/19
 
 ---
 
