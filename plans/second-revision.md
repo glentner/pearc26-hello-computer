@@ -96,8 +96,8 @@ New items get added. The synthesis becomes the revision checklist for the third 
 
 ### Tasks
 
-- [ ] 3.1: Update `outline/notes/review-synthesis.md` with Phase 2 cross-references and new items
-- [ ] 3.2: Commit — `WIP: Update review synthesis with Phase 2 feedback`
+- [x] 3.1: Update `outline/notes/review-synthesis.md` with Phase 2 cross-references and new items
+- [x] 3.2: Commit — `WIP: Update review synthesis with Phase 2 feedback`
 
 ## Phase 4: Revise Outline Sections (Third Draft)
 
@@ -145,7 +145,7 @@ Once outline revisions are reviewed and approved, integrate revised prose into
 
 ## Progress
 
-**Completed**: 4/19
+**Completed**: 6/19
 
 ---
 

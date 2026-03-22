@@ -3,331 +3,401 @@ sources:
   - outline/notes/review-feedback-part1.md
   - outline/notes/review-feedback-part2.md
   - outline/notes/review-feedback-part3.md
-total_items: 52
+  - outline/notes/review-feedback-phase2.md
+total_items: 78
 ---
 
 # Review Synthesis: Cross-Cutting Themes
 
-This document groups all feedback from the three review sessions into
-actionable themes. Each theme lists the FB-IDs it consolidates, the
-sections affected, and the revision action. Themes are ordered by
-severity and breadth of impact.
+This document groups all feedback from Phase 1 (three-part review with
+Geoffrey and Ashish) and Phase 2 (Geoffrey's solo review of the second
+draft outline files) into actionable themes. Each theme lists the FB-IDs
+it consolidates, the sections affected, and the revision action.
+
+Phase 2 reviewed the second draft (v0.5.0) from the outline markdown
+files. Most Phase 1 themes were addressed; Phase 2 confirmed those fixes
+and raised new items. Status tags below indicate what remains for the
+third draft.
 
 ---
 
-## Theme 1: "Agentic assistance" → "agent-first workflow" [MUST-FIX]
+## Theme 1: "Agentic assistance" → "agent-first workflow" [RESOLVED]
 
 **FB-IDs**: FB-1.12, FB-2.02, FB-2.04, FB-3.01, FB-3.08, FB-3.23
 **Sections**: Abstract, Introduction, Conclusion (3 occurrences)
 **Parts**: 1, 2, 3 (raised in every session)
 
-The phrase "agentic assistance" appears three times and fundamentally
-misrepresents the paper's process. The workflow was agent-first — not
-AI proofreading or one-shot generation. Every word was produced through
-a documented agentic workflow with rules, session logs, commits, and
-planning documents on GitHub.
+The phrase "agentic assistance" appeared three times and fundamentally
+misrepresented the paper's process. The workflow was agent-first — not
+AI proofreading or one-shot generation.
 
-**Revision action**: Replace all three occurrences with language
-conveying agent-first, comprehensive workflow. In the abstract, make
-it a punchy, enticing invitation ("come see what an agent-first paper
-looks like"). In the conclusion, pair the reframe with expanded
-workflow narrative (see Theme 6).
+**Phase 2 status**: ✅ Addressed in second draft. All three occurrences
+replaced. Phase 2 approved the abstract as "way stronger," the
+introduction as "great," and the conclusion as "super powerful." No
+further action needed.
 
 ---
 
-## Theme 2: "Mostly Harmless" argument misalignment [MUST-FIX]
+## Theme 2: "Mostly Harmless" argument misalignment [RESOLVED]
 
 **FB-IDs**: FB-1.10, FB-1.11, FB-2.10, FB-3.09, FB-3.10
 **Sections**: Introduction ("Mostly Harmless" subsection)
 **Parts**: 1, 3
 
-The current argument is: "users will do it anyway, so engage." That's
-a fatalism argument ("resistance is futile"), not a "mostly harmless"
-argument. The framing should be cautious optimism — the tools themselves
-are mostly safe, and frontier AI is arguably more reliable than
-unsupervised graduate students.
+The first draft used a fatalism argument ("resistance is futile"). The
+correct framing is cautious optimism — the tools are mostly safe, and
+frontier AI follows policy more reliably than unsupervised users.
 
-**Revision action**:
-1. Realign the core argument: engagement because the tools are good,
-   not because resistance is futile.
-2. Add the dog-fooding angle: HPC staff should adopt these tools
-   themselves for visceral understanding. Don't be the ostrich — engage
-   or risk being outpaced by users and colleagues.
-3. Work in the point that agents follow policy more reliably than users
-   (FB-2.10).
-4. Tone down the closing ("the game is afoot" / "shape the rules" is
-   overstated per FB-3.09).
-5. Tie "hallucinations the hard way" to the documentation/guidance
-   pillar or rephrase (FB-3.10).
+**Phase 2 status**: ✅ Addressed in second draft. The introduction was
+reframed around cautious optimism with dog-fooding angle, policy
+compliance, and softened closing. Phase 2 approved: "I think this
+introduction is great." No further action needed.
 
 ---
 
-## Theme 3: "Tea, Earl Grey, Hot" framing error [MUST-FIX]
+## Theme 3: "Tea, Earl Grey, Hot" — closing imbalance [MUST-FIX]
 
-**FB-IDs**: FB-3.17, FB-3.18
+**FB-IDs**: FB-3.17, FB-3.18, **FB-P2.15**, **FB-P2.16**
 **Sections**: Discussion ("Tea, Earl Grey, Hot" subsection)
-**Parts**: 3
+**Parts**: 3, P2
 
-The paragraph falsely implies the authors discovered context engineering
-as amateurs while writing this paper. Geoffrey learned these lessons
-through a year of practice (July 2025). The two footnotes cherry-pick
-fragments from a larger workflow and misrepresent the prompt engineering
-process.
+Phase 1 issue (false amateur-discovery framing, misleading footnotes)
+was addressed in the second draft — reframed around prior experience,
+footnotes removed. Phase 2 approved the reframe ("way better than the
+first draft") but identified two new problems:
 
-**Revision action**: Completely reframe. Keep the Picard/specificity
-tie-in and the lesson about context engineering, but attribute the
-learning to prior experience. The paper is a *demonstration* of
-expertise, not a discovery narrative. Remove both footnotes.
+1. **Closing sentences imply users get magic for free** (FB-P2.15):
+   "precision must be engineered into the system, not left to the user"
+   and "every user benefits without crafting expert prompts themselves"
+   both suggest that system-wide configuration eliminates the need for
+   user effort. The correct framing is partnership/scaffolding — we
+   provide the foundation, users still bring domain specificity.
+
+2. **"Token budgets" is ambiguous** (FB-P2.16): Could be misconstrued
+   as API billing rather than context window management (the 200K-token
+   window, staying in the 30–60% sweet spot). Needs clarification.
+
+**Revision action**: Rebalance both closing sentences to convey
+partnership rather than effortless magic. Clarify or replace "token
+budgets" to unambiguously mean context window management.
 
 ---
 
-## Theme 4: "Don't Cross the Streams" reframe [MUST-FIX]
+## Theme 4: "Don't Cross the Streams" — add user confirmation [SHOULD-FIX]
 
-**FB-IDs**: FB-3.21, FB-3.22
+**FB-IDs**: FB-3.21, FB-3.22, **FB-P2.21**, FB-P2.22
 **Sections**: Discussion ("Don't Cross the Streams" subsection)
-**Parts**: 3
+**Parts**: 3, P2
 
-The current framing implies agents introduce novel dangers. The correct
-framing: agents accelerate existing risk patterns. HPC centers already
-harden systems (cgroups, node health checks, root-squash, quota
-systems, filesystem protections). These confinement mechanisms contain
-blast radius — worst case, a user destroys their own environment, not
-the system. Agents raise the pace, so existing hardening must be
-strengthened, not invented from scratch.
+Phase 1 issue (framing agents as novel danger) was addressed in the
+second draft — reframed around accelerating existing risk patterns with
+HPC confinement mechanisms. Phase 2 approved: "big improvement, no
+major criticisms."
 
-**Revision action**: Reframe around "accelerating existing risk
-patterns." Keep the Ghostbusters reference and the enumeration of
-specific dangers, but pivot the argument to strengthening existing
-confinement rather than inventing new guardrails. Keep reproducibility
-as a secondary concern, not the main point.
+**Phase 2 addition** (FB-P2.21): Briefly mention that most agentic
+tools support user confirmation for destructive actions as an
+out-of-the-box mitigation. Keep it light — acknowledge both the safety
+benefit and the "consenting adults" principle. Don't over-prescribe.
+
+**Revision action**: Add a brief mention of user confirmation for
+destructive actions. Otherwise keep as-is.
 
 ---
 
-## Theme 5: Missing agentic workflow narrative [MUST-FIX]
+## Theme 5: Missing agentic workflow narrative [RESOLVED]
 
 **FB-IDs**: FB-2.05, FB-3.24, FB-3.02
 **Sections**: Introduction or early Approach + Conclusion
 **Parts**: 2, 3
 
 The paper's unique contribution — the actual agent-first workflow
-process — is underrepresented. Between the historical retrospective
-and the enumeration of RCAC initiatives, the paper doesn't explain
-what "agentic workflow" actually means in practice: 68+ commits,
-6 hours on rules of engagement before writing a single word, 30+
-hours of research and planning, session logs, markdown reference
-files, YAML frontmatter for content continuity.
+process — was underrepresented in the first draft.
 
-**Revision action**: Add a paragraph (Introduction or early Approach)
-describing the actual process. In the conclusion, expand the
-second-to-last paragraph to concretely describe the methodology and
-its outputs. Ensure abstract claims about "lessons learned" and
-"emerging framework" are substantively addressed in the body.
+**Phase 2 status**: ✅ Addressed in second draft. The conclusion now
+contains a concrete workflow description ("No prose was written by
+hand... rules, curated references, reviewed transcripts, and guided
+iterative revision... over 60 commits, session logs, planning
+documents"). Phase 2 approved: "marked improvement from just saying
+'agent-assisted.'" No further action needed.
 
 ---
 
-## Theme 6: AI-authorship disclosure strategy [MUST-FIX]
+## Theme 6: AI-authorship disclosure strategy [RESOLVED]
 
 **FB-IDs**: FB-2.02, FB-2.03, FB-2.06
 **Sections**: Abstract, Conclusion, Acknowledgments
 **Parts**: 2
 
-**Resolved**: Punchy, enticing statement in the abstract (invitation,
-not admission). Detailed workflow/harness/GitHub narrative in closing
-statements. ACM policy compliance in acknowledgments (secondary
-vehicle — most readers won't look there).
+**Resolved in first revision cycle**: Punchy, enticing statement in
+the abstract. Detailed workflow narrative in conclusion. ACM policy
+compliance in acknowledgments. Addressed through Themes 1 and 5.
 
-This theme is addressed through Themes 1 and 5 above.
+**Phase 2 status**: ✅ Confirmed. No further action.
 
 ---
 
-## Theme 7: Em-dash overuse [SHOULD-FIX]
+## Theme 7: Em-dash overuse [RESOLVED]
 
 **FB-IDs**: FB-1.02, FB-3.04, FB-3.12, FB-3.27
 **Sections**: All (flagged in abstract, intro, background, conclusion)
 **Parts**: 1, 3
 
-Em dashes appear in nearly every paragraph. While technically correct,
-the frequency is an AI-tell that distracts the reader. The golden rule:
-"nobody cares until they notice."
+Em dashes appeared in nearly every paragraph. Paper-wide audit was
+performed during second draft revisions.
 
-**Revision action**: Paper-wide em-dash audit during each section
-revision. Replace with colons, commas, parentheses, or restructured
-sentences where another punctuation choice is equally good. Keep em
-dashes only where they are genuinely the best option. Target: no more
-than one em dash per paragraph, and aim for several paragraphs in a
-row without any.
+**Phase 2 status**: ✅ Phase 2 did not flag any new em-dash issues.
+Audit appears successful. Continue monitoring during third draft
+revisions but no dedicated pass needed.
 
 ---
 
-## Theme 8: Overly flowery / clever language [SHOULD-FIX]
+## Theme 8: Overly flowery / clever language [RESOLVED]
 
 **FB-IDs**: FB-1.01, FB-1.03, FB-1.04, FB-1.08, FB-3.03, FB-3.05
 **Sections**: Abstract, Introduction
 **Parts**: 1, 3
 
-The agent "turned it up to 11." Pop-culture section titles stay (they're
-intentional, thematic, self-aware). Inline cleverness gets trimmed.
+"Love letter and cautionary tale," "from the trenches," "minimal human
+intervention" — all trimmed or replaced in the second draft.
 
-Specific items to address:
-- "Love letter and cautionary tale" → rephrase (FB-1.01, FB-3.03)
-- "From the trenches" → remove (FB-1.08)
-- "Minimal human intervention" → soften (FB-3.05)
-- General: reduce similes and overly artful phrases
-
-**Revision action**: During each section revision, apply the golden
-rule: if the reader notices the style over the content, trim it. Keep
-the voice and energy; lose the verbal gymnastics.
+**Phase 2 status**: ✅ Phase 2 approved all sections where these
+appeared. No further action needed.
 
 ---
 
-## Theme 9: Paragraph structure / vertical space [SHOULD-FIX]
+## Theme 9: Paragraph structure / vertical space [ACTIVE]
 
-**FB-IDs**: FB-1.09, FB-3.07, FB-3.13, FB-3.15
-**Sections**: Introduction, Approach
-**Parts**: 1, 3
+**FB-IDs**: FB-1.09, FB-3.07, FB-3.13, FB-3.15, **FB-P2.18**, **FB-P2.24**
+**Sections**: Introduction, Approach, Discussion
+**Parts**: 1, 3, P2
 
-Too many short paragraphs waste vertical space in single-column format.
-The 2-sentence paragraph in the Introduction is especially wasteful.
-Section 3's subsection headers eat significant space.
+Phase 1 issues (short paragraphs, subsection headers eating space)
+were partially addressed in the second draft.
+
+**Phase 2 additions**:
+- FB-P2.18: "I Know Kung Fu" two paragraphs should merge into one
+- FB-P2.24: Page budget remains critical (4-page limit, currently 5
+  pages with references)
 
 **Revision action**:
-1. Merge short paragraphs where logical (especially the 2-sentence
-   paragraph in Introduction).
-2. Consider compressing Section 3 subsection formatting — e.g., bold
-   inline labels (`\paragraph{}`) instead of `\subsection{}` headers.
-3. Compress Section 3.2 from three paragraphs to fewer; hyperlink to
-   repos to offload detail.
+1. Merge "I Know Kung Fu" paragraphs (FB-P2.18)
+2. Continue economizing vertical space throughout
+3. Investigate single-column vs. dual-column submission format
 
 ---
 
-## Theme 10: "The Answer is 42" — tighten [SHOULD-FIX]
+## Theme 10: "The Answer is 42" — false claim [MUST-FIX]
 
-**FB-IDs**: FB-3.20
+**FB-IDs**: FB-3.20, **FB-P2.20**
 **Sections**: Discussion ("The Answer is 42" subsection)
-**Parts**: 3
+**Parts**: 3, P2
 
-Big paragraph with lower information density than other discussion
-subsections. The 42/question framing is good but the middle is flabby.
+Phase 1 flagged this paragraph as flabby. Phase 2 escalated: the
+claim that the annotated bibliography was built "in one session" is
+**factually false**.
 
-**Revision action**: Compress. Keep the Deep Thought opening and the
-"only if you ask the right question" closing. Trim the middle examples
-and tighten the prose.
+The bibliography was built over ~15 sessions (1 planning + 13
+individual references + 1 wrap-up), totaling ~8 hours. Each reference
+consumed an entire 200K-token context window in a deliberate agentic
+loop with fresh sessions (`/new`) and continuation prompts.
+
+**Revision action**: Replace "in one session" with accurate
+characterization (multi-session agentic loop, ~15 context windows,
+~8 hours). The positive example should still contrast with the
+negative (wrong Slurm commands) but must be truthful. Also tighten
+the middle as originally flagged in Phase 1.
 
 ---
 
-## Theme 11: Approach section updates [SHOULD-FIX / MUST-FIX]
+## Theme 11: Approach section updates [MUST-FIX]
 
-**FB-IDs**: FB-2.07, FB-2.08, FB-2.09, FB-3.14, FB-3.15
+**FB-IDs**: FB-2.07, FB-2.08, FB-2.09, FB-3.14, FB-3.15, **FB-P2.09**, **FB-P2.10**, **FB-P2.12**
 **Sections**: Approach (all subsections)
-**Parts**: 2, 3
+**Parts**: 2, 3, P2
 
-The three-pillar structure is confirmed and accurate. Updates needed:
-- MCP repos are now public/beta, not pre-alpha (FB-3.14, must-fix)
-- Word choice in 3.1 could be stronger and more direct (FB-2.08)
-- Consider name-dropping `/etc/agents.d` convention (FB-2.09)
-- Compress Section 3.2 prose (FB-3.15)
+Phase 1 items (MCP status, word choice, `/etc/agents.d`, compress 3.2)
+were partially addressed. Phase 2 found remaining issues:
 
-**Revision action**: Update status, tighten prose, add hyperlinks
-to public repos. Consider `/etc/agents.d` name-drop.
+- **FB-P2.09**: "Warp, Cursor, Claude Code" repeated a third time in
+  Section 3.1. Remove — use generic "modern agentic tools" since the
+  specific trio is already in the introduction and listing specific
+  tools dates quickly (Gemini CLI, JetBrains Junie, etc. now exist).
+- **FB-P2.10**: `sinteractive` is a bad example for agents — agents
+  should use `srun`/`sbatch`, not interactive sessions. Replace with
+  batch job best practices. `myquota` is fine to keep.
+- **FB-P2.12**: Section 3.2 first paragraph could reflow to introduce
+  RCAC-MCP and Globus-MCP more cleanly as a pair.
+
+**Revision action**:
+1. Remove tool enumeration from 3.1 opening (FB-P2.09)
+2. Replace `sinteractive` example (FB-P2.10)
+3. Reflow 3.2 opening paragraph (FB-P2.12)
+4. Keep closing sentence verbatim: "The agent absorbs the cluster's
+   policies before the user asks their first question" (FB-P2.11)
 
 ---
 
-## Theme 12: Introduction flow and content [SHOULD-FIX]
+## Theme 12: Introduction flow and content [RESOLVED]
 
 **FB-IDs**: FB-1.05, FB-1.06, FB-1.07
 **Sections**: Introduction (opening paragraphs)
 **Parts**: 1
 
-- "The game changed overnight" misframes the inflection point — should
-  emphasize public accessibility, not technical release (FB-1.05)
-- Multimodal milestone missing from the timeline (FB-1.06, must-fix)
-- Overall narrative is choppy; needs smoother flow (FB-1.07)
+First draft had choppy narrative, missing multimodal milestone, and
+misframed inflection point.
 
-**Revision action**: Reword opening paragraph framing, add brief
-multimodal mention, smooth narrative arc.
+**Phase 2 status**: ✅ Addressed in second draft. Phase 2 approved
+the opener as "solid" and the full introduction as "great." No further
+action needed.
 
 ---
 
-## Theme 13: Background is solid — formatting only [CONSIDER]
+## Theme 13: Background — new content tweaks [SHOULD-FIX]
 
-**FB-IDs**: FB-1.13, FB-1.14, FB-2.01, FB-3.11, FB-3.12
+**FB-IDs**: FB-1.13, FB-1.14, FB-2.01, FB-3.11, FB-3.12, **FB-P2.05**, **FB-P2.06**, **FB-P2.07**, FB-P2.08
 **Sections**: Background
-**Parts**: 1, 2, 3
+**Parts**: 1, 2, 3, P2
 
-All three sessions confirm Section 2 is tight, high signal-to-noise,
-with a strong timeline. Content approved by both reviewers. Only needs
-em-dash audit (Theme 7) and minor formatting.
+All four review sessions confirm the opening three paragraphs are
+tight and strong. Phase 2 approved them as "very straightforward,
+matter-of-fact" and "really good" (FB-P2.08).
 
-**Revision action**: Em-dash audit only. No content changes. Keep the
-Linux Foundation crescendo.
+However, Phase 2 identified three issues in the **closing paragraph**:
+
+1. **"Who will shape that integration?"** — too combative (FB-P2.05).
+   Reads as "get on the train or get left behind" rather than the
+   welcoming "ready player two" invitation tone. Soften to align with
+   the conclusion's open-hand posture.
+2. **"AI capabilities" → "AI systems"** in the Genesis sentence
+   (FB-P2.06). Minor word choice improvement.
+3. **Quote "stands at a crossroads"** (FB-P2.07). Add quotation marks
+   to attribute the phrase more clearly to Deelman et al.
+
+**Revision action**: Soften closing sentence, swap "capabilities" →
+"systems," add quotes around "stands at a crossroads." First three
+paragraphs unchanged.
 
 ---
 
-## Theme 14: Conclusion — keep strong ending [CONSIDER]
+## Theme 14: Conclusion — keep strong ending [RESOLVED]
 
-**FB-IDs**: FB-3.25, FB-3.26
+**FB-IDs**: FB-3.25, FB-3.26, **FB-P2.23**
 **Sections**: Conclusion
-**Parts**: 3
+**Parts**: 3, P2
 
 The final lines ("shape its trajectory / shaped by it" + "we choose
-engagement") are approved and strong. "Proactive engagement, not
-prohibition" is confirmed as accurate.
+engagement") are approved across both review phases. "Proactive
+engagement, not prohibition" confirmed as accurate.
 
-**Revision action**: Keep final sentences verbatim. Changes to the
-conclusion come from Themes 1 (agent-first reframe) and 5 (workflow
-narrative expansion).
+**Phase 2 status**: ✅ Confirmed again — "super powerful" and "if this
+is where we left it, I would be OK with that." No changes to
+conclusion. Fully resolved.
 
 ---
 
-## Approved sections (no changes needed beyond formatting)
+## Theme 15: Abstract "not merely tolerated" [MUST-FIX] (NEW)
 
-- **"I'm Sorry, Dave"** (FB-3.16): Approved. Minor prose polishing only.
-- **"I Know Kung Fu"** (FB-3.19): Approved. Keep as-is.
+**FB-IDs**: **FB-P2.01**
+**Sections**: Abstract
+**Parts**: P2
+
+New Phase 2 item. The sentence "Researchers want these tools integrated
+into their workflows, not merely tolerated" is clumsy. Geoffrey
+stumbles over the punctuation and the negation. The intent is correct
+(users want real integration, not grudging tolerance) but the
+construction needs workshopping.
+
+**Revision action**: Find a stronger, smoother phrasing that conveys
+the same intent. This was flagged as a must-fix in the plan's resolved
+questions ("will workshop alternative phrasing during Phase 4
+revision").
+
+---
+
+## Theme 16: Section title parentheticals [SHOULD-FIX] (NEW)
+
+**FB-IDs**: **FB-P2.03**
+**Sections**: All pop-culture section headings (Discussion subsections)
+**Parts**: P2
+
+New Phase 2 item. Add parenthetical descriptors after each pop-culture
+pun to anchor the reader:
+- "I'm Sorry, Dave" (User Support)
+- "Tea, Earl Grey, Hot" (Context Engineering)
+- "I Know Kung Fu" (User Expectations)
+- "The Answer is 42" (AI Outcomes)
+- "Don't Cross the Streams" (Cautionary Notes)
+
+**Revision action**: Add `"Title" (Descriptor)` format to all
+pop-culture section headings across outline files. "Shall We Play a
+Game?" and "Mostly Harmless" in the introduction, and "End of Line"
+in the conclusion, may also benefit.
+
+---
+
+## Theme 17: LaTeX fidelity audit [MUST-FIX] (NEW)
+
+**FB-IDs**: **FB-P2.00**, **FB-P2.25**
+**Sections**: All (process concern, not content)
+**Parts**: P2
+
+New Phase 2 item. Geoffrey has "deep anxiety" about discrepancies
+between outline markdown files and the compiled LaTeX. Citations exist
+in LaTeX but not in markdown. The integration process (having an AI
+agent pull prose into `.tex`) is imprecise and needs a systematic
+audit.
+
+**Revision action**: During Phase 5 (third integration), conduct a
+section-by-section comparison of each outline file against the
+corresponding LaTeX section. Verify: prose fidelity, citation presence
+in both formats, figure references, no dropped or added content.
+
+---
+
+## Approved sections (no changes needed beyond specific items above)
+
+- **"I'm Sorry, Dave"** (FB-3.16, FB-P2.14): Approved in both phases. No changes.
+- **"I Know Kung Fu"** (FB-3.19, FB-P2.19): Content approved in both phases. Merge paragraphs only (Theme 9).
+- **Introduction** (FB-P2.04): Approved in Phase 2 — "great." No content changes.
+- **Section 3.3 Documentation** (FB-P2.13): Approved — "short and concise enough."
 - **Citation numbering** (FB-3.06): Standard `acmart` alphabetical bibliography. No action.
 
 ---
 
 ## Open question
 
-- **Page budget** (FB-1.15): Single-column vs. dual-column format — awaiting committee guidance.
+- **Page budget** (FB-1.15, FB-P2.24): Single-column vs. dual-column format — awaiting committee guidance. Currently 5 pages with references against a 4-page limit.
 
 ---
 
-## Revision priority by section
+## Revision priority by section (Third Draft)
 
-When revising in Phase 3, address themes in this order per section:
+For Phase 4 revisions, address these items per section. Only
+active/unresolved themes are listed.
 
 **Abstract** (00-abstract.md):
-- Theme 1: "agent-first" reframe
-- Theme 6: AI-authorship disclosure (punchy invitation)
-- Theme 8: Rephrase "love letter/cautionary tale"
-- Theme 7: Em-dash audit
+- Theme 15: Workshop "not merely tolerated" alternative (FB-P2.01)
+- No other changes — approved as strong
 
 **Introduction** (01-introduction.md):
-- Theme 2: "Mostly Harmless" realignment + dog-fooding
-- Theme 5: Add agentic workflow narrative paragraph
-- Theme 12: Fix timeline framing, add multimodal, smooth flow
-- Theme 8: Remove "from the trenches," soften "minimal human intervention"
-- Theme 9: Merge short paragraphs
-- Theme 1: "agent-first" reframe (second occurrence)
-- Theme 7: Em-dash audit
+- No changes — approved as "great" in Phase 2
 
 **Background** (02-background.md):
-- Theme 13: Em-dash audit only
+- Theme 13: Soften closing (FB-P2.05), "capabilities" → "systems" (FB-P2.06), quote "stands at a crossroads" (FB-P2.07)
 
 **Approach** (03-approach.md):
-- Theme 11: Update MCP status, tighten prose, compress spacing
-- Theme 9: Consider subsection → paragraph formatting
-- Theme 7: Em-dash audit
+- Theme 11: Remove tool list from 3.1 (FB-P2.09), replace `sinteractive` (FB-P2.10), reflow 3.2 opening (FB-P2.12)
 
 **Discussion** (04-discussion.md):
-- Theme 3: Reframe "Tea, Earl Grey, Hot" + remove footnotes
-- Theme 4: Reframe "Don't Cross the Streams"
-- Theme 10: Tighten "The Answer is 42"
-- Theme 7: Em-dash audit
+- Theme 3: Rebalance Tea/Earl Grey closings (FB-P2.15), clarify token budgets (FB-P2.16)
+- Theme 10: Fix false "one session" claim (FB-P2.20), tighten prose
+- Theme 9: Merge "I Know Kung Fu" paragraphs (FB-P2.18)
+- Theme 4: Add user confirmation mention (FB-P2.21)
+- Theme 16: Add parenthetical labels to all subsection titles (FB-P2.03)
 
 **Conclusion** (05-conclusion.md):
-- Theme 1: "agent-first" reframe (third occurrence)
-- Theme 5: Expand workflow/harness/GitHub narrative
-- Theme 14: Keep strong final lines
-- Theme 7: Em-dash audit
+- No changes — approved as "super powerful" in Phase 2
+
+**All sections**:
+- Theme 16: Add parenthetical labels where applicable (FB-P2.03)
+- Theme 17: LaTeX fidelity audit during Phase 5 integration (FB-P2.25)
