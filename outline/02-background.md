@@ -1,5 +1,5 @@
 ---
-status: review
+status: draft
 target_words: 300
 actual_words: ~280
 citations:
@@ -84,12 +84,12 @@ The trajectory from research curiosity to practical tool was swift. In 2017, Vas
 introduced the Transformer architecture, replacing recurrence with attention mechanisms. By
 2020, GPT-3's 175 billion parameters demonstrated that scale alone could yield emergent
 capabilities. ChatGPT's November 2022 launch brought these capabilities to the general
-public—100 million users in two months.
+public, reaching 100 million users in two months.
 
 A parallel development transformed chatbots into *agents*. The ReAct framework formalized
 this shift: agentic systems interleave reasoning traces with task-specific actions,
 interfacing with external tools and knowledge sources rather than relying solely on
-training data. Today's agentic development environments implement this pattern—reading
+training data. Today's agentic development environments implement this pattern: reading
 files, executing commands, editing code, and iterating based on observed results.
 
 The infrastructure for agentic AI has matured rapidly. Anthropic's Model Context Protocol
@@ -103,4 +103,4 @@ For HPC, this convergence is consequential. Deelman et al. argue that high-perfo
 computing stands at a crossroads. The Genesis Mission executive order (November 2025)
 charges DOE with uniting national laboratories, supercomputers, and AI capabilities for
 scientific discovery. The question is no longer whether AI will integrate with HPC
-workflows, but how—and who will shape that integration.
+workflows, but how, and who will shape that integration.

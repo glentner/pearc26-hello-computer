@@ -1,7 +1,7 @@
 ---
-status: review
+status: draft
 target_words: 200
-actual_words: ~200
+actual_words: ~210
 ---
 
 # Conclusion: "End of Line"
@@ -26,7 +26,7 @@ actual_words: ~200
 ## Draft
 
 We began this paper with a question: how should HPC centers engage with tools that can, in
-some cases, outperform us at our own jobs? Our answer has been proactive engagement—not
+some cases, outperform us at our own jobs? Our answer has been proactive engagement, not
 prohibition.
 
 At RCAC, we're building the infrastructure to make agentic AI a first-class citizen of the
@@ -35,13 +35,15 @@ provide contextual help, and documentation that prepares users for both the capa
 and limitations of these tools. This work is early. We don't yet know what patterns will
 emerge, what pitfalls await, or how dramatically these tools will reshape our profession.
 
-As a meta-demonstration, this paper was itself written with agentic assistance—the session
-logs documenting our process are available in the accompanying GitHub repository. The
-methodology we developed (markdown reference files, YAML frontmatter for context continuity,
-systematic session logging) may itself be a contribution worth exploring.
+As a meta-demonstration, this paper was itself produced through an agent-first workflow.
+No prose was written by hand. Human authors defined rules, curated references, reviewed
+transcripts, and guided iterative revision; AI agents executed the research, planning,
+drafting, and integration. The entire process, comprising over sixty commits, session
+logs, and planning documents, is available in the accompanying GitHub repository. The
+methodology itself may be a contribution worth exploring.
 
 The agentic era has arrived. HPC facilitators who engage early will shape its trajectory;
-those who wait may find themselves shaped by it. We choose engagement—and we invite the
+those who wait may find themselves shaped by it. We choose engagement, and we invite the
 community to join us.
 
 *End of line.*

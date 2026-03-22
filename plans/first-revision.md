@@ -113,13 +113,13 @@ Revision order follows the paper's flow:
 
 ### Tasks
 
-- [ ] 3.1: Revise `00-abstract.md` — reword "agentic assistance" to agent-first invitation; rephrase "love letter/cautionary tale"
-- [ ] 3.2: Revise `01-introduction.md` — fix "Mostly Harmless" alignment (cautious optimism + dog-fooding); add brief agentic workflow narrative; trim "from the trenches"; address paragraph structure; add multimodal milestone mention
-- [ ] 3.3: Revise `02-background.md` — minor formatting only (em-dash audit)
-- [ ] 3.4: Revise `03-approach.md` — tighten prose, compress subsection spacing, update MCP server status (now public/beta)
-- [ ] 3.5: Revise `04-discussion.md` — reframe "Tea, Earl Grey, Hot" (context engineering from prior experience, not amateur discovery; remove misleading footnotes); trim "The Answer is 42"; reframe "Don't Cross the Streams" (hardening existing patterns); em-dash audit throughout
-- [ ] 3.6: Revise `05-conclusion.md` — reword "agentic assistance" to agent-first; add workflow/harness/GitHub narrative detail; keep strong final lines
-- [ ] 3.7: Commit all outline revisions — `WIP: Revise outline sections from review feedback`
+- [x] 3.1: Revise `00-abstract.md` — reword "agentic assistance" to agent-first invitation; rephrase "love letter/cautionary tale"
+- [x] 3.2: Revise `01-introduction.md` — fix "Mostly Harmless" alignment (cautious optimism + dog-fooding); add brief agentic workflow narrative; trim "from the trenches"; address paragraph structure; add multimodal milestone mention
+- [x] 3.3: Revise `02-background.md` — minor formatting only (em-dash audit)
+- [x] 3.4: Revise `03-approach.md` — tighten prose, compress subsection spacing, update MCP server status (now public/beta)
+- [x] 3.5: Revise `04-discussion.md` — reframe "Tea, Earl Grey, Hot" (context engineering from prior experience, not amateur discovery; remove misleading footnotes); trim "The Answer is 42"; reframe "Don't Cross the Streams" (hardening existing patterns); em-dash audit throughout
+- [x] 3.6: Revise `05-conclusion.md` — reword "agentic assistance" to agent-first; add workflow/harness/GitHub narrative detail; keep strong final lines
+- [x] 3.7: Commit all outline revisions — `WIP: Revise outline sections from review feedback`
 
 ## Phase 4: Second Integration
 
@@ -142,7 +142,7 @@ Once outline revisions are reviewed and approved, integrate revised prose into `
 
 ## Progress
 
-**Completed**: 6/18
+**Completed**: 13/18
 
 ---
 
