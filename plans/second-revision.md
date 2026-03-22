@@ -54,7 +54,7 @@ Parse the VTT file into a clean markdown review document, matching the format of
 ### Tasks
 
 - [x] 1.1: Convert VTT transcript → `reviews/review_phase_2.md`
-- [ ] 1.2: Commit — `WIP: Convert Phase 2 review transcript`
+- [x] 1.2: Commit — `WIP: Convert Phase 2 review transcript`
 
 ## Phase 2: Distill Review Feedback
 
