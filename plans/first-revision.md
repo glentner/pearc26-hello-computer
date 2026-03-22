@@ -148,39 +148,44 @@ Once outline revisions are reviewed and approved, integrate revised prose into `
 
 ## Session Prompt Template
 
-Use this prompt to continue the first revision phase:
+Use this prompt to continue the first revision phase. Each phase is one
+session's unit of work. Complete all tasks within the current phase, then
+**stop and ask for feedback** before advancing to the next phase.
 
 ```
 Continue our PEARC'26 paper work on the first revision phase.
 
-See `plans/first-revision.md` for context and check the task checkboxes for
-the next pending item.
+Execution procedure:
 
-Key context files:
-- `plans/first-revision.md` — This plan (master checklist and resolved questions)
-- `reviews/review_phase_1_part_[1-3].md` — Raw review transcripts
-- `outline/notes/review-feedback-part[1-3].md` — Distilled feedback (created in Phase 1)
-- `outline/notes/review-synthesis.md` — Cross-cutting themes (created in Phase 2)
-- `outline/0[0-5]-*.md` — Section drafts to revise
-- `manuscript.tex` — Current integrated first draft
+1. LOAD PLAN: Read `plans/first-revision.md`. For resolved design
+   decisions and rationale, reference Warp plan
+   b8c601de-a714-463c-b1bb-4145934298a5.
 
-Resolved design decisions (see plan for details):
-- AI-authorship: Punchy invitation in abstract, detailed narrative in conclusion,
-  ACM compliance in acknowledgments
-- "Love letter/cautionary tale": Rephrase to something less overwrought
-- Dog-fooding: Goes in "Mostly Harmless" as staff-side adoption imperative
-- Multimodal milestone: Brief mention in Introduction timeline
-- "Tea, Earl Grey, Hot": Reframe as experienced context engineering, not amateur discovery
-- "Don't Cross the Streams": Agents accelerate existing risks; harden existing patterns
+2. IDENTIFY CURRENT PHASE: Scan task checkboxes. The current phase
+   is the lowest-numbered phase with any unchecked `[ ]` items.
 
-For each task:
-1. Read the relevant source material
-2. Do the work described in the task
-3. Mark the checkbox complete in `plans/first-revision.md`
-4. Commit with "WIP: <description>" and Co-Authored-By line
-5. Log any significant session work to `logs/` per `rules/session_logs.md`
+3. LOAD PHASE INPUTS:
+   Phase 1 → read the corresponding `reviews/review_phase_1_part_N.md`
+   Phase 2 → read all `outline/notes/review-feedback-part[1-3].md`
+   Phase 3 → read `outline/notes/review-synthesis.md` + target
+             `outline/0N-*.md` section file
+   Phase 4 → read revised `outline/0N-*.md` files + `manuscript.tex`
+   Phase 5 → read `plans/second-integration.md` and cross-references
 
-Feedback item IDs (FB-N.NN) cross-reference from distillation files through
-synthesis to commit messages. Use them in commit messages where applicable
-(e.g., "WIP: Address FB-1.03, FB-3.07 — reframe Mostly Harmless alignment").
+4. TASK LOOP (within current phase only):
+   a. Find the next unchecked `[ ]` task in the current phase.
+   b. Execute the task.
+   c. Mark it `[x]` in `plans/first-revision.md`.
+   d. Update the "Completed: N/18" progress counter.
+   e. Commit: `WIP: <description>` with
+      `Co-Authored-By: Oz <oz-agent@warp.dev>`
+      Include FB-IDs in commit messages where applicable.
+   f. If unchecked tasks remain in this phase, go to (a).
+   g. If all tasks in this phase are complete, go to step 5.
+
+5. PHASE BOUNDARY: All tasks in the current phase are done.
+   Log the session to `logs/` per `rules/session_logs.md`.
+   Push to `wip` branch.
+   **STOP. Report what was completed and ask for feedback.**
+   Do NOT begin the next phase until explicitly told to continue.
 ```
