@@ -34,28 +34,29 @@ Hence our investment in system prompts and MCP servers that know our clusters.
 
 ---
 
-## 4.2 "Tea, Earl Grey, Hot" (Prompt Engineering)
+## 4.2 "Tea, Earl Grey, Hot" (Context Engineering)
 
 ### Notes
 - "Tea, Earl Grey, Hot" - Star Trek: TNG, Captain Picard's replicator order
 - The replicator knows exactly what he wants because he's specific
-- Prompt engineering = being specific with the computer
+- Context engineering = structuring information so agents produce reliable output
 
 ### Draft
 
 Captain Picard never asked the replicator for "a beverage." He specified exactly what
 he wanted: "Tea, Earl Grey, hot." Effective use of agentic AI demands similar precision,
-and that precision must be engineered into the system, not left to the user.
+and the best results come from engineering that precision into the system alongside the
+user, not expecting either to carry the burden alone.
 
 Context engineering is the practice of structuring information, rules, and reference
 material so that an agent produces reliable output from the outset. We developed this
 discipline through a year of iterative practice before beginning this paper: learning
-which context formats yield consistent results, how to manage token budgets across long
-workflows, and how to decompose complex tasks into verifiable steps. The same principle
-applies to HPC. "Submit a job" fails where "submit a GPU job to the Gautschi cluster
-using my lab's allocation" succeeds, but the real leverage comes from embedding that
-specificity in system-wide configurations so that every user benefits without crafting
-expert prompts themselves.
+which context formats yield consistent results, how to manage context window capacity
+across long workflows, and how to decompose complex tasks into verifiable steps. The
+same principle applies to HPC. "Submit a job" fails where "submit a GPU job to the
+Gautschi cluster using my lab's allocation" succeeds. System-wide configurations
+provide the foundation, but users still bring the domain specificity that makes each
+interaction productive.
 
 ---
 
@@ -71,13 +72,12 @@ expert prompts themselves.
 Neo's instant kung fu download is a fantasy that dies hard. Users sometimes expect AI
 to make them instant experts, to transform a novice into an HPC specialist through
 conversation alone. The reality is more nuanced: AI makes you faster at what you already
-understand, not expert at what you don't.
-
-This creates what we call the expertise paradox: you need domain knowledge to verify
-whether AI output is correct, but the people most likely to rely heavily on AI are
-those without that knowledge. Our documentation explicitly addresses this: use AI to
-accelerate your learning, not to bypass it. Ask it to explain why, not just what.
-The goal is augmented expertise, not outsourced understanding.
+understand, not expert at what you don't. This creates what we call the expertise
+paradox: you need domain knowledge to verify whether AI output is correct, but the
+people most likely to rely heavily on AI are those without that knowledge. Our
+documentation explicitly addresses this: use AI to accelerate your learning, not to
+bypass it. Ask it to explain *why*, not just *what*. The goal is augmented expertise,
+not outsourced understanding.
 
 ---
 
@@ -92,12 +92,12 @@ The goal is augmented expertise, not outsourced understanding.
 
 Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
 was correct. The question was wrong. We've experienced both extremes: an agent that
-built our thirteen-source annotated bibliography in one session, and the same agent
-confidently generating Slurm commands for schedulers we don't use. Plausible output
-requiring expert verification is consistent with recent evaluations of LLMs for HPC
-software development. Verification isn't optional; it's the core competency that
-separates productive use from cargo cult computing. The answer may be 42, but only if
-you asked the right question.
+built our thirteen-source annotated bibliography across fifteen context windows over
+eight hours of deliberate prompting, and the same agent confidently generating Slurm
+commands for schedulers we don't use. Plausible output requiring expert verification is
+consistent with recent evaluations of LLMs for HPC software development. Verification
+isn't optional; it's the core competency that separates productive use from cargo cult
+computing. The answer may be 42, but only if you asked the right question.
 
 ---
 
@@ -119,7 +119,9 @@ But these risks are not new. Users have always been capable of destroying their 
 exhausting their allocations, and exposing credentials. Mature HPC centers already build
 confinement: cgroups to isolate resources, node health checks, root-squashed filesystems,
 quota enforcement. These mechanisms contain the blast radius so that one user's mistake
-cannot cascade across the system. Agents accelerate the pace of potential errors, which
-means existing hardening must be strengthened, not invented from scratch. We are also
-developing practices for capturing agent interactions that contribute to scientific
-outcomes, because reproducibility in AI-assisted research remains an open question.
+cannot cascade across the system. Most agentic tools also support user confirmation for
+destructive actions out of the box, providing an additional safety net. Agents accelerate
+the pace of potential errors, which means existing hardening must be strengthened, not
+invented from scratch. We are also developing practices for capturing agent interactions
+that contribute to scientific outcomes, because reproducibility in AI-assisted research
+remains an open question.

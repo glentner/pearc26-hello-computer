@@ -117,11 +117,11 @@ Revision order follows the paper's flow:
 
 ### Tasks
 
-- [ ] 4.1: Revise `02-background.md` — tone down closing, word choice tweaks
-- [ ] 4.2: Revise `03-approach.md` — remove repeated tool list, fix `sinteractive`, reflow 3.2
-- [ ] 4.3: Revise `04-discussion.md` — fix "one session" claim, rebalance Tea/Earl Grey closings, clarify token budgets, merge I Know Kung Fu paragraphs, add user confirmation note
-- [ ] 4.4: Add parenthetical labels to all pop-culture section titles across outline files
-- [ ] 4.5: Commit — `WIP: Revise outline sections from Phase 2 review feedback`
+- [x] 4.1: Revise `02-background.md` — tone down closing, word choice tweaks
+- [x] 4.2: Revise `03-approach.md` — remove repeated tool list, fix `sinteractive`, reflow 3.2
+- [x] 4.3: Revise `04-discussion.md` — fix "one session" claim, rebalance Tea/Earl Grey closings, clarify token budgets, merge I Know Kung Fu paragraphs, add user confirmation note
+- [x] 4.4: Add parenthetical labels to all pop-culture section titles across outline files
+- [x] 4.5: Commit — `WIP: Revise outline sections from Phase 2 review feedback`
 
 ## Phase 5: Third Integration
 
@@ -145,7 +145,7 @@ Once outline revisions are reviewed and approved, integrate revised prose into
 
 ## Progress
 
-**Completed**: 6/19
+**Completed**: 11/19
 
 ---
 

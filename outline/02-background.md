@@ -100,7 +100,8 @@ donated it to the Linux Foundation's Agentic AI Foundation, with over 10,000 act
 servers.
 
 For HPC, this convergence is consequential. Deelman et al. argue that high-performance
-computing stands at a crossroads. The Genesis Mission executive order (November 2025)
-charges DOE with uniting national laboratories, supercomputers, and AI capabilities for
+computing stands "at a crossroads." The Genesis Mission executive order (November 2025)
+charges DOE with uniting national laboratories, supercomputers, and AI systems for
 scientific discovery. The question is no longer whether AI will integrate with HPC
-workflows, but how, and who will shape that integration.
+workflows, but how, and how centers choose to engage will define the experience for
+researchers and facilitators alike.

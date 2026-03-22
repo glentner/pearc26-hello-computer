@@ -26,23 +26,22 @@ the reality of agentic tool adoption.
 
 ### System-Wide Configurations
 
-Modern agentic tools (Warp, Cursor, Claude Code) look for rules files in well-known
-locations. We deploy cluster-wide configurations through an `/etc/agents.d` directory
-hierarchy, injecting HPC-specific context: which commands to use for quota checks
-(`myquota`) and interactive sessions (`sinteractive`), how to load software via
-environment modules, and which filesystems serve which purposes. These configurations
-also encode prohibitions: don't run computationally intensive work on login nodes,
-don't store sensitive data in world-readable locations, don't submit jobs without time
-limits. The agent absorbs the cluster's policies before the user asks their first
-question.
+Modern agentic tools look for rules files in well-known locations. We deploy
+cluster-wide configurations through an `/etc/agents.d` directory hierarchy, injecting
+HPC-specific context: which commands to use for quota checks (`myquota`) and batch job
+submission (`sbatch`), how to load software via environment modules, and which
+filesystems serve which purposes. These configurations also encode prohibitions: don't
+run computationally intensive work on login nodes, don't store sensitive data in
+world-readable locations, don't submit jobs without time limits. The agent absorbs the
+cluster's policies before the user asks their first question.
 
 ### MCP Servers
 
-We developed MCP servers (the Model Context Protocol, not the Master Control Program,
-though the naming coincidence feels appropriate). RCAC-MCP exposes Slurm operations
-(job submission, queue queries, resource monitoring), filesystem navigation, and
-cluster-specific tools like `myquota` and `jobinfo`. Globus-MCP provides agentic data
-transfers between storage endpoints. Both are publicly available on GitHub.
+We developed two purpose-built MCP servers (the Model Context Protocol, not the Master
+Control Program, though the naming coincidence feels appropriate): RCAC-MCP, which
+exposes Slurm operations, filesystem navigation, and cluster-specific tools like
+`myquota` and `jobinfo`; and Globus-MCP, which provides agentic data transfers between
+storage endpoints. Both are publicly available on GitHub.
 
 Both servers implement a local-first architecture (Figure 1). The MCP server runs as
 a subprocess of the user's IDE, communicating via stdin/stdout. Commands execute
