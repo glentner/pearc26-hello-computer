@@ -66,10 +66,10 @@ This gives us a citable, trackable inventory of every piece of feedback. IDs lik
 
 ### Tasks
 
-- [ ] 1.1: Distill `reviews/review_phase_1_part_1.md` → `outline/notes/review-feedback-part1.md`
-- [ ] 1.2: Distill `reviews/review_phase_1_part_2.md` → `outline/notes/review-feedback-part2.md`
-- [ ] 1.3: Distill `reviews/review_phase_1_part_3.md` → `outline/notes/review-feedback-part3.md`
-- [ ] 1.4: Commit feedback files — `WIP: Distill review feedback from transcripts`
+- [x] 1.1: Distill `reviews/review_phase_1_part_1.md` → `outline/notes/review-feedback-part1.md`
+- [x] 1.2: Distill `reviews/review_phase_1_part_2.md` → `outline/notes/review-feedback-part2.md`
+- [x] 1.3: Distill `reviews/review_phase_1_part_3.md` → `outline/notes/review-feedback-part3.md`
+- [x] 1.4: Commit feedback files — `WIP: Distill review feedback from transcripts`
 
 ## Phase 2: Synthesize Cross-Cutting Themes
 
@@ -142,7 +142,7 @@ Once outline revisions are reviewed and approved, integrate revised prose into `
 
 ## Progress
 
-**Completed**: 0/18
+**Completed**: 4/18
 
 ---
 
