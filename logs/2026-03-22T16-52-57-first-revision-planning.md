@@ -47,7 +47,7 @@ Created the planning document for the first revision phase of the PEARC'26 paper
 - Read all 3 review transcripts (`reviews/review_phase_1_part_[1-3].md`) — ~3.5 hours of conversation between Geoffrey and Ashish covering every section of the paper
 - Read all 6 outline section files (`outline/0[0-5]-*.md`) to understand current draft state
 - Read the current `manuscript.tex` to see integrated first draft
-- Read existing plans (`plans/first-integration.md`, `plans/second-integration.md`) for workflow context
+- Read existing plans (`plans/first-integration.md`, `plans/complete-first-integration.md`) for workflow context
 - Read project rules (`rules/session_logs.md`, `rules/planning_docs.md`, `rules/wip_commits.md`)
 
 ### Plan Development
@@ -72,7 +72,7 @@ Created the planning document for the first revision phase of the PEARC'26 paper
 
 ### Decisions Made
 - Phase 5 restructured: session logging is always-on (not a phase-end task); continuation prompt built into the planning document itself
-- Identified `plans/second-integration.md` as misleadingly named — it completed the first integration's remaining sections, not a "second integration." Rename to `plans/complete-first-integration.md` added as housekeeping task.
+- Renamed `plans/second-integration.md` → `plans/complete-first-integration.md` — it completed the first integration's remaining sections, not a "second integration."
 
 ## Next Steps
 

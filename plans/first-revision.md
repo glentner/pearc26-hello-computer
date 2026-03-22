@@ -1,6 +1,6 @@
 ---
 created: "2026-03-22"
-status: "in-progress"
+status: "complete"
 related_logs: []
 ---
 
@@ -135,14 +135,14 @@ Once outline revisions are reviewed and approved, integrate revised prose into `
 
 ## Phase 5: Housekeeping
 
-- [ ] 5.1: Rename `plans/second-integration.md` → `plans/complete-first-integration.md` (and update any cross-references in logs or other plans)
-- [ ] 5.2: Log session to `logs/` per `rules/session_logs.md`
+- [x] 5.1: Rename `plans/second-integration.md` → `plans/complete-first-integration.md` (and update any cross-references in logs or other plans)
+- [x] 5.2: Log session to `logs/` per `rules/session_logs.md`
 
 ---
 
 ## Progress
 
-**Completed**: 18/20
+**Completed**: 20/20
 
 ---
 
@@ -170,7 +170,7 @@ Execution procedure:
    Phase 3 → read `outline/notes/review-synthesis.md` + target
              `outline/0N-*.md` section file
    Phase 4 → read revised `outline/0N-*.md` files + `manuscript.tex`
-   Phase 5 → read `plans/second-integration.md` and cross-references
+   Phase 5 → read `plans/complete-first-integration.md` and cross-references
 
 4. TASK LOOP (within current phase only):
    a. Find the next unchecked `[ ]` task in the current phase.

@@ -15,7 +15,7 @@ user_input: |
      Phase 3 → read `outline/notes/review-synthesis.md` + target
                `outline/0N-*.md` section file
      Phase 4 → read revised `outline/0N-*.md` files + `manuscript.tex`
-     Phase 5 → read `plans/second-integration.md` and cross-references
+     Phase 5 → read `plans/complete-first-integration.md` and cross-references
   4. TASK LOOP (within current phase only):
      a. Find the next unchecked `[ ]` task in the current phase.
      b. Execute the task.
