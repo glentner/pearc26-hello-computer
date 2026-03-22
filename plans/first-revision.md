@@ -98,8 +98,8 @@ After distillation, produce a single synthesis document that groups recurring th
 
 ### Tasks
 
-- [ ] 2.1: Create `outline/notes/review-synthesis.md` grouping all feedback by theme with cross-references to FB-IDs
-- [ ] 2.2: Commit synthesis — `WIP: Synthesize cross-cutting review themes`
+- [x] 2.1: Create `outline/notes/review-synthesis.md` grouping all feedback by theme with cross-references to FB-IDs
+- [x] 2.2: Commit synthesis — `WIP: Synthesize cross-cutting review themes`
 
 ## Phase 3: Revise Outline Sections
 
@@ -142,7 +142,7 @@ Once outline revisions are reviewed and approved, integrate revised prose into `
 
 ## Progress
 
-**Completed**: 4/18
+**Completed**: 6/18
 
 ---
 
