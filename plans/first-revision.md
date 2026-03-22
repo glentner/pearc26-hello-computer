@@ -127,11 +127,11 @@ Once outline revisions are reviewed and approved, integrate revised prose into `
 
 ### Tasks
 
-- [ ] 4.1: Update all LaTeX sections from revised outline drafts
-- [ ] 4.2: Update acknowledgment section — reflect Claude 4.6 and agent-first framing
-- [ ] 4.3: Verify `make build` succeeds
-- [ ] 4.4: Check page budget in both single-column and dual-column formats
-- [ ] 4.5: Commit integration — `WIP: Second integration from revised outline`
+- [x] 4.1: Update all LaTeX sections from revised outline drafts
+- [x] 4.2: Update acknowledgment section — reflect Claude 4.6 and agent-first framing
+- [x] 4.3: Verify `make build` succeeds (5 pages single-column, 3 pages dual-column)
+- [x] 4.4: Check page budget in both single-column and dual-column formats
+- [x] 4.5: Commit integration — `WIP: Second integration from revised outline`
 
 ## Phase 5: Housekeeping
 
@@ -142,7 +142,7 @@ Once outline revisions are reviewed and approved, integrate revised prose into `
 
 ## Progress
 
-**Completed**: 13/18
+**Completed**: 18/20
 
 ---
 

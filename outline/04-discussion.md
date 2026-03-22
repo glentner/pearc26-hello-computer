@@ -69,7 +69,7 @@ expert prompts themselves.
 ### Draft
 
 Neo's instant kung fu download is a fantasy that dies hard. Users sometimes expect AI
-to make them instant experts, to transform a novice
+to make them instant experts, to transform a novice into an HPC specialist through
 conversation alone. The reality is more nuanced: AI makes you faster at what you already
 understand, not expert at what you don't.
 
