@@ -23,8 +23,8 @@ actual_words: ~150
 
 Large language models have evolved from curiosity to co-pilot in under four years. With the
 emergence of agentic AI systems that reason, plan, and execute multi-step tasks
-autonomously, HPC centers face a new category of user need: researchers want these tools
-integrated into their workflows, not merely tolerated. This paper offers a practitioner's
+autonomously, HPC centers face a new category of user need: researchers expect these
+tools to be supported, not just permitted.
 perspective from Purdue's Rosen Center for Advanced Computing (RCAC), where we have begun
 deploying system-wide configurations, custom MCP servers, and user guidance for agentic
 tools. As a demonstration, every word of this manuscript was produced through an agent-first
