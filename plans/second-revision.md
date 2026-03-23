@@ -132,7 +132,7 @@ stored prompts that split integration from auditing.
 
 ### Tasks
 
-- [ ] 5.1: **First pass** — delta-based LaTeX integration per `prompts/latex_integration_first_pass.md`
+- [x] 5.1: **First pass** — delta-based LaTeX integration per `prompts/latex_integration_first_pass.md`
 - [ ] 5.2: **Second pass** — cold-read fidelity audit per `prompts/latex_integration_second_pass.md`
 - [ ] 5.3: Verify `make build` succeeds
 - [ ] 5.4: Check page budget — investigate single-column vs. dual-column submission format
@@ -147,7 +147,7 @@ stored prompts that split integration from auditing.
 
 ## Progress
 
-**Completed**: 11/19
+**Completed**: 12/19
 
 ---
 
