@@ -128,11 +128,10 @@ run shell commands, edit code, and iterate toward solutions with increasing
 sophistication. HPC centers now face a question with no precedent in our field: how do
 we engage with tools that can, in some cases, do our jobs faster than we can?
 
-\paragraph{Mostly Harmless}
+\subsection{Mostly Harmless}
 
 \emph{The Hitchhiker's Guide to the Galaxy} famously summarized Earth in two words:
 ``Mostly Harmless.'' We adopt this as our working hypothesis for agentic AI in HPC.
-
 Our assessment at Purdue's Rosen Center for Advanced Computing (RCAC) is that these
 tools are, in fact, mostly harmless. Frontier AI systems follow instructions more
 reliably than many users do: they respect queue policies, observe resource limits, and
@@ -140,7 +139,6 @@ avoid dangerous operations when properly configured. The greater risk lies in
 disengagement. A graduate student debugging a CUDA kernel at 2~AM will reach for ChatGPT
 whether or not we endorse it. If we don't shape the context in which that interaction
 occurs, we leave both the student and the cluster exposed to preventable mistakes.
-
 We chose proactive engagement. We use these tools ourselves, daily, so that we have
 visceral understanding of their capabilities and limitations. This paper is itself a
 product of that practice: an agent-first workflow comprising rules files, session logs,
@@ -204,11 +202,9 @@ Control Program, though the naming coincidence feels appropriate): RCAC-MCP, whi
 exposes Slurm operations, filesystem navigation, and cluster-specific tools like
 \texttt{myquota} and \texttt{jobinfo}; and Globus-MCP, which provides agentic data
 transfers between storage endpoints. Both are publicly available on GitHub.
-
 Both servers implement a local-first architecture (Figure~1). The MCP server runs as
-a subprocess
-of the user's IDE, communicating via stdin/stdout. Commands execute remotely through
-the user's existing SSH configuration: no new credentials, no hosted infrastructure,
+a subprocess of the user's IDE, communicating via stdin/stdout. Commands execute remotely 
+through the user's existing SSH configuration: no new credentials, no hosted infrastructure,
 no additional attack surface. If you can SSH to the cluster, your agent can too. For
 environments requiring centralized control, we also support hosted deployment with
 JWT/OIDC authentication and identity delegation.
@@ -223,7 +219,7 @@ HPC ecosystem: powerful, useful, and requiring appropriate guidance.
 
 \section{Discussion}
 
-\paragraph{``I'm Sorry, Dave'' (User Support)}
+\subsection{``I'm Sorry, Dave'' (User Support)}
 
 The support dynamic is shifting. Users increasingly arrive at our help desk having already
 consulted an AI, sometimes with correct solutions, sometimes with confident hallucinations.
@@ -235,7 +231,7 @@ understanding the constraints of a particular environment. The solution isn't to
 with AI for first response; it's to ensure the AI has the context to respond correctly.
 Hence our investment in system prompts and MCP servers that know our clusters.
 
-\paragraph{``Tea, Earl Grey, Hot'' (Context Engineering)}
+\subsection{``Tea, Earl Grey, Hot'' (Context Engineering)}
 
 Captain Picard never asked the replicator for ``a beverage.'' He specified exactly what
 he wanted: ``Tea, Earl Grey, hot.'' Effective use of agentic AI demands similar precision,
@@ -251,7 +247,7 @@ Gautschi cluster using my lab's allocation'' succeeds. System-wide configuration
 provide the foundation, but users still bring the domain specificity that makes each
 interaction productive.
 
-\paragraph{``I Know Kung Fu'' (User Expectations)}
+\subsection{``I Know Kung Fu'' (User Expectations)}
 
 Neo's instant kung fu download is a fantasy that dies hard. Users sometimes expect AI
 to make them instant experts, to transform a novice into an HPC specialist through
@@ -264,7 +260,7 @@ accelerate your learning, not to bypass it. Ask it to explain \emph{why}, not ju
 \emph{what}.
 The goal is augmented expertise, not outsourced understanding.
 
-\paragraph{``The Answer is 42'' (AI Outcomes)}
+\subsection{``The Answer is 42'' (AI Outcomes)}
 
 Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
 was correct. The question was wrong. We've experienced both extremes: an agent that
@@ -276,7 +272,7 @@ software development~\cite{godoy2024llm}. Verification isn't optional; it's the 
 competency that separates productive use from cargo cult computing. The answer may be
 42, but only if you asked the right question.
 
-\paragraph{``Don't Cross the Streams'' (Cautionary Notes)}
+\subsection{``Don't Cross the Streams'' (Cautionary Notes)}
 
 Egon's warning about crossing the streams applies to agentic AI in HPC: some combinations
 are dangerous. An agent with shell access can \texttt{rm -rf} a project directory. An
@@ -324,10 +320,9 @@ community to join us.
 %% Acknowledgments
 %%
 \begin{acks}
-This work was supported by the Rosen Center for Advanced Computing (RCAC) at Purdue University.
-
 \textbf{Use of Generative AI.}
 In accordance with ACM policy, we disclose that this manuscript was produced through an agent-first workflow using Claude 4.6 Opus (Anthropic) via the Warp agentic development environment. AI agents performed research, drafting, revision, and project organization under human direction. All content was reviewed, verified, and approved by the human authors, who take full responsibility for the work.
+This work was supported by the Rosen Center for Advanced Computing (RCAC) at Purdue University.
 \end{acks}
 
 %%
