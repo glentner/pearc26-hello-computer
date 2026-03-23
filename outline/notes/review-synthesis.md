@@ -5,6 +5,7 @@ sources:
   - outline/notes/review-feedback-part3.md
   - outline/notes/review-feedback-phase2.md
 total_items: 78
+phase4_status: complete
 ---
 
 # Review Synthesis: Cross-Cutting Themes
@@ -55,7 +56,7 @@ introduction is great." No further action needed.
 
 ---
 
-## Theme 3: "Tea, Earl Grey, Hot" — closing imbalance [MUST-FIX]
+## Theme 3: "Tea, Earl Grey, Hot" — closing imbalance [RESOLVED]
 
 **FB-IDs**: FB-3.17, FB-3.18, **FB-P2.15**, **FB-P2.16**
 **Sections**: Discussion ("Tea, Earl Grey, Hot" subsection)
@@ -77,13 +78,14 @@ first draft") but identified two new problems:
    as API billing rather than context window management (the 200K-token
    window, staying in the 30–60% sweet spot). Needs clarification.
 
-**Revision action**: Rebalance both closing sentences to convey
-partnership rather than effortless magic. Clarify or replace "token
-budgets" to unambiguously mean context window management.
+**Phase 4 status**: ✅ Addressed in third draft. Closing rebalanced to
+partnership framing: "System-wide configurations provide the foundation,
+but users still bring the domain specificity." "Token budgets" replaced
+with "context window capacity." No further action needed.
 
 ---
 
-## Theme 4: "Don't Cross the Streams" — add user confirmation [SHOULD-FIX]
+## Theme 4: "Don't Cross the Streams" — add user confirmation [RESOLVED]
 
 **FB-IDs**: FB-3.21, FB-3.22, **FB-P2.21**, FB-P2.22
 **Sections**: Discussion ("Don't Cross the Streams" subsection)
@@ -99,8 +101,10 @@ tools support user confirmation for destructive actions as an
 out-of-the-box mitigation. Keep it light — acknowledge both the safety
 benefit and the "consenting adults" principle. Don't over-prescribe.
 
-**Revision action**: Add a brief mention of user confirmation for
-destructive actions. Otherwise keep as-is.
+**Phase 4 status**: ✅ Addressed in third draft. Added: "Most agentic
+tools also support user confirmation for destructive actions out of
+the box, providing an additional safety net." Light touch as requested.
+No further action needed.
 
 ---
 
@@ -165,7 +169,7 @@ appeared. No further action needed.
 
 ---
 
-## Theme 9: Paragraph structure / vertical space [ACTIVE]
+## Theme 9: Paragraph structure / vertical space [PARTIALLY RESOLVED]
 
 **FB-IDs**: FB-1.09, FB-3.07, FB-3.13, FB-3.15, **FB-P2.18**, **FB-P2.24**
 **Sections**: Introduction, Approach, Discussion
@@ -179,14 +183,16 @@ were partially addressed in the second draft.
 - FB-P2.24: Page budget remains critical (4-page limit, currently 5
   pages with references)
 
-**Revision action**:
-1. Merge "I Know Kung Fu" paragraphs (FB-P2.18)
-2. Continue economizing vertical space throughout
-3. Investigate single-column vs. dual-column submission format
+**Phase 4 status**: ✅ "I Know Kung Fu" paragraphs merged into one
+(FB-P2.18). Vertical space economized throughout Phase 4 revisions.
+
+**Remaining (Phase 5)**: Page budget investigation (FB-P2.24) —
+single-column vs. dual-column format still awaiting committee guidance.
+Will be assessed during Phase 5 integration (task 5.4).
 
 ---
 
-## Theme 10: "The Answer is 42" — false claim [MUST-FIX]
+## Theme 10: "The Answer is 42" — false claim [RESOLVED]
 
 **FB-IDs**: FB-3.20, **FB-P2.20**
 **Sections**: Discussion ("The Answer is 42" subsection)
@@ -201,15 +207,14 @@ individual references + 1 wrap-up), totaling ~8 hours. Each reference
 consumed an entire 200K-token context window in a deliberate agentic
 loop with fresh sessions (`/new`) and continuation prompts.
 
-**Revision action**: Replace "in one session" with accurate
-characterization (multi-session agentic loop, ~15 context windows,
-~8 hours). The positive example should still contrast with the
-negative (wrong Slurm commands) but must be truthful. Also tighten
-the middle as originally flagged in Phase 1.
+**Phase 4 status**: ✅ Addressed in third draft. Replaced with accurate
+characterization: "fifteen context windows over eight hours of deliberate
+prompting." Prose tightened. Positive/negative contrast preserved.
+No further action needed.
 
 ---
 
-## Theme 11: Approach section updates [MUST-FIX]
+## Theme 11: Approach section updates [RESOLVED]
 
 **FB-IDs**: FB-2.07, FB-2.08, FB-2.09, FB-3.14, FB-3.15, **FB-P2.09**, **FB-P2.10**, **FB-P2.12**
 **Sections**: Approach (all subsections)
@@ -228,12 +233,10 @@ were partially addressed. Phase 2 found remaining issues:
 - **FB-P2.12**: Section 3.2 first paragraph could reflow to introduce
   RCAC-MCP and Globus-MCP more cleanly as a pair.
 
-**Revision action**:
-1. Remove tool enumeration from 3.1 opening (FB-P2.09)
-2. Replace `sinteractive` example (FB-P2.10)
-3. Reflow 3.2 opening paragraph (FB-P2.12)
-4. Keep closing sentence verbatim: "The agent absorbs the cluster's
-   policies before the user asks their first question" (FB-P2.11)
+**Phase 4 status**: ✅ All addressed in third draft. Tool enumeration
+removed from 3.1 (now "Modern agentic tools"). `sinteractive` replaced
+with `sbatch`. 3.2 reflows RCAC-MCP and Globus-MCP as a clean pair.
+Closing sentence preserved verbatim per FB-P2.11. No further action needed.
 
 ---
 
@@ -252,7 +255,7 @@ action needed.
 
 ---
 
-## Theme 13: Background — new content tweaks [SHOULD-FIX]
+## Theme 13: Background — new content tweaks [RESOLVED]
 
 **FB-IDs**: FB-1.13, FB-1.14, FB-2.01, FB-3.11, FB-3.12, **FB-P2.05**, **FB-P2.06**, **FB-P2.07**, FB-P2.08
 **Sections**: Background
@@ -273,9 +276,11 @@ However, Phase 2 identified three issues in the **closing paragraph**:
 3. **Quote "stands at a crossroads"** (FB-P2.07). Add quotation marks
    to attribute the phrase more clearly to Deelman et al.
 
-**Revision action**: Soften closing sentence, swap "capabilities" →
-"systems," add quotes around "stands at a crossroads." First three
-paragraphs unchanged.
+**Phase 4 status**: ✅ All addressed in third draft. Closing softened to
+"how centers choose to engage will define the experience for researchers
+and facilitators alike." "AI systems" in Genesis sentence. "stands at a
+crossroads" properly quoted. First three paragraphs unchanged as
+approved. No further action needed.
 
 ---
 
@@ -295,7 +300,7 @@ conclusion. Fully resolved.
 
 ---
 
-## Theme 15: Abstract "not merely tolerated" [MUST-FIX] (NEW)
+## Theme 15: Abstract "not merely tolerated" [RESOLVED]
 
 **FB-IDs**: **FB-P2.01**
 **Sections**: Abstract
@@ -307,14 +312,13 @@ stumbles over the punctuation and the negation. The intent is correct
 (users want real integration, not grudging tolerance) but the
 construction needs workshopping.
 
-**Revision action**: Find a stronger, smoother phrasing that conveys
-the same intent. This was flagged as a must-fix in the plan's resolved
-questions ("will workshop alternative phrasing during Phase 4
-revision").
+**Phase 4 status**: ✅ Addressed in third draft. Replaced with
+"researchers expect these tools to be supported, not just permitted."
+Cleaner construction, same intent. No further action needed.
 
 ---
 
-## Theme 16: Section title parentheticals [SHOULD-FIX] (NEW)
+## Theme 16: Section title parentheticals [RESOLVED]
 
 **FB-IDs**: **FB-P2.03**
 **Sections**: All pop-culture section headings (Discussion subsections)
@@ -328,10 +332,10 @@ pun to anchor the reader:
 - "The Answer is 42" (AI Outcomes)
 - "Don't Cross the Streams" (Cautionary Notes)
 
-**Revision action**: Add `"Title" (Descriptor)` format to all
-pop-culture section headings across outline files. "Shall We Play a
-Game?" and "Mostly Harmless" in the introduction, and "End of Line"
-in the conclusion, may also benefit.
+**Phase 4 status**: ✅ All five Discussion subsection titles updated
+with parenthetical descriptors in the outline files. Introduction and
+conclusion titles left as-is (optional per original feedback).
+No further action needed.
 
 ---
 
@@ -372,32 +376,30 @@ in both formats, figure references, no dropped or added content.
 
 ## Revision priority by section (Third Draft)
 
-For Phase 4 revisions, address these items per section. Only
-active/unresolved themes are listed.
+✅ **All Phase 4 revisions complete.** Summary of changes per section:
 
 **Abstract** (00-abstract.md):
-- Theme 15: Workshop "not merely tolerated" alternative (FB-P2.01)
-- No other changes — approved as strong
+- ~~Theme 15: Workshop "not merely tolerated" alternative~~ → ✅ Replaced with "supported, not just permitted"
 
 **Introduction** (01-introduction.md):
-- No changes — approved as "great" in Phase 2
+- No changes needed — approved as "great" in Phase 2 ✅
 
 **Background** (02-background.md):
-- Theme 13: Soften closing (FB-P2.05), "capabilities" → "systems" (FB-P2.06), quote "stands at a crossroads" (FB-P2.07)
+- ~~Theme 13: Soften closing, word choice, quote attribution~~ → ✅ All three items addressed
 
 **Approach** (03-approach.md):
-- Theme 11: Remove tool list from 3.1 (FB-P2.09), replace `sinteractive` (FB-P2.10), reflow 3.2 opening (FB-P2.12)
+- ~~Theme 11: Remove tool list, replace sinteractive, reflow 3.2~~ → ✅ All three items addressed
 
 **Discussion** (04-discussion.md):
-- Theme 3: Rebalance Tea/Earl Grey closings (FB-P2.15), clarify token budgets (FB-P2.16)
-- Theme 10: Fix false "one session" claim (FB-P2.20), tighten prose
-- Theme 9: Merge "I Know Kung Fu" paragraphs (FB-P2.18)
-- Theme 4: Add user confirmation mention (FB-P2.21)
-- Theme 16: Add parenthetical labels to all subsection titles (FB-P2.03)
+- ~~Theme 3: Rebalance Tea/Earl Grey closings, clarify token budgets~~ → ✅ Partnership framing, "context window capacity"
+- ~~Theme 10: Fix false "one session" claim~~ → ✅ "fifteen context windows over eight hours"
+- ~~Theme 9: Merge "I Know Kung Fu" paragraphs~~ → ✅ Merged into single paragraph
+- ~~Theme 4: Add user confirmation mention~~ → ✅ Added
+- ~~Theme 16: Add parenthetical labels~~ → ✅ All five subsections labeled
 
 **Conclusion** (05-conclusion.md):
-- No changes — approved as "super powerful" in Phase 2
+- No changes needed — approved as "super powerful" in Phase 2 ✅
 
-**All sections**:
-- Theme 16: Add parenthetical labels where applicable (FB-P2.03)
-- Theme 17: LaTeX fidelity audit during Phase 5 integration (FB-P2.25)
+**Remaining for Phase 5**:
+- Theme 9 (partial): Page budget investigation — single-column vs. dual-column (FB-P2.24)
+- Theme 17: LaTeX fidelity audit during integration (FB-P2.25)
