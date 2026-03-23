@@ -132,6 +132,7 @@ we engage with tools that can, in some cases, do our jobs faster than we can?
 
 \emph{The Hitchhiker's Guide to the Galaxy} famously summarized Earth in two words:
 ``Mostly Harmless.'' We adopt this as our working hypothesis for agentic AI in HPC.
+
 Our assessment at Purdue's Rosen Center for Advanced Computing (RCAC) is that these
 tools are, in fact, mostly harmless. Frontier AI systems follow instructions more
 reliably than many users do: they respect queue policies, observe resource limits, and
@@ -172,7 +173,7 @@ MCP~\cite{openai2025mcp}; by December, Anthropic donated it to the Linux Foundat
 Agentic AI Foundation, with over 10,000 active public servers~\cite{anthropic2025aaif}.
 
 For HPC, this convergence is consequential. Deelman et al.\ argue that high-performance
-computing stands ``at a crossroads''~\cite{deelman2025hpc}.
+computing stands ``at a crossroads''~\cite{deelman2025hpc}. The Genesis Mission executive
 order (November 2025) charges DOE with uniting national laboratories, supercomputers, and
 AI systems for scientific discovery~\cite{whitehouse2025genesis}. The question is no
 longer whether AI will integrate with HPC workflows, but how, and how centers choose to
@@ -269,7 +270,7 @@ Deep Thought computed the answer to Life, the Universe, and Everything: 42. The 
 was correct. The question was wrong. We've experienced both extremes: an agent that
 built our thirteen-source annotated bibliography across fifteen context windows over
 eight hours of deliberate prompting, and the same agent confidently generating Slurm
-commands for schedulers we don't use.
+commands for schedulers we don't use. Plausible output
 requiring expert verification is consistent with recent evaluations of LLMs for HPC
 software development~\cite{godoy2024llm}. Verification isn't optional; it's the core
 competency that separates productive use from cargo cult computing. The answer may be
@@ -299,7 +300,7 @@ outcomes, because reproducibility in AI-assisted research remains an open questi
 We began this paper with a question: how should HPC centers engage with tools that can, in
 some cases, outperform us at our own jobs? Our answer has been proactive engagement, not
 prohibition.
-At RCAC, we are building the infrastructure to make agentic AI a first-class citizen of the
+At RCAC, we're building the infrastructure to make agentic AI a first-class citizen of the
 HPC ecosystem: system-wide configurations that expose cluster metadata, MCP servers that
 provide contextual help, and documentation that prepares users for both the capabilities
 and limitations of these tools. This work is early. We don't yet know what patterns will
