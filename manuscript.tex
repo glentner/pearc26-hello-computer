@@ -114,7 +114,6 @@ million, the fastest-growing consumer application in
 history~\cite{openai2022chatgpt}. The inflection point was not the technology itself
 but its sudden public accessibility: for the first time, anyone could converse with a
 frontier language model.
-
 For those of us supporting researchers on high-performance computing systems, the
 implications arrived slowly and then all at once. At first, ChatGPT was a curiosity, a
 toy that could write passable Python functions or explain error messages with
@@ -128,7 +127,7 @@ run shell commands, edit code, and iterate toward solutions with increasing
 sophistication. HPC centers now face a question with no precedent in our field: how do
 we engage with tools that can, in some cases, do our jobs faster than we can?
 
-\subsection{Mostly Harmless}
+%% \subsection{Mostly Harmless}
 
 \emph{The Hitchhiker's Guide to the Galaxy} famously summarized Earth in two words:
 ``Mostly Harmless.'' We adopt this as our working hypothesis for agentic AI in HPC.
@@ -183,7 +182,7 @@ Our approach at RCAC combines three complementary strategies: system-wide agent
 configurations, purpose-built MCP servers, and user documentation that acknowledges
 the reality of agentic tool adoption.
 
-\subsection{System-Wide Configurations}
+\paragraph{System-Wide Configurations}
 
 Modern agentic tools look for rules files in well-known
 locations. We deploy cluster-wide configurations through an \texttt{/etc/agents.d}
@@ -195,21 +194,21 @@ login nodes, don't store sensitive data in world-readable locations, don't submi
 without time limits. The agent absorbs the cluster's policies before the user asks
 their first question.
 
-\subsection{MCP Servers}
+\paragraph{MCP Servers}
 
 We developed two purpose-built MCP servers (the Model Context Protocol, not the Master
 Control Program, though the naming coincidence feels appropriate): RCAC-MCP, which
 exposes Slurm operations, filesystem navigation, and cluster-specific tools like
 \texttt{myquota} and \texttt{jobinfo}; and Globus-MCP, which provides agentic data
 transfers between storage endpoints. Both are publicly available on GitHub.
-Both servers implement a local-first architecture (Figure~1). The MCP server runs as
+Both servers implement a local-first architecture. The MCP server runs as
 a subprocess of the user's IDE, communicating via stdin/stdout. Commands execute remotely 
 through the user's existing SSH configuration: no new credentials, no hosted infrastructure,
 no additional attack surface. If you can SSH to the cluster, your agent can too. For
 environments requiring centralized control, we also support hosted deployment with
 JWT/OIDC authentication and identity delegation.
 
-\subsection{Documentation and Guidance}
+\paragraph{Documentation and Guidance}
 
 Perhaps most importantly, we updated our user documentation to address agentic tools
 directly. We don't pretend they don't exist or discourage their use. We explain what
@@ -219,7 +218,7 @@ HPC ecosystem: powerful, useful, and requiring appropriate guidance.
 
 \section{Discussion}
 
-\subsection{``I'm Sorry, Dave'' (User Support)}
+\paragraph{``I'm Sorry, Dave'' (User Support)}
 
 The support dynamic is shifting. Users increasingly arrive at our help desk having already
 consulted an AI, sometimes with correct solutions, sometimes with confident hallucinations.
@@ -231,7 +230,7 @@ understanding the constraints of a particular environment. The solution isn't to
 with AI for first response; it's to ensure the AI has the context to respond correctly.
 Hence our investment in system prompts and MCP servers that know our clusters.
 
-\subsection{``Tea, Earl Grey, Hot'' (Context Engineering)}
+\paragraph{``Tea, Earl Grey, Hot'' (Context Engineering)}
 
 Captain Picard never asked the replicator for ``a beverage.'' He specified exactly what
 he wanted: ``Tea, Earl Grey, hot.'' Effective use of agentic AI demands similar precision,
@@ -247,7 +246,7 @@ Gautschi cluster using my lab's allocation'' succeeds. System-wide configuration
 provide the foundation, but users still bring the domain specificity that makes each
 interaction productive.
 
-\subsection{``I Know Kung Fu'' (User Expectations)}
+\paragraph{``I Know Kung Fu'' (User Expectations)}
 
 Neo's instant kung fu download is a fantasy that dies hard. Users sometimes expect AI
 to make them instant experts, to transform a novice into an HPC specialist through
@@ -260,26 +259,25 @@ accelerate your learning, not to bypass it. Ask it to explain \emph{why}, not ju
 \emph{what}.
 The goal is augmented expertise, not outsourced understanding.
 
-\subsection{``The Answer is 42'' (AI Outcomes)}
+%% \paragraph{``The Answer is 42'' (AI Outcomes)}
+%% 
+%% Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
+%% was correct. The question was wrong. We've experienced both extremes: an agent that
+%% built our thirteen-source annotated bibliography across fifteen context windows over
+%% eight hours of deliberate prompting, and the same agent confidently generating Slurm
+%% commands for schedulers we don't use. Plausible output
+%% requiring expert verification is consistent with recent evaluations of LLMs for HPC
+%% software development~\cite{godoy2024llm}. Verification isn't optional; it's the core
+%% competency that separates productive use from cargo cult computing. The answer may be
+%% 42, but only if you asked the right question.
 
-Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
-was correct. The question was wrong. We've experienced both extremes: an agent that
-built our thirteen-source annotated bibliography across fifteen context windows over
-eight hours of deliberate prompting, and the same agent confidently generating Slurm
-commands for schedulers we don't use. Plausible output
-requiring expert verification is consistent with recent evaluations of LLMs for HPC
-software development~\cite{godoy2024llm}. Verification isn't optional; it's the core
-competency that separates productive use from cargo cult computing. The answer may be
-42, but only if you asked the right question.
-
-\subsection{``Don't Cross the Streams'' (Cautionary Notes)}
+\paragraph{``Don't Cross the Streams'' (Cautionary Notes)}
 
 Egon's warning about crossing the streams applies to agentic AI in HPC: some combinations
 are dangerous. An agent with shell access can \texttt{rm -rf} a project directory. An
 agent managing job submissions can exhaust an allocation in hours. An agent reading
 environment variables might log API keys to a context window that persists beyond the
 session.
-
 But these risks are not new. Users have always been capable of destroying their own data,
 exhausting their allocations, and exposing credentials. Mature HPC centers already build
 confinement: cgroups to isolate resources, node health checks, root-squashed filesystems,
@@ -293,15 +291,6 @@ outcomes, because reproducibility in AI-assisted research remains an open questi
 
 \section{End of Line}
 
-We began this paper with a question: how should HPC centers engage with tools that can, in
-some cases, outperform us at our own jobs? Our answer has been proactive engagement, not
-prohibition.
-At RCAC, we're building the infrastructure to make agentic AI a first-class citizen of the
-HPC ecosystem: system-wide configurations that expose cluster metadata, MCP servers that
-provide contextual help, and documentation that prepares users for both the capabilities
-and limitations of these tools. This work is early. We don't yet know what patterns will
-emerge, what pitfalls await, or how dramatically these tools will reshape our profession.
-
 As a meta-demonstration, this paper was itself produced through an agent-first workflow.
 No prose was written by hand. Human authors defined rules, curated references, reviewed
 transcripts, and guided iterative revision; AI agents executed the research, planning,
@@ -310,10 +299,19 @@ logs, and planning documents, is available in the accompanying GitHub
 repository.\footnote{\url{https://github.com/glentner/pearc26-hello-computer}} The
 methodology itself may be a contribution worth exploring.
 
+We began this paper with a question: how should HPC centers engage with tools that can, in
+some cases, outperform us at our own jobs? Our answer has been proactive engagement, not
+prohibition.
+At RCAC, we're building the infrastructure to make agentic AI a first-class citizen of the
+HPC ecosystem. 
+%% :system-wide configurations that expose cluster metadata, MCP servers that
+%% provide contextual help, and documentation that prepares users for both the capabilities
+%% and limitations of these tools. 
+This work is early. We don't yet know what patterns will
+emerge, what pitfalls await, or how dramatically these tools will reshape our profession.
 The agentic era has arrived. HPC facilitators who engage early will shape its trajectory;
 those who wait may find themselves shaped by it. We choose engagement, and we invite the
 community to join us.
-
 \emph{End of line.}
 
 %%
@@ -321,8 +319,11 @@ community to join us.
 %%
 \begin{acks}
 \textbf{Use of Generative AI.}
-In accordance with ACM policy, we disclose that this manuscript was produced through an agent-first workflow using Claude 4.6 Opus (Anthropic) via the Warp agentic development environment. AI agents performed research, drafting, revision, and project organization under human direction. All content was reviewed, verified, and approved by the human authors, who take full responsibility for the work.
-This work was supported by the Rosen Center for Advanced Computing (RCAC) at Purdue University.
+In accordance with ACM policy, we disclose that this manuscript was produced through an agent-first workflow. 
+%% using Claude 4.6 Opus (Anthropic) via the Warp agentic development environment. 
+AI agents performed research, drafting, revision, and project organization under human direction. 
+All content was reviewed, verified, and approved by the human authors, who take full responsibility for the work.
+%% This work was supported by the Rosen Center for Advanced Computing (RCAC) at Purdue University.
 \end{acks}
 
 %%
