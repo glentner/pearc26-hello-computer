@@ -126,12 +126,14 @@ Revision order follows the paper's flow:
 ## Phase 5: Third Integration
 
 Once outline revisions are reviewed and approved, integrate revised prose into
-`manuscript.tex` and rebuild.
+`manuscript.tex` and rebuild. To avoid the failure modes from prior integrations
+(dropped citations, heading mismatches, compounded errors), this phase uses two
+stored prompts that split integration from auditing.
 
 ### Tasks
 
-- [ ] 5.1: Update all LaTeX sections from revised outline drafts
-- [ ] 5.2: Audit outline → LaTeX fidelity (citations present in both, prose matches)
+- [ ] 5.1: **First pass** — delta-based LaTeX integration per `prompts/latex_integration_first_pass.md`
+- [ ] 5.2: **Second pass** — cold-read fidelity audit per `prompts/latex_integration_second_pass.md`
 - [ ] 5.3: Verify `make build` succeeds
 - [ ] 5.4: Check page budget — investigate single-column vs. dual-column submission format
 - [ ] 5.5: Commit — `WIP: Third integration from revised outline`
