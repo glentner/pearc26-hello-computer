@@ -9,7 +9,7 @@
 
 %% For initial submission, use [manuscript] per PEARC guidelines.
 %% For camera-ready, switch to [sigconf].
-\documentclass[manuscript]{acmart}
+\documentclass[sigconf]{acmart}
 
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
@@ -113,6 +113,7 @@ million, the fastest-growing consumer application in
 history~\cite{openai2022chatgpt}. The inflection point was not the technology itself
 but its sudden public accessibility: for the first time, anyone could converse with a
 frontier language model.
+
 For those of us supporting researchers on high-performance computing systems, the
 implications arrived slowly and then all at once. At first, ChatGPT was a curiosity, a
 toy that could write passable Python functions or explain error messages with
@@ -181,7 +182,7 @@ Our approach at RCAC combines three complementary strategies: system-wide agent
 configurations, purpose-built MCP servers, and user documentation that acknowledges
 the reality of agentic tool adoption.
 
-\paragraph{System-Wide Configurations}
+\subsection{System-Wide Configurations}
 
 Modern agentic tools look for rules files in well-known
 locations. We deploy cluster-wide configurations through an \texttt{/etc/agents.d}
@@ -193,7 +194,7 @@ login nodes, don't store sensitive data in world-readable locations, don't submi
 without time limits. The agent absorbs the cluster's policies before the user asks
 their first question.
 
-\paragraph{MCP Servers}
+\subsection{MCP Servers}
 
 We developed two purpose-built MCP servers (the Model Context Protocol, not the Master
 Control Program, though the naming coincidence feels appropriate): RCAC-MCP, which
@@ -207,7 +208,7 @@ no additional attack surface. If you can SSH to the cluster, your agent can too.
 environments requiring centralized control, we also support hosted deployment with
 JWT/OIDC authentication and identity delegation.
 
-\paragraph{Documentation and Guidance}
+\subsection{Documentation and Guidance}
 
 Perhaps most importantly, we updated our user documentation to address agentic tools
 directly. We don't pretend they don't exist or discourage their use. We explain what
@@ -217,7 +218,7 @@ HPC ecosystem: powerful, useful, and requiring appropriate guidance.
 
 \section{Discussion}
 
-\paragraph{``I'm Sorry, Dave'' (User Support)}
+\subsection{``I'm Sorry, Dave'' (User Support)}
 
 The support dynamic is shifting. Users increasingly arrive at our help desk having already
 consulted an AI, sometimes with correct solutions, sometimes with confident hallucinations.
@@ -229,7 +230,7 @@ understanding the constraints of a particular environment. The solution isn't to
 with AI for first response; it's to ensure the AI has the context to respond correctly.
 Hence our investment in system prompts and MCP servers that know our clusters.
 
-\paragraph{``Tea, Earl Grey, Hot'' (Context Engineering)}
+\subsection{``Tea, Earl Grey, Hot'' (Context Engineering)}
 
 Captain Picard never asked the replicator for ``a beverage.'' He specified exactly what
 he wanted: ``Tea, Earl Grey, hot.'' Effective use of agentic AI demands similar precision,
@@ -245,7 +246,7 @@ Gautschi cluster using my lab's allocation'' succeeds. System-wide configuration
 provide the foundation, but users still bring the domain specificity that makes each
 interaction productive.
 
-\paragraph{``I Know Kung Fu'' (User Expectations)}
+\subsection{``I Know Kung Fu'' (User Expectations)}
 
 Neo's instant kung fu download is a fantasy that dies hard. Users sometimes expect AI
 to make them instant experts, to transform a novice into an HPC specialist through
@@ -258,19 +259,19 @@ accelerate your learning, not to bypass it. Ask it to explain \emph{why}, not ju
 \emph{what}.
 The goal is augmented expertise, not outsourced understanding.
 
-%% \paragraph{``The Answer is 42'' (AI Outcomes)}
-%% 
-%% Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
-%% was correct. The question was wrong. We've experienced both extremes: an agent that
-%% built our thirteen-source annotated bibliography across fifteen context windows over
-%% eight hours of deliberate prompting, and the same agent confidently generating Slurm
-%% commands for schedulers we don't use. Plausible output
-%% requiring expert verification is consistent with recent evaluations of LLMs for HPC
-%% software development~\cite{godoy2024llm}. Verification isn't optional; it's the core
-%% competency that separates productive use from cargo cult computing. The answer may be
-%% 42, but only if you asked the right question.
+\subsection{``The Answer is 42'' (AI Outcomes)}
 
-\paragraph{``Don't Cross the Streams'' (Cautionary Notes)}
+Deep Thought computed the answer to Life, the Universe, and Everything: 42. The answer
+was correct. The question was wrong. We've experienced both extremes: an agent that
+built our thirteen-source annotated bibliography across fifteen context windows over
+eight hours of deliberate prompting, and the same agent confidently generating Slurm
+commands for schedulers we don't use. Plausible output
+requiring expert verification is consistent with recent evaluations of LLMs for HPC
+software development~\cite{godoy2024llm}. Verification isn't optional; it's the core
+competency that separates productive use from cargo cult computing. The answer may be
+42, but only if you asked the right question.
+
+\subsection{``Don't Cross the Streams'' (Caution)}
 
 Egon's warning about crossing the streams applies to agentic AI in HPC: some combinations
 are dangerous. An agent with shell access can \texttt{rm -rf} a project directory. An
@@ -302,15 +303,15 @@ We began this paper with a question: how should HPC centers engage with tools th
 some cases, outperform us at our own jobs? Our answer has been proactive engagement, not
 prohibition.
 At RCAC, we're building the infrastructure to make agentic AI a first-class citizen of the
-HPC ecosystem. 
-%% :system-wide configurations that expose cluster metadata, MCP servers that
-%% provide contextual help, and documentation that prepares users for both the capabilities
-%% and limitations of these tools. 
+HPC ecosystem: system-wide configurations that expose cluster metadata, MCP servers that
+provide contextual help, and documentation that prepares users for both the capabilities
+and limitations of these tools. 
 This work is early. We don't yet know what patterns will
 emerge, what pitfalls await, or how dramatically these tools will reshape our profession.
 The agentic era has arrived. HPC facilitators who engage early will shape its trajectory;
 those who wait may find themselves shaped by it. We choose engagement, and we invite the
 community to join us.
+
 \emph{End of line.}
 
 %%
@@ -319,10 +320,11 @@ community to join us.
 \begin{acks}
 \textbf{Use of Generative AI.}
 In accordance with ACM policy, we disclose that this manuscript was produced through an agent-first workflow. 
-%% using Claude 4.6 Opus (Anthropic) via the Warp agentic development environment. 
+using Claude 4.6 Opus (Anthropic) via the Warp agentic development environment. 
 AI agents performed research, drafting, revision, and project organization under human direction. 
 All content was reviewed, verified, and approved by the human authors, who take full responsibility for the work.
-%% This work was supported by the Rosen Center for Advanced Computing (RCAC) at Purdue University.
+
+This work was supported by the Rosen Center for Advanced Computing (RCAC) at Purdue University.
 \end{acks}
 
 %%
