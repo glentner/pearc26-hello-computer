@@ -12,17 +12,26 @@ The manuscript is intended as the Author's Accepted Manuscript (AAM) version, su
 
 ## Repository Structure
 
-Per the README, the intended structure is:
-- `src/` - Source code for experiments (not yet created)
-- `data/` - Raw and processed datasets (not yet created)
-- `manuscript/` - LaTeX source files for the paper (currently `manuscript.tex` is at root)
-- `figures/` - Generated plots and diagrams (not yet created)
-- `plans/` - Planning documents from agent sessions
-- `logs/` - Session logs from agent interactions
-- `rules/` - Detailed workflow and documentation rules
-- `tips/` - Discoveries and recommendations for working with agentic tools
+Manuscript and supporting material:
+- `manuscript.tex` - The paper itself (ACM `acmart`, single source file at root)
+- `references.bib` - Bibliography
+- `Makefile`, `.latexmkrc` - Build system (see Build Commands below)
+- `outline/` - Section drafts (`00-abstract.md` through `05-conclusion.md`), research notes, and reusable snippets; the day-to-day working directory before integration into `manuscript.tex`
+- `reviews/` - Multi-phase review documents produced during revision
 
-**Current State**: The repository is in early setup phase with only template files present. The manuscript is currently at root level rather than in a subdirectory.
+Process and history:
+- `plans/` - Planning documents for significant features or revisions
+- `logs/` - Session logs from agent interactions, ISO-timestamped
+- `rules/` - Long-form prose describing project conventions (linked from this file)
+- `tips/` - Discoveries about working with agentic tools
+
+Harness configuration:
+- `.agents/skills/` - Project-scoped skills (the only directory in the repo with harness-aware semantics)
+- `.github/` - GitHub workflows, including `release_pdf.yml` for release-triggered PDF builds
+
+Build output:
+- `build/` - LaTeX build artifacts (gitignored)
+- `lentner-2026-*.pdf` - Release PDFs (gitignored; attached to GitHub releases)
 
 ## Building the Manuscript
 
@@ -61,12 +70,16 @@ The manuscript is configured with:
 
 ## Development Workflow
 
-When adding experiments or code:
-1. Create source code in `src/` directory
-2. Place datasets in `data/` directory
-3. Generate figures/plots to `figures/` directory
-4. Reference figures and results in `manuscript.tex`
-5. If the manuscript grows, consider splitting into multiple `.tex` files in a `manuscript/` subdirectory
+The manuscript is developed as an outline-first markdown drafting loop, with periodic integration into `manuscript.tex`:
+
+1. **Draft in `outline/`**. Each section (`00-abstract.md` through `05-conclusion.md`) is a markdown file with frontmatter (`status`, `target_words`) and a `## Draft` block holding the working prose. Notes and reusable fragments live in `outline/notes/` and `outline/snippets/`.
+2. **Iterate freely**. Markdown avoids LaTeX friction during prose work. Section files keep their `status` field (`draft` → `review` → `integrated`) so the integration step can act on deltas only.
+3. **Plan revisions in `plans/`**. Significant revision passes get a planning document (see `rules/planning_docs.md`).
+4. **Integrate with the LaTeX skills**. Use `/latex-integration-first-pass` to apply outline deltas to `manuscript.tex` (Subphase A), then `/latex-integration-second-pass` for a cold-read fidelity audit (Subphase B). The two-pass split avoids self-confirming errors from a single agent.
+5. **Build and verify**. `make build` produces `build/manuscript.pdf`; `make watch` rebuilds on save during heavy editing.
+6. **Release**. When the manuscript is ready for a tagged version, merge `wip` to `main` and run `/release` to cut a GitHub release (which triggers the `release_pdf.yml` workflow to build and attach the versioned PDF).
+
+Session logs in `logs/` and planning documents in `plans/` capture the trail of *why* changes were made; the manuscript itself is the *what*.
 
 ## Agent Workflow Rules
 
