@@ -65,7 +65,7 @@ WIP: <brief description of change>
 <optional longer description>
 <optional notes about what's incomplete or needs attention>
 
-Co-Authored-By: Warp <agent@warp.dev>
+Co-Authored-By: Oz <oz-agent@warp.dev>
 ```
 
 ### Final Commits (after squashing)
@@ -75,7 +75,7 @@ Co-Authored-By: Warp <agent@warp.dev>
 
 <detailed description of changes>
 
-Co-Authored-By: Warp <agent@warp.dev>
+Co-Authored-By: Oz <oz-agent@warp.dev>
 ```
 
 Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
@@ -91,5 +91,7 @@ Types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
 
 All commits should include the co-author line when work is done with an AI agent:
 ```
-Co-Authored-By: Warp <agent@warp.dev>
+Co-Authored-By: Oz <oz-agent@warp.dev>
 ```
+
+Note: Earlier commits in the project history use `Co-Authored-By: Warp <agent@warp.dev>`. The agent's name in Warp was renamed to "Oz" in 2026; new commits should use the current form. Historical commits are not rewritten.

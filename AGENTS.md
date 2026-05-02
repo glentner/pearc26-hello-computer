@@ -77,7 +77,12 @@ Detailed rules for agent interactions are documented in the `rules/` directory:
 - **[rules/planning_docs.md](rules/planning_docs.md)** - Guidelines for planning documents in `plans/`
 - **[rules/structural_docs.md](rules/structural_docs.md)** - Keep structural documents (READMEs, indexes) in sync
 - **[rules/file_deletion.md](rules/file_deletion.md)** - Use `del` instead of `rm` for file cleanup
-- **[tips/](tips/)** - Discoveries about agentic tools (see `tips/warp-conversation-history.md`)
+
+Discoveries about working with agentic tools live in `tips/`:
+
+- **[tips/warp-conversation-history.md](tips/warp-conversation-history.md)** - Recovering verbatim user inputs from Warp's local SQLite store
+- **[tips/agent-text-editing-pitfalls.md](tips/agent-text-editing-pitfalls.md)** - Common diff-truncation failure modes during prose edits
+- **[tips/long-horizon-tasks.md](tips/long-horizon-tasks.md)** - Structured-memory pattern for multi-session work
 
 ### Skills
 
@@ -93,7 +98,7 @@ Project-specific skills live in `.agents/skills/<skill-name>/SKILL.md` and are a
 - Log all sessions that modify files to `logs/` with ISO timestamps
 - **ALWAYS** capture verbatim user input in session log frontmatter (`user_input` field)
 - Create planning docs in `plans/` for significant features
-- Include `Co-Authored-By: Warp <agent@warp.dev>` in commits
+- Include `Co-Authored-By: Oz <oz-agent@warp.dev>` in commits
 
 ## Citation Information
 
