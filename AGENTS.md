@@ -79,9 +79,13 @@ Detailed rules for agent interactions are documented in the `rules/` directory:
 - **[rules/file_deletion.md](rules/file_deletion.md)** - Use `del` instead of `rm` for file cleanup
 - **[tips/](tips/)** - Discoveries about agentic tools (see `tips/warp-conversation-history.md`)
 
-### Stored Prompts
+### Skills
 
-- **`/release`** - Create a GitHub release from `main` branch (triggers PDF build via CI)
+Project-specific skills live in `.agents/skills/<skill-name>/SKILL.md` and are auto-discovered by Warp.
+
+- **`/release`** — Create a GitHub release from `main` branch (triggers PDF build via CI)
+- **`/latex-integration-first-pass`** — Delta-based integration of revised outline prose into `manuscript.tex` (Subphase A)
+- **`/latex-integration-second-pass`** — Cold-read fidelity audit comparing outline drafts against integrated `manuscript.tex` (Subphase B)
 
 ### Quick Reference
 

@@ -1,3 +1,8 @@
+---
+name: release
+description: Create a new GitHub release for this repository, triggering the PDF build workflow. Invoke when the user asks to cut a release, tag a version, or publish the manuscript PDF.
+---
+
 # Release
 
 Create a new GitHub release for this repository.

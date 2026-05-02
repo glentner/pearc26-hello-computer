@@ -1,3 +1,8 @@
+---
+name: latex-integration-first-pass
+description: Delta-based integration of revised outline prose into manuscript.tex. Use when executing Subphase A of an integration phase (e.g., task 5.1 of plans/second-revision.md), before any fidelity audit. Companion to latex-integration-second-pass.
+---
+
 # LaTeX Integration — First Pass (Subphase A)
 
 ## Purpose
@@ -8,17 +13,17 @@ Previous integrations suffered from three failure modes: (1) citations exist in
 the LaTeX but not the outline markdown, so regenerating from scratch drops them;
 (2) markdown heading levels don't map 1:1 to LaTeX commands (`\subsection` vs
 `\paragraph`); (3) combining prose conversion and fidelity checking in one step
-compounds errors. This prompt addresses mode (1) and (2) by working diff-style
+compounds errors. This skill addresses mode (1) and (2) by working diff-style
 with an explicit heading map. Mode (3) is handled by separating the audit into
-`prompts/latex_integration_second_pass.md`.
+the `latex-integration-second-pass` skill.
 
 ## When to Use
 
-Use this prompt for **task 5.1** of `plans/second-revision.md` (or any future
+Use this skill for **task 5.1** of `plans/second-revision.md` (or any future
 integration phase). Run **before** the second-pass fidelity audit. Commit the
 result as a checkpoint before proceeding to the audit.
 
-## Prompt
+## Instructions
 
 ```
 Execute Subphase A of Phase 5: delta-based LaTeX integration.
@@ -78,6 +83,6 @@ After all six sections are processed:
   with `Co-Authored-By: Oz <oz-agent@warp.dev>`
 
 STOP after committing. Do not begin the fidelity audit — that is a
-separate prompt (`prompts/latex_integration_second_pass.md`).
+separate skill (`latex-integration-second-pass`).
 Report which sections had deltas and what was changed.
 ```

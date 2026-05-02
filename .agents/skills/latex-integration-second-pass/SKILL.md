@@ -1,3 +1,8 @@
+---
+name: latex-integration-second-pass
+description: Cold-read fidelity audit comparing each outline draft against integrated manuscript.tex. Use when executing Subphase B of an integration phase (e.g., task 5.2 of plans/second-revision.md), after the first pass has been committed. Companion to latex-integration-first-pass.
+---
+
 # LaTeX Integration — Second Pass (Subphase B)
 
 ## Purpose
@@ -10,11 +15,11 @@ just wrote.
 
 ## When to Use
 
-Use this prompt for **task 5.2** of `plans/second-revision.md` (or any future
+Use this skill for **task 5.2** of `plans/second-revision.md` (or any future
 integration phase). Run **after** the first pass
-(`prompts/latex_integration_first_pass.md`) has been committed.
+(`latex-integration-first-pass` skill) has been committed.
 
-## Prompt
+## Instructions
 
 ```
 Execute Subphase B of Phase 5: cold-read fidelity audit.
