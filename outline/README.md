@@ -19,8 +19,18 @@ outline/
 ├── 03-approach.md      # RCAC initiatives (MCP servers, configs, etc.)
 ├── 04-discussion.md    # Themed subsections with easter-egg headings
 ├── 05-conclusion.md    # "End of Line"
-├── notes/              # Freeform notes, quotes, research
-│   └── easter-eggs.md  # Pop-culture reference tracking
+├── notes/              # Research notes and supporting material
+│   ├── agentic-research-meta.md       # Meta-commentary on the agentic research workflow
+│   ├── bibliography.md                # Working bibliography and reference summaries
+│   ├── easter-eggs.md                 # Pop-culture reference tracking
+│   ├── mcp-deployment-architecture.md # MCP server deployment notes
+│   ├── rag-vs-agentic-architecture.md # RAG vs. agentic architecture comparison
+│   ├── refs/                          # Per-reference deep-dive notes (see refs/README.md)
+│   ├── review-feedback-part1.md       # Phase 1 review feedback, part 1
+│   ├── review-feedback-part2.md       # Phase 1 review feedback, part 2
+│   ├── review-feedback-part3.md       # Phase 1 review feedback, part 3
+│   ├── review-feedback-phase2.md      # Phase 2 review feedback
+│   └── review-synthesis.md            # Synthesis across review phases
 └── snippets/           # Reusable text fragments
     └── mcp-joke.md     # The TRON/MCP quip
 ```
