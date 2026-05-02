@@ -1,5 +1,5 @@
 ---
-status: draft
+status: integrated
 target_words: 550
 actual_words: ~530
 citations:

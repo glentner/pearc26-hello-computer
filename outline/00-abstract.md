@@ -1,5 +1,5 @@
 ---
-status: draft
+status: integrated
 target_words: 150
 actual_words: ~150
 ---
