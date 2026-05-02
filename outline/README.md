@@ -19,6 +19,7 @@ outline/
 ├── 03-approach.md      # RCAC initiatives (MCP servers, configs, etc.)
 ├── 04-discussion.md    # Themed subsections with easter-egg headings
 ├── 05-conclusion.md    # "End of Line"
+├── 06-acks.md          # Acknowledgments + ACM generative-AI disclosure
 ├── notes/              # Research notes and supporting material
 │   ├── agentic-research-meta.md       # Meta-commentary on the agentic research workflow
 │   ├── bibliography.md                # Working bibliography and reference summaries

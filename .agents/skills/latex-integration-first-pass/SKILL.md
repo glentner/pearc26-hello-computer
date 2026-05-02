@@ -32,7 +32,7 @@ CONTEXT: Read `plans/second-revision.md` to confirm Phase 5 is current.
 The outline `## Draft` sections are the ground-truth source. The goal is
 to update `manuscript.tex` to match, preserving all LaTeX conventions.
 
-PROCEDURE — for each section in order (00 through 05):
+PROCEDURE — for each section in order (00 through 06):
 
 A1. LOAD BOTH SOURCES. Read the outline file (`outline/0N-*.md`) and
     identify the corresponding line range in `manuscript.tex`.
@@ -76,8 +76,11 @@ A4. HEADING MAP. Use this explicit mapping — do not infer from markdown
       \paragraph{``Don't Cross the Streams'' (Cautionary Notes)}
     05-conclusion.md →
       \section{End of Line} (no subsections)
+    06-acks.md →
+      \begin{acks}...\end{acks} (no \section heading; markdown
+      `**...**` emphasis maps to \textbf{...})
 
-After all six sections are processed:
+After all seven sections are processed:
 - Verify `make build` succeeds.
 - Commit: `WIP: Third integration from revised outline (first pass)`
   with `Co-Authored-By: Oz <oz-agent@warp.dev>`

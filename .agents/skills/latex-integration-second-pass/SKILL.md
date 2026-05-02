@@ -27,7 +27,7 @@ Execute Subphase B of Phase 5: cold-read fidelity audit.
 CONTEXT: Read `plans/second-revision.md` to confirm task 5.1 is complete.
 The first-pass integration has been committed. This is a fresh audit pass.
 
-PROCEDURE — for each section in order (00 through 05):
+PROCEDURE — for each section in order (00 through 06):
 
 B1. RE-READ BOTH SOURCES. Read the outline file (`outline/0N-*.md`) and
     the corresponding section in `manuscript.tex` from scratch. Do NOT

@@ -28,7 +28,7 @@ tools to be supported, not just permitted. This paper offers a practitioner's
 perspective from Purdue's Rosen Center for Advanced Computing (RCAC), where we have begun
 deploying system-wide configurations, custom MCP servers, and user guidance for agentic
 tools. As a demonstration, every word of this manuscript was produced through an agent-first
-workflow: over sixty commits of iterative collaboration between human authors and AI agents,
+workflow: over one hundred commits of iterative collaboration between human authors and AI agents,
 documented in a public GitHub repository. We argue that proactive engagement, not
 prohibition, is the path forward for facilitators who wish to remain relevant in the
 agentic era.

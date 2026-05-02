@@ -38,7 +38,7 @@ emerge, what pitfalls await, or how dramatically these tools will reshape our pr
 As a meta-demonstration, this paper was itself produced through an agent-first workflow.
 No prose was written by hand. Human authors defined rules, curated references, reviewed
 transcripts, and guided iterative revision; AI agents executed the research, planning,
-drafting, and integration. The entire process, comprising over sixty commits, session
+drafting, and integration. The entire process, comprising over one hundred commits, session
 logs, and planning documents, is available in the accompanying GitHub repository. The
 methodology itself may be a contribution worth exploring.
 
