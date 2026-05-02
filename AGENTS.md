@@ -77,7 +77,7 @@ The manuscript is developed as an outline-first markdown drafting loop, with per
 3. **Plan revisions in `plans/`**. Significant revision passes get a planning document (see `rules/planning_docs.md`).
 4. **Integrate with the LaTeX skills**. Use `/latex-integration-first-pass` to apply outline deltas to `manuscript.tex` (Subphase A), then `/latex-integration-second-pass` for a cold-read fidelity audit (Subphase B). The two-pass split avoids self-confirming errors from a single agent.
 5. **Build and verify**. `make build` produces `build/manuscript.pdf`; `make watch` rebuilds on save during heavy editing.
-6. **Release**. When the manuscript is ready for a tagged version, merge `wip` to `main` and run `/release` to cut a GitHub release (which triggers the `release_pdf.yml` workflow to build and attach the versioned PDF).
+6. **Ship**. Run `/release` to ship `wip` to `main`: strip `WIP: ` prefixes, fast-forward merge, push, force-push wip. Pass arguments (e.g. `/release minor version bump with tag and release`) to also bump the version, tag, and publish a GitHub release (which triggers `release_pdf.yml` to build and attach the versioned PDF).
 
 Session logs in `logs/` and planning documents in `plans/` capture the trail of *why* changes were made; the manuscript itself is the *what*.
 
@@ -101,7 +101,7 @@ Discoveries about working with agentic tools live in `tips/`:
 
 Project-specific skills live in `.agents/skills/<skill-name>/SKILL.md` and are auto-discovered by Warp.
 
-- **`/release`** — Create a GitHub release from `main` branch (triggers PDF build via CI)
+- **`/release`** — Ship `wip` to `main` (strip `WIP: ` prefixes, fast-forward merge, push, force-push wip). Optional arguments: squash commits, bump version, tag, publish a GitHub release (which triggers the PDF build via CI).
 - **`/latex-integration-first-pass`** — Delta-based integration of revised outline prose into `manuscript.tex` (Subphase A)
 - **`/latex-integration-second-pass`** — Cold-read fidelity audit comparing outline drafts against integrated `manuscript.tex` (Subphase B)
 
