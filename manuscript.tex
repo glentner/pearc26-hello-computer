@@ -19,27 +19,15 @@
 
 %% Rights management information. These commands have SAMPLE values;
 %% replace with values from your rights confirmation email after acceptance.
-\setcopyright{acmcopyright}
 \copyrightyear{2026}
 \acmYear{2026}
-\acmDOI{XXXXXXX.XXXXXXX}  % TODO: Update after acceptance
+\setcopyright{cc}
+\setcctype{by}
+\acmConference[PEARC '26]{Practice and Experience in Advanced Research Computing}{July 26--30, 2026}{Minneapolis, MN, USA}
+\acmBooktitle{Practice and Experience in Advanced Research Computing (PEARC '26), July 26--30, 2026, Minneapolis, MN, USA}
+\acmDOI{10.1145/3785462.3815825}
+\acmISBN{979-8-4007-2377-3/2026/07}
 
-%% Conference metadata for PEARC'26
-\acmConference[PEARC'26]{Practice and Experience in Advanced Research Computing 2026}{July 26--30, 2026}{Minneapolis, MN, USA}
-%%
-%%  Uncomment \acmBooktitle if the title of the proceedings is different
-%%  from ``Proceedings of ...''!
-%%
-%%\acmBooktitle{PEARC'26: Practice and Experience in Advanced Research Computing 2026,
-%%  July 26--30, 2026, Minneapolis, MN, USA}
-\acmISBN{978-1-4503-XXXX-X/2026/07}  % TODO: Update after acceptance
-
-%%
-%% Submission ID.
-%% Use this when submitting an article to a sponsored event. You'll
-%% receive a unique submission ID from the organizers
-%% of the event, and this ID should be used as the parameter to this command.
-%%\acmSubmissionID{123-A56-BU3}
 
 \begin{document}
 
@@ -202,7 +190,7 @@ exposes Slurm operations, filesystem navigation, and cluster-specific tools like
 \texttt{myquota} and \texttt{jobinfo}; and Globus-MCP, which provides agentic data
 transfers between storage endpoints. Both are publicly available on GitHub.
 Both servers implement a local-first architecture. The MCP server runs as
-a subprocess of the user's IDE, communicating via stdin/stdout. Commands execute remotely 
+a subprocess of the user's IDE, communicating via stdin/stdout. Commands execute remotely
 through the user's existing SSH configuration: no new credentials, no hosted infrastructure,
 no additional attack surface. If you can SSH to the cluster, your agent can too. For
 environments requiring centralized control, we also support hosted deployment with
@@ -305,7 +293,7 @@ prohibition.
 At RCAC, we're building the infrastructure to make agentic AI a first-class citizen of the
 HPC ecosystem: system-wide configurations that expose cluster metadata, MCP servers that
 provide contextual help, and documentation that prepares users for both the capabilities
-and limitations of these tools. 
+and limitations of these tools.
 This work is early. We don't yet know what patterns will
 emerge, what pitfalls await, or how dramatically these tools will reshape our profession.
 The agentic era has arrived. HPC facilitators who engage early will shape its trajectory;
@@ -320,8 +308,8 @@ community to join us.
 \begin{acks}
 \textbf{Use of Generative AI.}
 In accordance with ACM policy, we disclose that this manuscript was produced through an agent-first workflow
-using Claude Opus 4.6/4.7 (Anthropic) via the Warp agentic development environment. 
-AI agents performed research, planning, drafting, review, revision, and project organization under human direction. 
+using Claude Opus 4.6/4.7 (Anthropic) via the Warp agentic development environment.
+AI agents performed research, planning, drafting, review, revision, and project organization under human direction.
 All content was reviewed, verified, and approved by the human authors, who take full responsibility for the work.
 
 This work was supported by the Rosen Center for Advanced Computing (RCAC) at Purdue University.
