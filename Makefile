@@ -24,6 +24,9 @@ RELEASE  := $(AUTHOR)-$(DATE)-$(VERSION).pdf
 TAPS_ID  := 36
 UPLOAD   := pearc26-$(TAPS_ID).zip
 STAGEDIR := $(BUILDDIR)/taps
+# In-archive layout TAPS expects: author PDF in $(PDFDIR)/, sources in $(SRCDIR)/
+PDFDIR   := pdf
+SRCDIR   := Source
 
 .PHONY: all build release watch open clean distclean builddir upload
 
@@ -50,11 +53,11 @@ release: clean builddir
 upload: release
 	/bin/rm -rf $(STAGEDIR)
 	/bin/rm -f $(UPLOAD)
-	@mkdir -p $(STAGEDIR)/pdf $(STAGEDIR)/src
-	cp $(BUILDDIR)/$(MAIN).pdf $(STAGEDIR)/pdf/$(MAIN).pdf
-	cp $(MAIN).tex $(STAGEDIR)/src/
-	cp references.bib $(STAGEDIR)/src/
-	cd $(STAGEDIR) && zip -r -X $(CURDIR)/$(UPLOAD) pdf src
+	@mkdir -p $(STAGEDIR)/$(PDFDIR) $(STAGEDIR)/$(SRCDIR)
+	cp $(BUILDDIR)/$(MAIN).pdf $(STAGEDIR)/$(PDFDIR)/$(MAIN).pdf
+	cp $(MAIN).tex $(STAGEDIR)/$(SRCDIR)/
+	cp references.bib $(STAGEDIR)/$(SRCDIR)/
+	cd $(STAGEDIR) && zip -r -X $(CURDIR)/$(UPLOAD) $(PDFDIR) $(SRCDIR)
 	/bin/rm -rf $(STAGEDIR)
 	@echo "TAPS upload package created: $(UPLOAD)"
 
