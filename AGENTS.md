@@ -32,6 +32,7 @@ Harness configuration:
 Build output:
 - `build/` - LaTeX build artifacts (gitignored)
 - `lentner-2026-*.pdf` - Release PDFs (gitignored; attached to GitHub releases)
+- `pearc26-*.zip` - ACM TAPS camera-ready upload package (gitignored; produced by `make upload`)
 
 ## Building the Manuscript
 
@@ -46,6 +47,9 @@ make build
 
 # Full clean rebuild with release PDF (lentner-2026-{version}.pdf)
 make release
+
+# Camera-ready: build release, then package PDF + source as pearc26-36.zip for ACM TAPS
+make upload
 
 # Continuous build with file watching (for live editing)
 make watch

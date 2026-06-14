@@ -4,6 +4,9 @@ build/
 # Generated PDFs (release PDFs attached to GitHub releases, not committed)
 *.pdf
 
+# TAPS camera-ready upload package (regenerated via `make upload`)
+pearc26-*.zip
+
 # LaTeX auxiliary files (in case any end up at root)
 *.aux
 *.log

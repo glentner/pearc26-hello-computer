@@ -19,7 +19,13 @@ DATE     := $(shell date +"%Y")
 VERSION  := $(shell git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//' || echo "dev")
 RELEASE  := $(AUTHOR)-$(DATE)-$(VERSION).pdf
 
-.PHONY: all build release watch open clean distclean builddir
+# ACM TAPS camera-ready upload package
+# TAPS Paper ID is 36 (distinct from the EasyChair submission ID, 160)
+TAPS_ID  := 36
+UPLOAD   := pearc26-$(TAPS_ID).zip
+STAGEDIR := $(BUILDDIR)/taps
+
+.PHONY: all build release watch open clean distclean builddir upload
 
 # Default target
 all: build
@@ -35,6 +41,22 @@ release: clean builddir
 	$(LATEXMK) $(LATEXMK_FLAGS) -gg $(MAIN).tex
 	cp $(BUILDDIR)/$(MAIN).pdf ./$(RELEASE)
 	@echo "Release created: $(RELEASE)"
+
+# Package camera-ready PDF + minimal source for ACM TAPS upload.
+# Builds the release first, then stages only the files TAPS needs to
+# compile the paper (manuscript + bibliography) alongside the author PDF.
+# Deliberately not a naive `zip -r` of the repo: excludes .git, build
+# cruft, and planning material to stay within TAPS size limits.
+upload: release
+	/bin/rm -rf $(STAGEDIR)
+	/bin/rm -f $(UPLOAD)
+	@mkdir -p $(STAGEDIR)/pdf $(STAGEDIR)/src
+	cp $(BUILDDIR)/$(MAIN).pdf $(STAGEDIR)/pdf/$(MAIN).pdf
+	cp $(MAIN).tex $(STAGEDIR)/src/
+	cp references.bib $(STAGEDIR)/src/
+	cd $(STAGEDIR) && zip -r -X $(CURDIR)/$(UPLOAD) pdf src
+	/bin/rm -rf $(STAGEDIR)
+	@echo "TAPS upload package created: $(UPLOAD)"
 
 # Continuous build with file watching (use Skim's built-in refresh)
 watch: builddir
@@ -54,9 +76,10 @@ clean:
 	$(LATEXMK) -output-directory=$(BUILDDIR) -C $(MAIN).tex 2>/dev/null || true
 	/bin/rm -rf $(BUILDDIR)
 
-# Clean everything including release PDFs
+# Clean everything including release PDFs and upload packages
 distclean: clean
 	rm -f $(AUTHOR)-*.pdf
+	rm -f pearc26-*.zip
 
 # Create build directory if it doesn't exist
 builddir:

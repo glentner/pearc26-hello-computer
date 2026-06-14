@@ -46,6 +46,7 @@ Requires a modern TeX distribution (e.g., TeX Live 2024+).
 ```bash
 make build      # Incremental build → build/manuscript.pdf
 make release    # Clean build with versioned PDF (lentner-2026-{version}.pdf)
+make upload     # Package PDF + source as pearc26-36.zip for ACM TAPS submission
 make watch      # Continuous build with file watching
 make clean      # Remove build artifacts
 ```
