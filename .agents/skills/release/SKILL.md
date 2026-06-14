@@ -1,6 +1,6 @@
 ---
 name: release
-description: Ship the wip branch to main — strip WIP: prefixes from commit messages, fast-forward merge, push, return to wip and force-push. With optional arguments: squash commits, bump version (patch/minor/major), create an annotated tag, and publish a GitHub release (which triggers the PDF build via CI). Default invocation does merge-and-push only; additional behavior is enabled by free-form instructions after the slash command.
+description: "Ship the wip branch to main — strip WIP: prefixes from commit messages, fast-forward merge, push, return to wip and force-push. With optional arguments: squash commits, bump version (patch/minor/major), create an annotated tag, and publish a GitHub release (which triggers the PDF build via CI). Default invocation does merge-and-push only; additional behavior is enabled by free-form instructions after the slash command."
 ---
 
 # Release (Ship It)
