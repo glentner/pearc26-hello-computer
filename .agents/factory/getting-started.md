@@ -55,9 +55,10 @@ The trouble is the board has already been set for us:
 That is the uncomfortable middle we are documenting: **untrusted yet imperative.** You cannot resolve
 it by picking a side. You resolve it the way you resolve any hard experiment — by making the method
 explicit, the evidence inspectable, and the failure modes cheap to catch. This paper was written to be
-that evidence: **126 commits, 16 public releases, 63 timestamped session logs**, every keystroke of the
-process open to inspection. Not because the process is finished, but because it is *legible* — and a
-legible method is one the community can critique, reproduce, and improve.
+that evidence: **126 commits, 16 public releases, 63 timestamped session logs** — roughly 90 hours of
+human effort across six months — every keystroke of the process open to inspection. Not because the
+process is finished, but because it is *legible* — and a legible method is one the community can critique,
+reproduce, and improve.
 
 > **THE STAKES — a note to the people who set the rules.**
 > If you fund research, edit a journal, chair a program committee, or run a lab: the question is no
@@ -127,6 +128,10 @@ time with `> paper_status.py`.
 
 ## YOUR PARTY & YOUR TOOLS
 
+**No prose was written by hand** — not one bit of it. Humans defined the goals, the non-goals, and the
+rules, curated the sources, and gave the reviews their feedback; the agent did the research, the drafting,
+and the integration. Prompting was manual at first, then procedural, and now — through the workshop — self-improving.
+
 **The party.** You (the researcher, and your co-authors) are the players and the *judges* — every
 verdict, every claim, every "yes this is true," is yours. The **agent** is the tireless co-player at
 the parser: it reads, drafts, wires, and critiques, but it never gets to decide the paper is done. That
@@ -175,7 +180,8 @@ the repository you are in.
 ```
   You open a blank repository. A voice asks: what are you actually claiming, and how will you know
   if you failed?
-  > /paper-start
+  > /paper-start Let's start a new paper about the latest changes we've made at the center to
+    address the needs of users in the agentic era.
 ```
 
 Before a single source is read, you write the **contract**: the thesis in a sentence, three-to-five
@@ -326,8 +332,8 @@ weaken a gate is treated as a warning sign, not an instruction.
 
 > **THE STAKES — this is the trust contract.**
 > The distrust of AI in science is, at bottom, a fear that the guardrails are gone. The answer is not to
-> promise the model is wise. It is to make the guardrails *explicit, mechanical, and inspectable* — and
-> to let a disinterested checker enforce them. The invariants above are a starting proposal for what
+> promise the model is wise. It is to make the guardrails *explicit, mechanical, inspectable, and
+> self-improving* — and to let a disinterested checker enforce them. The invariants above are a starting proposal for what
 > "responsible AI-assisted authorship" could concretely mean. Improve them; but do not ship without
 > some.
 
@@ -374,6 +380,64 @@ elsewhere, right down to open-weight models.
 
 That portability is the point. This is not a demo that worked once. It is a **repeatable cycle** you can
 carry into the next paper, the next lab, the next field.
+
+---
+
+## THE PRACTICE — what we actually built at RCAC
+
+The factory above is *how* this paper was written. This section is *what* it is about: the concrete
+practice — already running at Purdue's Rosen Center for Advanced Computing — that the thesis, **proactive
+engagement, not prohibition**, actually looks like on the ground. Three pillars, in production today and
+still evolving.
+
+### 1 — System-wide configuration (the guardrails)
+
+To make agents reliable on our systems, RCAC gives them two things up front: **shared context** that
+describes the cluster, and **per-harness settings** that encode a sensible permission policy.
+
+- **Shared context.** The `/etc/agents.d/` directory stores essential context as shared infrastructure,
+  automatically loaded by most CLI harnesses on the system and by anything connecting over the cluster MCP
+  interface. These files outline cluster policy, filesystems, operating-system details, applications, and
+  scheduler topology — `unix.md`, `filesystems.md`, `lmod.md`, `slurm.md`, `policies.md`.
+- **Global settings.** Every harness keeps its system-wide configuration and permissions in a different
+  place (e.g. `/etc/claude-code/managed-settings.json`). We maintain a minimal set of sane permission
+  settings that common agent harnesses (claude, gemini, …) cannot override.
+
+### 2 — Model Context Protocol (the toolkits)
+
+The **Model Context Protocol** (MCP) is an open standard that lets an agent call external tools and read
+external context through a uniform interface. RCAC builds and maintains MCP servers so that an agent
+working on your behalf has context that *knows our clusters* — and the best chance of using our systems
+effectively.
+
+- **`cluster-mcp`** — connect over SSH to a cluster with HPC-specific tools and managed context.
+- **`globus-mcp`** — a feature-rich toolkit for Globus transfers and Globus Compute using your existing auth.
+- **`rcac-docs-mcp`** — a complete full-text search index over the `docs.rcac.purdue.edu` documentation.
+
+### 3 — User guidance and training (the knowledge)
+
+Using an agent with campus or national cyberinfrastructure does not change the rules — it *raises the
+stakes*. An agent can issue commands faster than you can read them, so the same acceptable-use and
+good-citizen expectations that apply to *you* apply to any agent acting on your behalf: you are
+accountable for everything your agent does under your account, exactly as if you had typed it yourself. It
+is the responsibility of research-computing centers to safeguard the infrastructure as we always have —
+and the responsibility of the user to follow policy and learn to use AI agents safely and effectively.
+
+- **Acceptable use & etiquette.** Our policies on agentic tooling are specific and publicly documented.
+  The capabilities of these tools will only keep growing and paying dividends; we are better off building a
+  golden path than a prohibition.
+- **Best practices & limitations.** These tools will be used at 2 a.m. to fix a bug whether we want them to
+  or not — so we provide guidance and guardrails that proactively enable effective use and protect users
+  from themselves. Researchers are savvy and will reach for whatever tool gets the job done; we should
+  solve their challenges, not shame them for it.
+- **Training.** As AI tools and techniques evolve — sometimes weekly — it is our job to help users be
+  productive on our cyberinfrastructure: model capabilities, platform services, harness configuration,
+  context engineering, building agents, and more.
+
+> **FIELD NOTES — the golden path, not the locked door.**
+> All three pillars are the same bet the factory makes, aimed outward: meet people where they already are,
+> make the safe path the easy path, and treat the tools as infrastructure to support rather than a threat
+> to forbid. This is **proactive engagement** made concrete — the paper's thesis, running in production.
 
 ---
 

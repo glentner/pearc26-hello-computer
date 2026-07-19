@@ -105,7 +105,8 @@
     cursor:pointer; transition:opacity .6s ease;
   }
   #boot .term{max-width:680px; width:90%; padding:0 8px; font-size:clamp(.95rem,2.4vw,1.25rem); line-height:1.9}
-  #boot .line{white-space:pre-wrap}
+  #boot .line{white-space:pre-wrap; min-height:1.9em}   /* stable height so blank spacers don't collapse/flicker */
+  #bootlines{min-height:11.4em}                          /* reserve the block so typing doesn't re-center/jump */
   #boot .prompt{color:var(--amber)}
   #boot .cur{display:inline-block; width:.6em; background:var(--cyan); animation:blink 1s steps(1) infinite}
   #boot .hint{color:var(--ink-faint); font-size:.8rem; margin-top:1.6em; letter-spacing:.08em}
@@ -251,6 +252,7 @@
       <a href="#play">Playthrough</a>
       <a href="#rules">Rules</a>
       <a href="#workshop">Workshop</a>
+      <a href="#practice">Practice</a>
       <a href="#reference">Reference</a>
     </nav>
     <div class="toggles">
@@ -290,7 +292,8 @@
       <b data-cmd="map">map</b> ·
       <b data-cmd="stakes">stakes</b> ·
       <b data-cmd="rules">rules</b> ·
-      <b data-cmd="ship">ship</b>
+      <b data-cmd="ship">ship</b> ·
+      <b data-cmd="pillars">pillars</b>
     </p>
   </div>
 </section>
@@ -348,6 +351,10 @@
   <div class="wrap reveal">
     <p class="eyebrow">Your party &amp; your tools</p>
     <h2>Seven commands, one engine</h2>
+    <p><b>No prose was written by hand</b> — not one bit of it. Humans defined the goals, the non-goals,
+      and the rules, curated the sources, and gave the reviews their feedback; the agent did the research,
+      the drafting, and the integration. Prompting was manual at first, then procedural, and now — through
+      the workshop further down — self-improving.</p>
     <p><b>The party:</b> you (and your co-authors) are the players and the <em>judges</em> — every
       verdict is yours. The <b>agent</b> is the tireless co-player at the parser: it reads, drafts, wires,
       and critiques, but never decides the paper is done. That division is the whole game.</p>
@@ -367,17 +374,17 @@
 <!-- ===================== STATS ===================== -->
 <section id="stats">
   <div class="wrap reveal">
-    <p class="eyebrow">This is not a demo</p>
-    <h2>The real playthrough, in numbers</h2>
+    <p class="eyebrow">Real effort</p>
+    <h2>The real effort, in numbers</h2>
     <p>Everything below is measured from the repository you're reading about — the actual production of
-      <em>Hello Computer: HPC in the Agentic Era</em>, over roughly four and a half months.</p>
+      <em>Hello Computer: HPC in the Agentic Era</em>, over roughly six months.</p>
     <div class="stats">
       <div class="stat"><div class="n" data-count="126">0</div><div class="l">commits, public</div></div>
-      <div class="stat"><div class="n" data-count="16">0</div><div class="l">tagged releases</div></div>
+      <div class="stat"><div class="n" data-count="90">0</div><div class="l">hours, human</div></div>
       <div class="stat"><div class="n" data-count="63">0</div><div class="l">session logs</div></div>
       <div class="stat"><div class="n" data-count="13">0</div><div class="l">sources, annotated</div></div>
       <div class="stat"><div class="n" data-count="2">0</div><div class="l">peer-review phases</div></div>
-      <div class="stat"><div class="n" data-count="4">0</div><div class="l">pages, hard limit</div></div>
+      <div class="stat"><div class="n" data-count="16">0</div><div class="l">tagged releases</div></div>
     </div>
   </div>
 </section>
@@ -390,7 +397,7 @@
 
     <div class="loc" id="loc-start">
       <p class="lochdr">Location 0 — The Contract · <span class="tag">scoped</span></p>
-      <div class="scene"><span class="p">&gt;</span> /paper-start
+      <div class="scene"><span class="p">&gt;</span> /paper-start Let's start a new paper about the latest changes we've made at the center to address the needs of users in the agentic era.
 A blank repository. A voice asks: what are you actually claiming, and how will you know if you failed?</div>
       <p>Before a single source is read, you write the <b>contract</b>: the thesis in a sentence,
         3–5 falsifiable <b>contribution claims</b> (stable ids <span class="tag">C1</span>,
@@ -505,8 +512,8 @@ A gate marked SHIP IT. It won't open over length, with a dangling citation, or w
       that loosens its own guardrails to make a deadline has learned the wrong lesson.</p>
     <div class="callout stakes"><span class="lbl">The Stakes — this is the trust contract</span>
       <p>The distrust of AI in science is, at bottom, a fear that the guardrails are gone. The answer isn't
-        to promise the model is wise; it's to make the guardrails <b>explicit, mechanical, and
-        inspectable</b>, and let a disinterested checker enforce them. These invariants are a starting
+        to promise the model is wise; it's to make the guardrails <b>explicit, mechanical, inspectable,
+        and self-improving</b>, and let a disinterested checker enforce them. These invariants are a starting
         proposal for what "responsible AI-assisted authorship" could concretely mean. Improve them — but
         don't ship without some.</p></div>
   </div>
@@ -538,6 +545,78 @@ A back room of half-finished tools and a logbook. The machine has been leaving n
       lessons — while this paper's specific contract and friction log stay behind. The scripts are
       <b>stdlib-only</b> (nothing to install) and the skills are plain markdown that runs on any agent
       harness. This isn't a demo that worked once; it's a <b>repeatable cycle</b>.</p>
+  </div>
+</section>
+
+<!-- ===================== THE PRACTICE (3 PILLARS) ===================== -->
+<section id="practice">
+  <div class="wrap reveal">
+    <p class="eyebrow">The practice · what the paper actually reports</p>
+    <h2>What we built at RCAC</h2>
+    <p>The factory above is <em>how</em> this paper was written. This is <em>what</em> it is about: the
+      concrete practice — already running at Purdue's Rosen Center for Advanced Computing — that the thesis,
+      <b>proactive engagement, not prohibition</b>, actually looks like on the ground. Three pillars, in
+      production today and still evolving.</p>
+
+    <h3><span class="tag">1</span>&nbsp; System-wide configuration <span class="amber">— the guardrails</span></h3>
+    <p>To make agents reliable on our systems, RCAC gives them two things up front: <b>shared context</b>
+      that describes the cluster, and <b>per-harness settings</b> that encode a sensible permission policy.</p>
+    <ul class="clean">
+      <li><b>Shared context.</b> The <span class="tag">/etc/agents.d/</span> directory stores essential
+        context as shared infrastructure, automatically loaded by most CLI harnesses on the system and by
+        anything connecting over the cluster MCP interface. These files outline cluster policy, filesystems,
+        operating-system details, applications, scheduler topology, and more.</li>
+      <li><b>Global settings.</b> Every harness keeps its system-wide configuration and permissions in a
+        different place (e.g. <span class="tag">/etc/claude-code/managed-settings.json</span>). We maintain
+        a minimal set of sane permission settings that common agent harnesses (claude, gemini, …) cannot
+        override.</li>
+    </ul>
+    <div class="cards">
+      <div class="card"><h4>unix.md</h4><p>Operating-system details, basic shell conventions, special site-specific commands.</p></div>
+      <div class="card"><h4>filesystems.md</h4><p>ZFS, GPFS, Lustre filesystems; node-local storage, acceptable-use and quotas.</p></div>
+      <div class="card"><h4>lmod.md</h4><p>Application catalog and discovery, hierarchy, and installation guidance.</p></div>
+      <div class="card"><h4>slurm.md</h4><p>Scheduler topology, partitions, QoS, best practices, user limits, and job templates.</p></div>
+      <div class="card"><h4>policies.md</h4><p>General recommendations and institutional policies not covered in the other files.</p></div>
+    </div>
+
+    <h3><span class="tag">2</span>&nbsp; Model Context Protocol <span class="amber">— the toolkits</span></h3>
+    <p>The <b>Model Context Protocol</b> (MCP) is an open standard that lets an agent call external tools
+      and read external context through a uniform interface. RCAC builds and maintains MCP servers so that
+      an agent working on your behalf has context that <em>knows our clusters</em> — and the best chance of
+      using our systems effectively.</p>
+    <div class="cards">
+      <div class="card"><h4>cluster-mcp</h4><p>Connect over SSH to a cluster with HPC-specific tools and managed context.</p></div>
+      <div class="card"><h4>globus-mcp</h4><p>A feature-rich toolkit for Globus transfers and Globus Compute using your existing auth.</p></div>
+      <div class="card"><h4>rcac-docs-mcp</h4><p>A complete full-text search index over the docs.rcac.purdue.edu documentation and materials.</p></div>
+    </div>
+
+    <h3><span class="tag">3</span>&nbsp; User guidance and training <span class="amber">— the knowledge</span></h3>
+    <p>Using an agent with campus or national cyberinfrastructure does not change the rules — it
+      <em>raises the stakes</em>. An agent can issue commands faster than you can read them, so the same
+      acceptable-use and good-citizen expectations that apply to <em>you</em> apply to any agent acting on
+      your behalf: you are accountable for everything your agent does under your account, exactly as if you
+      had typed it yourself. It is the responsibility of research-computing centers to safeguard the
+      infrastructure as we always have — and the responsibility of the user to follow policy and learn to
+      use AI agents safely and effectively.</p>
+    <ul class="clean">
+      <li><b>Acceptable use &amp; etiquette.</b> Our policies on agentic tooling are specific and publicly
+        documented. The capabilities of these tools will only keep growing and paying dividends; we are
+        better off building a golden path than a prohibition.</li>
+      <li><b>Best practices &amp; limitations.</b> These tools will be used at 2&nbsp;a.m. to fix a bug
+        whether we want them to or not — so we provide guidance and guardrails that proactively enable
+        effective use and protect users from themselves. Researchers are savvy and will reach for whatever
+        tool gets the job done; we should solve their challenges, not shame them for it.</li>
+      <li><b>Training.</b> As AI tools and techniques evolve — sometimes weekly — it is our job to help
+        users be productive on our cyberinfrastructure: model capabilities, platform services, harness
+        configuration, context engineering, building agents, and more.</li>
+    </ul>
+    <div class="callout">
+      <span class="lbl">Field Notes — the golden path, not the locked door</span>
+      <p>All three pillars are the same bet the factory makes, aimed outward: meet people where they already
+        are, make the safe path the easy path, and treat the tools as infrastructure to support rather than
+        a threat to forbid. This is <b>proactive engagement</b> made concrete — the paper's thesis, running
+        in production.</p>
+    </div>
   </div>
 </section>
 
@@ -643,13 +722,14 @@ outline/ reviews/ plans/ logs/ manuscript.tex references.bib   <span class="c">#
 
 <footer>
   <div class="wrap">
-    <p><b>Hello Computer: HPC in the Agentic Era</b> — Geoffrey Lentner &amp; Ashish, Rosen Center for
-      Advanced Computing, Purdue University. An extended abstract for PEARC&nbsp;'26, written end-to-end as
-      an agent-first workflow. Every commit is public.</p>
+    <p><b>Hello Computer: HPC in the Agentic Era</b> — Geoffrey Lentner (Principal AI Scientist) &amp;
+      Ashish (Lead Research Data Scientist), Rosen Center for Advanced Computing, Purdue University. An
+      extended abstract for PEARC&nbsp;'26, written end-to-end as an agent-first workflow. Every commit is
+      public.</p>
     <p>This page is self-contained and works offline. The same walkthrough in plain markdown lives at
       <span class="tag">.agents/factory/getting-started.md</span>; the factory itself is under
       <span class="tag">.agents/</span>.</p>
-    <p class="endline">GREETINGS PROFESSOR. IT'S YOUR MOVE. &nbsp;·&nbsp; END OF LINE.</p>
+    <p class="endline">END OF LINE.</p>
   </div>
 </footer>
 
@@ -748,6 +828,7 @@ outline/ reviews/ plans/ logs/ manuscript.tex references.bib   <span class="c">#
     '  <b>rules</b>           the invariants — the no-cheat-codes list\n'+
     '  <b>ship</b>            what it means to release\n'+
     '  <b>stats</b>           this paper, in real numbers\n'+
+    '  <b>pillars</b>         what we actually built at RCAC (the paper\'s subject)\n'+
     '  <b>whoami</b> · <b>about</b> · <b>clear</b> · <b>restart</b>';
   }
 
@@ -821,9 +902,16 @@ outline/ reviews/ plans/ logs/ manuscript.tex references.bib   <span class="c">#
           '"must-fix" still open — unless a human overrides, on the record. This paper passed it 16 times.');
       travel("release",true); return;
     }
+    if(lc==="pillars"||lc==="practice"||lc==="rcac"||lc==="config"||lc==="mcp"||lc==="training"||lc==="guardrails"){
+      say('WHAT WE ACTUALLY BUILT AT RCAC — proactive engagement, in production:\n'+
+          '  <b>1 · system-wide config</b>   shared /etc/agents.d context + managed per-harness settings\n'+
+          '  <b>2 · MCP servers</b>          cluster-mcp · globus-mcp · rcac-docs-mcp — context that knows our clusters\n'+
+          '  <b>3 · guidance &amp; training</b>  the golden path: policy, best practices, teaching — not prohibition');
+      document.getElementById("practice").scrollIntoView({behavior:reduce?"auto":"smooth"}); return;
+    }
     if(lc==="stats"||lc==="numbers"){
-      say('The real playthrough: <b>126</b> commits · <b>16</b> releases · <b>63</b> session logs ·\n'+
-          '<b>13</b> annotated sources · <b>2</b> peer-review phases · <b>4</b>-page hard limit. All public.');
+      say('The real effort: <b>126</b> commits · <b>90</b> human hours · <b>63</b> session logs ·\n'+
+          '<b>13</b> annotated sources · <b>2</b> peer-review phases · <b>16</b> releases. All public.');
       document.getElementById("stats").scrollIntoView({behavior:reduce?"auto":"smooth"}); return;
     }
     if(lc==="whoami"){ say('You are a researcher — a player, and the <b>judge</b>. The agent reads, drafts,\nwires, and critiques; it never decides the paper is done. That division is the whole game.'); return; }
@@ -930,8 +1018,10 @@ outline/ reviews/ plans/ logs/ manuscript.tex references.bib   <span class="c">#
   function skip(){ endBoot(); }
   function typeLine(obj, done){
     var wrap=document.createElement("div"); wrap.className="line"+(obj.prompt?" prompt":""); bl.appendChild(wrap);
+    var txt=obj.t;
+    if(!txt){ setTimeout(done, obj.d||120); return; }   // blank spacer: reserve height (CSS), no cursor blip
     if(obj.prompt){ wrap.textContent="> "; }
-    var txt=obj.t, i=0;
+    var i=0;
     (function tick(){
       if(i<=txt.length){ wrap.textContent=(obj.prompt?"> ":"")+txt.slice(0,i)+"▋"; i++; setTimeout(tick, obj.d||55); }
       else { wrap.textContent=(obj.prompt?"> ":"")+txt; done&&done(); }
