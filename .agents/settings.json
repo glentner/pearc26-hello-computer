@@ -1,0 +1,35 @@
+{
+  "//": "Portable, TRACKED allowlist for the paper factory — accident-protection, NOT a security boundary (Bash(make *) runs arbitrary recipes; see factory/portability.md). Travels when you copy the .agents/ tree to a new paper. Per-user overrides go in the gitignored .agents/settings.local.json. Discovered by Claude Code via the .claude -> .agents symlink. Deliberately omits `git checkout` (silent working-tree discard — use `git switch`) and the outward/irreversible release steps (`git push`/`git tag`/`git filter-branch`/`gh release`), which SHOULD prompt.",
+  "permissions": {
+    "allow": [
+      "Bash(python3 .agents/factory/bin/paper_status.py*)",
+      "Bash(python3 .agents/factory/bin/set_status.py*)",
+      "Bash(python3 .agents/factory/bin/check_paper.py*)",
+      "Bash(python3 .agents/factory/bin/meta_status.py*)",
+      "Bash(python3 .agents/factory/bin/_fsm.py*)",
+      "Bash(make build*)",
+      "Bash(make check*)",
+      "Bash(make test*)",
+      "Bash(make release*)",
+      "Bash(make upload*)",
+      "Bash(make clean*)",
+      "Bash(date -u *)",
+      "Bash(ls *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(git status*)",
+      "Bash(git branch*)",
+      "Bash(git switch*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git rev-parse*)",
+      "Bash(git rev-list*)",
+      "Bash(git describe*)",
+      "Bash(git merge-base*)",
+      "Bash(git fetch*)",
+      "WebSearch"
+    ]
+  }
+}

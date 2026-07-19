@@ -1,9 +1,17 @@
 ---
 name: release
-description: "Ship the wip branch to main — strip WIP: prefixes from commit messages, fast-forward merge, push, return to wip and force-push. With optional arguments: squash commits, bump version (patch/minor/major), create an annotated tag, and publish a GitHub release (which triggers the PDF build via CI). Default invocation does merge-and-push only; additional behavior is enabled by free-form instructions after the slash command."
+disable-model-invocation: true
+description: "SUPERSEDED by /paper-release (adds the paper-factory RELEASE GUARD: make build + make check + paper_status readiness, and macro_phase -> released). This is the original release-mechanics skill, retained and still usable; /paper-release is the preferred entry point. No longer auto-invoked."
 ---
 
 # Release (Ship It)
+
+> **Superseded by `/paper-release`.** That skill is this one plus the paper-factory RELEASE GUARD
+> (`make build` + `make check` hard blockers, `paper_status.py` readiness) and the
+> `macro_phase -> released` transition. This skill's mechanics are still correct and it is kept in
+> place; prefer `/paper-release` for new work. `disable-model-invocation: true` stops auto-firing.
+> Note: this legacy skill still authors the old `Co-Authored-By: Oz <oz-agent@warp.dev>` trailer;
+> `/paper-release` uses the current Claude Code trailer.
 
 ## When to Use
 
@@ -32,7 +40,7 @@ If no arguments were passed, run the default merge-only path (Steps 1, 3, 4, 6, 
 - `--force` is used **only** on the `wip` branch. Never on `main`, never on tags, never anywhere else.
 - Use the default fast-forward merge (`git merge wip`). Never `--no-ff`. We want linear history.
 - After a successful ship, `main` and `wip` point to the **same** commit.
-- Author all new commits with `Co-Authored-By: Oz <oz-agent@warp.dev>` (per `rules/wip_commits.md`).
+- Author all new commits with `Co-Authored-By: Oz <oz-agent@warp.dev>` (per `rules/draft_commits.md`).
 - If pre-flight checks fail (dirty tree, wrong branch, build failure, divergent main), STOP and report. Do not attempt remediation without confirmation.
 - Confirm the computed version and the release notes with the user **before** tagging or publishing.
 
@@ -184,5 +192,5 @@ Use `v1.2.0` directly instead of computing a bump. Same flow as a bump-with-rele
 ## Notes
 
 - `release_pdf.yml` triggers only on `release: types: [published]`. Pushing a tag without creating a release will **not** build the PDF.
-- The `WIP: ` prefix convention and the force-push-on-wip allowance are documented in `rules/wip_commits.md`.
+- The `WIP: ` prefix convention and the force-push-on-wip allowance are documented in `rules/draft_commits.md`.
 - If the user's instruction includes something not covered above (e.g. `dry run`, `skip build`), STOP and ask before deviating from the documented procedure.

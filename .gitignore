@@ -32,3 +32,11 @@ pearc26-*.zip
 
 # macOS
 .DS_Store
+
+# Per-user harness overrides (the portable, shared allowlist is .agents/settings.json, tracked)
+.agents/settings.local.json
+.claude/settings.local.json
+
+# Python bytecode (the factory's bin/ + tests/ are stdlib python3)
+__pycache__/
+*.pyc

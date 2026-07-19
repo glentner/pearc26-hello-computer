@@ -28,7 +28,7 @@ STAGEDIR := $(BUILDDIR)/taps
 PDFDIR   := pdf
 SRCDIR   := Source
 
-.PHONY: all build release watch open clean distclean builddir upload
+.PHONY: all build check test release watch open clean distclean builddir upload
 
 # Default target
 all: build
@@ -37,6 +37,17 @@ all: build
 build: builddir
 	cp references.bib $(BUILDDIR)/
 	$(LATEXMK) $(LATEXMK_FLAGS) $(MAIN).tex
+
+# Deterministic paper-invariant linters (citation integrity, prose conventions,
+# page + per-section word budget). Builds first so the page check has a fresh PDF.
+check: build
+	@python3 .agents/factory/bin/check_paper.py .
+
+# Stdlib unit tests for the factory FSM/linter scripts (no third-party deps, no venv).
+# Runs the _fsm golden self-test, then the tests/ suite.
+test:
+	@python3 .agents/factory/bin/_fsm.py
+	@python3 -m unittest discover -s tests -p "test_*.py" --buffer
 
 # Full clean rebuild for release
 release: clean builddir

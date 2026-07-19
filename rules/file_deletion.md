@@ -1,8 +1,15 @@
 # File Deletion Rules
 
-## Use `del` Instead of `rm`
+> **Harness note (Claude Code migration).** The `del` utility and the `rm` warning-alias below are a
+> **WARP-shell convenience** and are not guaranteed to be on `PATH` under Claude Code's non-interactive
+> bash. Under Claude Code, prefer **`/bin/rm`** (exactly as the Makefile does) for deliberate cleanup,
+> or use the editor tools. The `/paper-*` skills and the factory scripts avoid deletion where possible;
+> where they must delete build cruft they use `/bin/rm`. The `del`-based guidance below still applies in
+> an interactive WARP session.
 
-On this system, `rm` is aliased to a warning function that discourages direct use. Instead, use `del` - a command-line move-to-trash utility that provides safe, recoverable file deletion.
+## Use `del` Instead of `rm` (WARP-interactive)
+
+On this system (in WARP), `rm` is aliased to a warning function that discourages direct use. Instead, use `del` - a command-line move-to-trash utility that provides safe, recoverable file deletion.
 
 ### Why `del`?
 

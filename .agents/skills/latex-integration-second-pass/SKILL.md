@@ -1,9 +1,15 @@
 ---
 name: latex-integration-second-pass
-description: Cold-read fidelity audit comparing each outline draft against integrated manuscript.tex. Use when executing Subphase B of an integration phase (e.g., task 5.2 of plans/second-revision.md), after the first pass has been committed. Companion to latex-integration-first-pass.
+disable-model-invocation: true
+description: "SUPERSEDED by /paper-draft (Pass B). Cold-read fidelity audit comparing each outline draft against integrated manuscript.tex. Retained for historical reference (referenced by past plans/*-revision.md); no longer auto-invoked."
 ---
 
 # LaTeX Integration — Second Pass (Subphase B)
+
+> **Superseded — retained for history.** This cold-read fidelity audit is now **`/paper-draft`
+> (Pass B)**, which runs it in a fresh subagent alongside a blind claim/citation/invariant audit.
+> Kept because past `plans/*-revision.md` reference it by name. `disable-model-invocation: true` stops
+> auto-firing; invoke `/paper-draft` for new work.
 
 ## Purpose
 

@@ -1,9 +1,16 @@
 ---
 name: latex-integration-first-pass
-description: Delta-based integration of revised outline prose into manuscript.tex. Use when executing Subphase A of an integration phase (e.g., task 5.1 of plans/second-revision.md), before any fidelity audit. Companion to latex-integration-second-pass.
+disable-model-invocation: true
+description: "SUPERSEDED by /paper-draft (Pass A). Delta-based integration of revised outline prose into manuscript.tex; carried a hard-coded heading map now replaced by the PAPER.md anchors block. Retained for historical reference (it is referenced by past plans/*-revision.md); no longer auto-invoked."
 ---
 
 # LaTeX Integration — First Pass (Subphase A)
+
+> **Superseded — retained for history.** This skill's job is now done by **`/paper-draft` (Pass A)**,
+> which reads the heading map from the `PAPER.md` `anchors` block instead of the hard-coded A4 map
+> below (which is stale vs. the current `manuscript.tex`). Kept because `plans/first-revision.md` /
+> `plans/second-revision.md` reference it by name (append-only history). `disable-model-invocation:
+> true` stops Claude Code from auto-firing this stale path; invoke `/paper-draft` for new work.
 
 ## Purpose
 
