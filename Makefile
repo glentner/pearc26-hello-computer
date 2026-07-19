@@ -28,7 +28,7 @@ STAGEDIR := $(BUILDDIR)/taps
 PDFDIR   := pdf
 SRCDIR   := Source
 
-.PHONY: all build check test release watch open clean distclean builddir upload
+.PHONY: all build check test pages release watch open clean distclean builddir upload
 
 # Default target
 all: build
@@ -48,6 +48,17 @@ check: build
 test:
 	@python3 .agents/factory/bin/_fsm.py
 	@python3 -m unittest discover -s tests -p "test_*.py" --buffer
+
+# Sync the GitHub Pages publishing source (docs/index.html) from the canonical,
+# portable getting-started.html that travels with the .agents/ factory tree.
+# Pages serves docs/ on main; .nojekyll makes it serve the self-contained HTML
+# verbatim. Live: https://glentner.github.io/pearc26-hello-computer/
+# Re-run after editing .agents/factory/getting-started.html, then ship to main.
+pages:
+	@mkdir -p docs
+	cp .agents/factory/getting-started.html docs/index.html
+	@touch docs/.nojekyll
+	@echo "Synced docs/index.html from .agents/factory/getting-started.html"
 
 # Full clean rebuild for release
 release: clean builddir

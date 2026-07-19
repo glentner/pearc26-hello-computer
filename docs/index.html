@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hello Computer — Shall We Play a Game?</title>
+<meta name="description" content="An agent-first walkthrough of writing a research article end-to-end, and the portable 'paper factory' that makes it repeatable. A learning experience for the research community.">
+<style>
+  /* ============================ THEME ============================ */
+  :root{
+    --bg:#080b11; --bg-panel:#0d131c; --bg-elev:#111a25; --bg-code:#0a1017;
+    --border:#1e2a39; --border-soft:#152030;
+    --ink:#cdd8e6; --ink-dim:#8092a4; --ink-faint:#5a6c7e;
+    --cyan:#5bd6e0; --cyan-deep:#2b8f98; --amber:#f4a84a; --magenta:#e678ab; --green:#7fd88f;
+    --glow:0 0 14px rgba(91,214,224,.45);
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --wrap:940px;
+  }
+  body.light{
+    --bg:#eef2f7; --bg-panel:#f8fafc; --bg-elev:#fff; --bg-code:#0d131c;
+    --border:#d3dce7; --border-soft:#e2e9f1;
+    --ink:#17222e; --ink-dim:#4b5d6e; --ink-faint:#6b7c8d;
+    --cyan:#0c8792; --cyan-deep:#0a6a73; --amber:#b06a12; --magenta:#b23a76; --green:#2b8a45;
+    --glow:0 0 0 rgba(0,0,0,0);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.65; font-size:17px;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  /* CRT scanline + vignette overlay (toggleable) */
+  body.crt::before{
+    content:""; position:fixed; inset:0; z-index:60; pointer-events:none;
+    background:repeating-linear-gradient(rgba(0,0,0,0) 0 2px, rgba(0,0,0,.22) 2px 3px);
+    mix-blend-mode:multiply; opacity:.5;
+  }
+  body.crt::after{
+    content:""; position:fixed; inset:0; z-index:59; pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,.45) 100%);
+  }
+  a{color:var(--cyan); text-decoration:none; border-bottom:1px solid transparent}
+  a:hover{border-bottom-color:var(--cyan)}
+  code,kbd,samp{font-family:var(--mono); font-size:.86em}
+  .wrap{max-width:var(--wrap); margin:0 auto; padding:0 22px}
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:.72rem; letter-spacing:.02em;
+    color:var(--ink-dim); background:var(--bg-elev); border:1px solid var(--border);
+    border-radius:999px; padding:.36em .8em; margin:.2em .3em .2em 0; white-space:nowrap;
+  }
+  .tag{ /* inline code chip */
+    font-family:var(--mono); font-size:.82em; color:var(--cyan);
+    background:color-mix(in srgb, var(--cyan) 12%, transparent); border-radius:5px; padding:.08em .4em;
+    border:1px solid color-mix(in srgb, var(--cyan) 22%, transparent);
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:.76rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--cyan); margin:0 0 .6rem;
+  }
+  .eyebrow .dot{color:var(--ink-faint); margin:0 .5em}
+  h1,h2,h3{font-weight:700; line-height:1.12; letter-spacing:-.01em}
+  h1{font-size:clamp(2.4rem,6vw,4rem); margin:.1em 0 .3em}
+  h2{font-size:clamp(1.7rem,3.6vw,2.5rem); margin:0 0 .5em}
+  h3{font-size:1.22rem; margin:2em 0 .5em; color:var(--ink)}
+  .accent{color:var(--cyan); text-shadow:var(--glow)}
+  .amber{color:var(--amber)}
+  p{margin:.7em 0}
+  section{padding:66px 0; border-top:1px solid var(--border-soft)}
+  section:first-of-type{border-top:none}
+  .lede{font-size:1.18rem; color:var(--ink); max-width:44ch}
+
+  /* ============================ NAV ============================ */
+  header.nav{
+    position:sticky; top:0; z-index:50; background:var(--bg-panel);
+    background:color-mix(in srgb,var(--bg) 86%, transparent);
+    backdrop-filter:blur(9px); border-bottom:1px solid var(--border-soft);
+  }
+  .nav-in{display:flex; align-items:center; gap:14px; height:56px; max-width:var(--wrap); margin:0 auto; padding:0 22px}
+  .brand{font-family:var(--mono); font-weight:700; color:var(--ink); letter-spacing:.02em; white-space:nowrap}
+  .brand .blink{color:var(--cyan)}
+  .nav-links{display:flex; gap:2px; margin-left:auto; flex-wrap:wrap}
+  .nav-links a{
+    font-family:var(--mono); font-size:.76rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--ink-dim); padding:.5em .6em; border-bottom:none; border-radius:6px;
+  }
+  .nav-links a:hover{color:var(--cyan); background:var(--bg-elev)}
+  .toggles{display:flex; gap:6px; margin-left:6px}
+  .tbtn{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.05em; cursor:pointer;
+    color:var(--ink-dim); background:var(--bg-elev); border:1px solid var(--border);
+    border-radius:6px; padding:.42em .6em;
+  }
+  .tbtn:hover{color:var(--cyan); border-color:var(--cyan-deep)}
+  .tbtn[aria-pressed="true"]{color:var(--cyan); border-color:var(--cyan-deep); box-shadow:var(--glow)}
+  @media(max-width:720px){ .nav-links{display:none} }
+
+  /* ============================ BOOT OVERLAY ============================ */
+  #boot{
+    position:fixed; inset:0; z-index:100; background:#05070b; color:var(--cyan);
+    font-family:var(--mono); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:opacity .6s ease;
+  }
+  #boot .term{max-width:680px; width:90%; padding:0 8px; font-size:clamp(.95rem,2.4vw,1.25rem); line-height:1.9}
+  #boot .line{white-space:pre-wrap}
+  #boot .prompt{color:var(--amber)}
+  #boot .cur{display:inline-block; width:.6em; background:var(--cyan); animation:blink 1s steps(1) infinite}
+  #boot .hint{color:var(--ink-faint); font-size:.8rem; margin-top:1.6em; letter-spacing:.08em}
+  @keyframes blink{50%{opacity:0}}
+  body.booted{overflow:auto}
+  body.booting{overflow:hidden}
+
+  /* ============================ HERO ============================ */
+  .hero{padding-top:52px}
+  .hero .meta{margin-top:1.4em}
+  /* ============================ TERMINAL WIDGET ============================ */
+  .console{
+    margin:30px 0 6px; background:var(--bg-code); border:1px solid var(--border);
+    border-radius:12px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.35);
+  }
+  .console .bar{
+    display:flex; align-items:center; gap:8px; padding:9px 13px; background:var(--bg-elev);
+    border-bottom:1px solid var(--border); font-family:var(--mono); font-size:.72rem; color:var(--ink-faint);
+  }
+  .console .bar .dots{display:flex; gap:6px}
+  .console .bar .dots i{width:11px; height:11px; border-radius:50%; display:block; opacity:.8}
+  .console .bar .dots i:nth-child(1){background:#ff5f57} .console .bar .dots i:nth-child(2){background:#febc2e} .console .bar .dots i:nth-child(3){background:#28c840}
+  .console .bar .ttl{margin-left:4px}
+  #screen{
+    font-family:var(--mono); font-size:.9rem; line-height:1.6; padding:16px 16px 6px;
+    height:280px; overflow-y:auto; white-space:pre-wrap; word-break:break-word;
+  }
+  #screen .out{color:var(--ink)}
+  #screen .sys{color:var(--cyan)}
+  #screen .warn{color:var(--amber)}
+  #screen .dim{color:var(--ink-faint)}
+  #screen .you{color:var(--magenta)}
+  #screen b{color:var(--cyan); font-weight:700}
+  .cmdline{display:flex; align-items:center; gap:8px; padding:11px 16px; border-top:1px solid var(--border); font-family:var(--mono)}
+  .cmdline .ps1{color:var(--amber)}
+  #cmd{flex:1; background:transparent; border:none; color:var(--ink); font-family:var(--mono); font-size:.9rem; outline:none}
+  #cmd::placeholder{color:var(--ink-faint)}
+  .hintbar{font-family:var(--mono); font-size:.72rem; color:var(--ink-faint); margin:.5em 2px 0}
+  .hintbar b{color:var(--cyan); cursor:pointer; font-weight:400}
+  .hintbar b:hover{text-decoration:underline}
+
+  /* ============================ MAP ============================ */
+  .map{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin:26px 0}
+  .node{
+    text-align:left; cursor:pointer; background:var(--bg-panel); border:1px solid var(--border);
+    border-radius:10px; padding:13px 13px; color:var(--ink); font-family:var(--sans); transition:.15s;
+    position:relative;
+  }
+  .node:hover{border-color:var(--cyan-deep); transform:translateY(-2px); box-shadow:var(--glow)}
+  .node .ph{font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint)}
+  .node .nm{font-weight:700; font-size:1.02rem; margin:.15em 0 .1em}
+  .node .cmd{font-family:var(--mono); font-size:.72rem; color:var(--cyan)}
+  .node.visited::after{content:"✓"; position:absolute; top:9px; right:11px; color:var(--green); font-family:var(--mono); font-size:.8rem}
+  .node.workshop{border-style:dashed; border-color:var(--border)}
+  .node.workshop:hover{border-color:var(--amber)}
+  .node.workshop .cmd{color:var(--amber)}
+
+  /* ============================ TOOL CARDS ============================ */
+  .cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; margin:24px 0}
+  .card{background:var(--bg-panel); border:1px solid var(--border); border-radius:12px; padding:16px}
+  .card h4{margin:0 0 .3em; font-family:var(--mono); font-size:.92rem; color:var(--cyan)}
+  .card p{margin:0; font-size:.94rem; color:var(--ink-dim)}
+  .card.meta{border-style:dashed}
+  .card.meta h4{color:var(--amber)}
+
+  /* ============================ CALLOUTS ============================ */
+  .callout{border-left:3px solid var(--cyan); background:var(--bg-panel); border-radius:0 10px 10px 0; padding:14px 18px; margin:22px 0}
+  .callout .lbl{font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); display:block; margin-bottom:.3em}
+  .callout p{margin:.3em 0}
+  .callout.stakes{border-left-color:var(--magenta)}
+  .callout.stakes .lbl{color:var(--magenta)}
+  .callout.caution{border-left-color:var(--amber)}
+  .callout.caution .lbl{color:var(--amber)}
+
+  /* ============================ STATS ============================ */
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:14px; margin:26px 0}
+  .stat{text-align:center; background:var(--bg-panel); border:1px solid var(--border); border-radius:12px; padding:18px 10px}
+  .stat .n{font-family:var(--mono); font-weight:700; font-size:2rem; color:var(--cyan); text-shadow:var(--glow)}
+  .stat .l{font-size:.78rem; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.06em}
+
+  /* ============================ PLAYTHROUGH ============================ */
+  .loc{scroll-margin-top:70px}
+  .loc .lochdr{font-family:var(--mono); font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--amber); margin-bottom:.2em}
+  .scene{font-family:var(--mono); font-size:.88rem; color:var(--cyan); background:var(--bg-code); border:1px solid var(--border); border-left:3px solid var(--cyan-deep); border-radius:0 8px 8px 0; padding:12px 15px; margin:.6em 0 1em; white-space:pre-wrap}
+  .scene .p{color:var(--amber)}
+
+  /* ============================ CODE / TABLES ============================ */
+  .codecap{font-family:var(--mono); font-size:.72rem; color:var(--ink-faint); margin:1.4em 0 .4em}
+  pre{background:var(--bg-code); border:1px solid var(--border); border-radius:10px; padding:15px 16px; overflow-x:auto; font-family:var(--mono); font-size:.82rem; line-height:1.55; color:var(--ink)}
+  pre .k{color:var(--magenta)} pre .s{color:var(--green)} pre .c{color:var(--ink-faint)} pre .n{color:var(--amber)}
+  table{width:100%; border-collapse:collapse; margin:18px 0; font-size:.92rem}
+  th,td{text-align:left; padding:11px 12px; border-bottom:1px solid var(--border-soft); vertical-align:top}
+  th{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:400}
+  td .tag{white-space:nowrap}
+  ul.clean{list-style:none; padding-left:0} ul.clean li{padding-left:1.4em; position:relative; margin:.4em 0}
+  ul.clean li::before{content:"▸"; position:absolute; left:0; color:var(--cyan)}
+  ul.no li::before{content:"✗"; color:var(--amber)}
+
+  /* ============================ HUD + FOOTER ============================ */
+  #hud{
+    position:fixed; bottom:14px; right:14px; z-index:40; font-family:var(--mono); font-size:.72rem;
+    color:var(--ink-dim); background:var(--bg-panel);
+    background:color-mix(in srgb,var(--bg-panel) 92%, transparent);
+    border:1px solid var(--border); border-radius:999px; padding:.5em .9em; box-shadow:0 6px 20px rgba(0,0,0,.3);
+    transition:.2s;
+  }
+  #hud b{color:var(--cyan)}
+  #hud.full{border-color:var(--cyan-deep); box-shadow:var(--glow)}
+  footer{padding:50px 0 90px; border-top:1px solid var(--border-soft); color:var(--ink-dim); font-size:.92rem}
+  footer .endline{font-family:var(--mono); color:var(--cyan); letter-spacing:.1em; margin-top:1.4em; text-shadow:var(--glow)}
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1; transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none; transition:none}}
+  .kmap{font-family:var(--mono); font-size:.7rem; color:var(--ink-faint); line-height:1.5; overflow-x:auto}
+</style>
+<noscript><style>
+  /* JS off: never trap the reader behind the attract screen; reveal everything. */
+  #boot{display:none!important}
+  body.booting{overflow:auto!important}
+  .reveal{opacity:1!important; transform:none!important}
+  #hud{display:none}
+</style></noscript>
+</head>
+<body class="booting">
+
+<!-- ===================== BOOT OVERLAY ===================== -->
+<div id="boot" role="button" tabindex="0" aria-label="Press any key to begin"
+     onclick="this.style.display='none';document.body.classList.remove('booting');document.body.classList.add('booted');">
+  <div class="term">
+    <div id="bootlines"></div>
+    <div class="hint">[ CLICK OR PRESS ANY KEY TO BEGIN ]</div>
+  </div>
+</div>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="nav-in">
+    <span class="brand">HELLO<span class="blink">_</span>COMPUTER</span>
+    <nav class="nav-links">
+      <a href="#stakes">Stakes</a>
+      <a href="#map">Map</a>
+      <a href="#tools">Tools</a>
+      <a href="#play">Playthrough</a>
+      <a href="#rules">Rules</a>
+      <a href="#workshop">Workshop</a>
+      <a href="#reference">Reference</a>
+    </nav>
+    <div class="toggles">
+      <button class="tbtn" id="crtBtn" aria-pressed="false" title="CRT scanlines">▚ CRT</button>
+      <button class="tbtn" id="themeBtn" aria-pressed="false" title="Light / dark">◐ LIGHT</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Hello Computer<span class="dot">·</span>HPC in the Agentic Era<span class="dot">·</span>Getting Started</p>
+    <h1>Shall We Play <span class="accent">a Game?</span></h1>
+    <p class="lede">Writing a research article end-to-end as an <b>agent-first</b> workflow — the real
+      production of this paper, and the portable <span class="tag">.agents/</span> factory that makes the
+      cycle repeatable. Part text adventure, part field manual, wholly serious.</p>
+    <div class="meta">
+      <span class="chip">~15 min play</span>
+      <span class="chip">Audience: the research community</span>
+      <span class="chip">Self-contained · works offline</span>
+      <span class="chip">126 commits · 16 releases · in the open</span>
+    </div>
+
+    <!-- TERMINAL -->
+    <div class="console" id="console">
+      <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="ttl">/dev/wopr — agent-first research</span></div>
+      <div id="screen" aria-live="polite"></div>
+      <form class="cmdline" id="form" autocomplete="off">
+        <span class="ps1">&gt;</span>
+        <input id="cmd" name="cmd" placeholder="type a command… (try: help, look, map)" aria-label="terminal command input" autocapitalize="off" autocorrect="off" spellcheck="false">
+      </form>
+    </div>
+    <p class="hintbar">quick moves:
+      <b data-cmd="help">help</b> ·
+      <b data-cmd="look">look</b> ·
+      <b data-cmd="map">map</b> ·
+      <b data-cmd="stakes">stakes</b> ·
+      <b data-cmd="rules">rules</b> ·
+      <b data-cmd="ship">ship</b>
+    </p>
+  </div>
+</section>
+
+<!-- ===================== STAKES ===================== -->
+<section id="stakes">
+  <div class="wrap reveal">
+    <p class="eyebrow">A strange game</p>
+    <h2>Untrusted, yet a national imperative</h2>
+    <p>In <em>WarGames</em> (1983), a computer concludes that some games can only be survived, not won:
+      <em>the only winning move is not to play.</em> Research science is tempted by that same fatalism
+      about AI — decline to engage, wait for the norms to settle, keep the machine outside the lab door.
+      But the board is already set:</p>
+    <ul class="clean">
+      <li><b>AI is distrusted — for good reason.</b> Peer review assumed a human behind every sentence;
+        reproducibility assumes a documented method. An agent that will cheerfully write a Slurm script
+        for a cluster you don't operate is not a colleague you trust unsupervised.</li>
+      <li><b>AI is also a mandate.</b> The Model Context Protocol moved to the Linux Foundation; the U.S.
+        <em>Genesis Mission</em> charged the national labs with uniting supercomputers and AI for
+        discovery; serious voices call HPC "at a crossroads." The institutions that distrust the machine
+        are being told to build on it.</li>
+    </ul>
+    <p>You cannot resolve <em>untrusted&nbsp;yet&nbsp;imperative</em> by picking a side. You resolve it the
+      way you resolve any hard experiment: make the method explicit, the evidence inspectable, and the
+      failure modes cheap to catch. This paper was written to <em>be</em> that evidence.</p>
+    <div class="callout stakes">
+      <span class="lbl">The Stakes — for the people who set the rules</span>
+      <p>If you fund research, edit a journal, chair a program committee, or run a lab: the question is no
+        longer <em>whether</em> researchers use these tools, but whether the <b>process is disclosed and
+        reproducible</b> when they do. This factory is one concrete answer — an auditable, honest,
+        agent-first pipeline whose every artifact is committed in the open. Treat it as a proposal to
+        stress-test, adopt, or better. The winning move is to write the rules of play while the game is
+        young.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MAP ===================== -->
+<section id="map">
+  <div class="wrap reveal">
+    <p class="eyebrow">The map</p>
+    <h2>The world you'll explore</h2>
+    <p>A paper is a small world you walk — sometimes in circles. The factory models it as a
+      <b>finite-state machine</b>: named places (<span class="tag">macro_phase</span>s) with the rules of
+      the world enforced by scripts, not memory. It is <b>additive and cyclic</b> — a new source sends
+      you back to the stacks; a reviewer reopens a finished section. Click a location to travel.</p>
+    <div class="map" id="mapgrid"><!-- nodes injected --></div>
+    <p class="hintbar">You are never on rails. Ask the world where you are anytime — in the terminal, type
+      <b data-cmd="look">look</b> or <b data-cmd="map">map</b>.</p>
+  </div>
+</section>
+
+<!-- ===================== TOOLS ===================== -->
+<section id="tools">
+  <div class="wrap reveal">
+    <p class="eyebrow">Your party &amp; your tools</p>
+    <h2>Seven commands, one engine</h2>
+    <p><b>The party:</b> you (and your co-authors) are the players and the <em>judges</em> — every
+      verdict is yours. The <b>agent</b> is the tireless co-player at the parser: it reads, drafts, wires,
+      and critiques, but never decides the paper is done. That division is the whole game.</p>
+    <div class="cards" id="toolcards"><!-- injected --></div>
+    <div class="callout">
+      <span class="lbl">Field Notes — why an engine, and why scripts</span>
+      <p>The fastest way an AI workflow rots is that the agent edits its own state by hand and corrupts
+        it. The factory's answer is old-fashioned: <b>files + git are the durable substrate, and a
+        <em>script</em> owns every fragile edit.</b> Live state lives in one file, <span class="tag">PAPER.md</span>;
+        you read it with <span class="tag">paper_status.py</span> and change it with
+        <span class="tag">set_status.py</span>, which refuse to write anything that won't validate. The
+        model proposes; the engine disposes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS ===================== -->
+<section id="stats">
+  <div class="wrap reveal">
+    <p class="eyebrow">This is not a demo</p>
+    <h2>The real playthrough, in numbers</h2>
+    <p>Everything below is measured from the repository you're reading about — the actual production of
+      <em>Hello Computer: HPC in the Agentic Era</em>, over roughly four and a half months.</p>
+    <div class="stats">
+      <div class="stat"><div class="n" data-count="126">0</div><div class="l">commits, public</div></div>
+      <div class="stat"><div class="n" data-count="16">0</div><div class="l">tagged releases</div></div>
+      <div class="stat"><div class="n" data-count="63">0</div><div class="l">session logs</div></div>
+      <div class="stat"><div class="n" data-count="13">0</div><div class="l">sources, annotated</div></div>
+      <div class="stat"><div class="n" data-count="2">0</div><div class="l">peer-review phases</div></div>
+      <div class="stat"><div class="n" data-count="4">0</div><div class="l">pages, hard limit</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PLAYTHROUGH ===================== -->
+<section id="play">
+  <div class="wrap reveal">
+    <p class="eyebrow">The playthrough</p>
+    <h2>From an empty repo to the gate</h2>
+
+    <div class="loc" id="loc-start">
+      <p class="lochdr">Location 0 — The Contract · <span class="tag">scoped</span></p>
+      <div class="scene"><span class="p">&gt;</span> /paper-start
+A blank repository. A voice asks: what are you actually claiming, and how will you know if you failed?</div>
+      <p>Before a single source is read, you write the <b>contract</b>: the thesis in a sentence,
+        3–5 falsifiable <b>contribution claims</b> (stable ids <span class="tag">C1</span>,
+        <span class="tag">C2</span>…), the <b>non-goals</b>, the venue and page budget, and a section
+        skeleton. <span class="tag">/paper-start</span> writes it into <span class="tag">PAPER.md</span>,
+        scaffolds <span class="tag">outline/</span>, then <b>stops</b> for your sign-off. It never proceeds
+        on a guess — genuine ambiguity becomes a literal <span class="tag">[NEEDS CLARIFICATION]</span>.</p>
+      <div class="callout"><span class="lbl">Field Notes</span><p>Scoping first is the prose analog of
+        pre-registering a hypothesis. The claims become a spine everything downstream is checked against;
+        naming non-goals is how a four-page abstract stays four pages.</p></div>
+    </div>
+
+    <div class="loc" id="loc-research">
+      <p class="lochdr">Location 1 — The Stacks · <span class="tag">researching</span></p>
+      <div class="scene"><span class="p">&gt;</span> /paper-research vaswani2017attention
+A library that never closes. You summon a source; the machine reads all of it.</div>
+      <p>Literature review, <b>one source at a time</b>, re-runnable. Each run reads the real thing, writes
+        a structured deep-dive note (key findings, reusable sentences, and <em>which claims it supports</em>),
+        adds a <span class="tag">references.bib</span> entry, and ticks the checklist. This paper's
+        bibliography was built exactly so: <b>thirteen sources, across fifteen context windows, over ~eight
+        hours</b> — every one annotated and committed.</p>
+      <div class="callout"><span class="lbl">Field Notes</span><p>The agent is extraordinary at the
+        <em>labor</em> of a review — reading in full, never bored on source eleven — and no substitute for
+        judgment about what matters. The note format keeps them separate: it summarizes; you decide what a
+        source actually backs. Provenance is a chain, <span class="tag">claim → section → source</span>,
+        not a comment buried in the LaTeX.</p></div>
+    </div>
+
+    <div class="loc" id="loc-outline">
+      <p class="lochdr">Location 2 — The Desk · <span class="tag">outlining</span></p>
+      <div class="scene"><span class="p">&gt;</span> /paper-outline 03-approach
+Notes on the left, a section on the right, one rule pinned above: ONE VOICE.</div>
+      <p>Evidence becomes prose. <span class="tag">/paper-outline</span> folds the notes into a section's
+        working draft — in markdown, deliberately, to avoid LaTeX friction while the writing is soft. It
+        runs <b>one section at a time, strictly single-voice</b>: a paper with five ghostwriters reads
+        like it.</p>
+      <div class="callout"><span class="lbl">Field Notes — parallel to read, serial to write</span>
+        <p>The factory fans out for <em>research</em> (independent sources — a big win) and forbids it for
+        <em>drafting</em> (one argument, one voice). Steal the principle: parallelism is free where the
+        work is independent and toxic where it forces conflicting implicit decisions.</p></div>
+    </div>
+
+    <div class="loc" id="loc-draft">
+      <p class="lochdr">Location 3 — The Press · <span class="tag">integrating</span></p>
+      <div class="scene"><span class="p">&gt;</span> /paper-draft
+A printing press, and beside it a second reader who has never seen your notes and is told to distrust you.</div>
+      <p><span class="tag">/paper-draft</span> renders the outline into <span class="tag">manuscript.tex</span>
+        in <b>two passes</b>. <b>Pass A</b> integrates prose under the right headings, preserving every
+        citation. <b>Pass B</b> is the interesting one: a <b>fresh agent, in a clean context</b>, checks
+        the work — a cold read comparing outline to manuscript, and a <em>genuinely blind</em> audit that
+        sees the claims, the bibliography, and the manuscript but <b>not</b> your rationale, and asks: is
+        each claim actually supported? It <b>reports and stops.</b> Nothing advances without you.</p>
+      <div class="callout caution"><span class="lbl">Field Notes — the hardest problem: grading your own homework</span>
+        <p>A model asked "is this good?" about its own output says yes. The defense is structural: the
+        reviewer is a <em>different</em> invocation, denied the rationale that would let it rubber-stamp
+        itself, and required to cite evidence for every complaint. That's peer review's move — a fresh,
+        disinterested reader — mechanized. The ask isn't "trust the model," it's "show me the independent
+        check."</p></div>
+    </div>
+
+    <div class="loc" id="loc-review">
+      <p class="lochdr">Location 4 — The Arena · <span class="tag">in-review → revising</span></p>
+      <div class="scene"><span class="p">&gt;</span> /paper-review reviews/review_phase_2.md
+A round table of colleagues, unimpressed. They will not be automated away.</div>
+      <p><span class="tag">/paper-review</span> ingests a real <b>human review</b> and turns it into a
+        tracked spine: verbatim capture, then distilled items (<span class="tag">FB-1.01</span>…) each with
+        a severity (<span class="tag">must-fix</span> / <span class="tag">should-fix</span> /
+        <span class="tag">consider</span>), then a synthesis and a revision plan. This paper went through
+        <b>two full review phases</b> before it was allowed to ship.</p>
+      <div class="callout"><span class="lbl">Field Notes — humans judge; the agent keeps the books</span>
+        <p>The <em>judgment</em> stays human. What's automated is the bookkeeping peer feedback usually
+        dies in: the mapping from "reviewer 2 disliked the abstract" to a specific, tracked, resolvable
+        change. Feedback merely heard evaporates; feedback tracked gets addressed.</p></div>
+    </div>
+
+    <div class="loc" id="loc-release">
+      <p class="lochdr">Location 5 — The Gate · <span class="tag">released</span></p>
+      <div class="scene"><span class="p">&gt;</span> /paper-release minor version bump with tag and release
+A gate marked SHIP IT. It won't open over length, with a dangling citation, or with a "must-fix" still open.</div>
+      <p><span class="tag">/paper-release</span> ships <span class="tag">draft → main</span> behind a
+        <b>release guard</b>: the paper must build, pass <span class="tag">make check</span>, and carry no
+        unresolved must-fix or unaudited manuscript — anything else needs an explicit human override, on
+        the record. Then it tags, packages the camera-ready archive, and publishes. This paper passed that
+        gate <b>sixteen times</b>.</p>
+      <div class="callout"><span class="lbl">Field Notes — "build in the open" as a research value</span>
+        <p>Sixteen releases and 63 logs are the reproducibility story for a <em>process</em>, not just a
+        result: anyone can watch the paper think. For a community wrestling with trusting AI-assisted work,
+        that's a concrete disclosure standard — not "we used AI" in a footnote, but the entire inspectable
+        trail of how.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RULES ===================== -->
+<section id="rules">
+  <div class="wrap reveal">
+    <p class="eyebrow">The rules of the game</p>
+    <h2>There are no cheat codes</h2>
+    <p>Every game has rules you can't break without voiding the win. Here they're called
+      <b>invariants</b>, and they're the reason AI-assisted output can be trusted at all:</p>
+    <ul class="clean no">
+      <li>over the page budget</li>
+      <li>a <span class="tag">\cite</span> with no entry (or an entry never cited)</li>
+      <li>a claim with no evidence</li>
+      <li>the manuscript drifting from its source outline</li>
+      <li>an undisclosed use of AI</li>
+      <li>an invented number, a moved goalpost, a silent scope cut</li>
+    </ul>
+    <p><span class="tag">check_paper.py</span> (<span class="tag">make check</span>) enforces the mechanical
+      ones on every ship; the blind audit and human gate enforce the rest. Crucially, <b>quality is not the
+      cuttable variable</b> — scope is (that's what the page budget and non-goals are for). An AI workflow
+      that loosens its own guardrails to make a deadline has learned the wrong lesson.</p>
+    <div class="callout stakes"><span class="lbl">The Stakes — this is the trust contract</span>
+      <p>The distrust of AI in science is, at bottom, a fear that the guardrails are gone. The answer isn't
+        to promise the model is wise; it's to make the guardrails <b>explicit, mechanical, and
+        inspectable</b>, and let a disinterested checker enforce them. These invariants are a starting
+        proposal for what "responsible AI-assisted authorship" could concretely mean. Improve them — but
+        don't ship without some.</p></div>
+  </div>
+</section>
+
+<!-- ===================== WORKSHOP ===================== -->
+<section id="workshop">
+  <div class="wrap reveal">
+    <p class="eyebrow">The workshop</p>
+    <h2>The tools improve themselves</h2>
+    <div class="scene"><span class="p">&gt;</span> /paper-harness
+A back room of half-finished tools and a logbook. The machine has been leaving notes about where its own instructions tripped it up.</div>
+    <p>The factory is self-improving. When a lifecycle skill notices that <em>the tooling itself</em> cost
+      something, it drops a silent, structured <b>finding</b> into a <span class="tag">META.md</span>
+      logbook (silence is the default). <span class="tag">/paper-harness</span> is the one skill that edits
+      the factory: it reads open findings and a cross-project <b>ledger</b>, proposes a concrete fix for
+      each, shows you the diff, and — only with your approval — applies it as a small, revertable change.
+      It never touches the paper, and never weakens an invariant on a finding's say-so.</p>
+    <div class="callout"><span class="lbl">Field Notes — a method that learns is worth keeping</span>
+      <p>A one-off prompt is a trick; a method that accumulates its own lessons is infrastructure. The
+        asymmetry is deliberate — <em>observing</em> friction is nearly free, <em>acting</em> on it is
+        careful and human-gated. The findings stay with this paper; the ledger of what actually worked
+        <b>travels</b> to the next one.</p></div>
+
+    <h3 id="newgame">New Game +</h3>
+    <p>The whole toolkit lives in one portable tree, <span class="tag">.agents/</span>. To start a new
+      paper, copy it into a fresh repo and run <span class="tag">/paper-start</span>. The reusable
+      machinery comes with you — skills, engine, invariants, templates, and the ledger of hard-won
+      lessons — while this paper's specific contract and friction log stay behind. The scripts are
+      <b>stdlib-only</b> (nothing to install) and the skills are plain markdown that runs on any agent
+      harness. This isn't a demo that worked once; it's a <b>repeatable cycle</b>.</p>
+  </div>
+</section>
+
+<!-- ===================== WINNING MOVE ===================== -->
+<section id="winning">
+  <div class="wrap reveal">
+    <p class="eyebrow">The only winning move</p>
+    <h2>It's your move</h2>
+    <p><em>WarGames</em> ended on a machine concluding that the only winning move, in a game of mutual
+      annihilation, is not to play. Research computing isn't that game. Ours is one where the tools are
+      already in the room — already in the hands of every graduate student debugging a kernel at 2&nbsp;a.m.,
+      already named a national priority — and the only <em>losing</em> move is to pretend otherwise and let
+      the norms be written by people who aren't in the lab.</p>
+    <p>So play. But play in the open, guardrails on, method inspectable. Engage the tools yourself, so your
+      understanding is visceral. Insist that AI-assisted work disclose not just <em>that</em> it used AI but
+      <em>how</em> — reproducibly, the way you'd insist on a documented method for anything else. Build the
+      checks that let a disinterested reader catch failures cheaply. And when the tooling frustrates you,
+      write it down and fix it, so the next scientist starts further along.</p>
+    <p>This repository is our opening move — imperfect, public, and an invitation: to researchers, to
+      funders, to journals, to program committees, to make the next one better.</p>
+  </div>
+</section>
+
+<!-- ===================== REFERENCE ===================== -->
+<section id="reference">
+  <div class="wrap reveal">
+    <p class="eyebrow">Appendix</p>
+    <h2>The factory — complete reference</h2>
+    <p>The dry, complete <em>what</em>. When this disagrees with a skill's own <span class="tag">SKILL.md</span>,
+      the skill body is the operating procedure. Deeper rationale lives in
+      <span class="tag">methodology.md</span>.</p>
+
+    <h3>Where everything lives</h3>
+    <pre class="kmap">.agents/
+  skills/paper-{start,research,outline,draft,review,release}/SKILL.md     <span class="c"># the six lifecycle skills</span>
+  skills/paper-harness/SKILL.md            <span class="c"># meta/maintenance: the self-improvement applier</span>
+  factory/
+    getting-started.html · getting-started.md   <span class="c"># this walkthrough (browser + markdown)</span>
+    methodology.md      <span class="c"># the lifecycle rationale + 8 load-bearing principles</span>
+    invariants.md       <span class="c"># the paper-invariants gate</span>
+    claims.md           <span class="c"># the contribution-claim (C-ID) convention</span>
+    review-rubric.md    <span class="c"># refutation protocol, severity, blind/cold-read regimes</span>
+    portability.md      <span class="c"># running on a non-Claude harness (affordance → fallback)</span>
+    harness-log.md      <span class="c"># the self-improvement decision ledger (travels)</span>
+    templates/          <span class="c"># CONTRACT · REFNOTE · REVIEW-FEEDBACK · REVIEW-SYNTHESIS · REVISION-PLAN · META</span>
+    bin/                <span class="c"># paper_status · set_status · check_paper · meta_status · _fsm  (stdlib)</span>
+  settings.json         <span class="c"># portable least-privilege tool allowlist</span>
+.claude → .agents · CLAUDE.md → AGENTS.md   <span class="c"># discovery + constitution symlinks</span>
+PAPER.md · META.md      <span class="c"># this paper's FSM state + harness-friction log (left behind on copy)</span>
+outline/ reviews/ plans/ logs/ manuscript.tex references.bib   <span class="c"># content + public record</span></pre>
+
+    <h3>The lifecycle skills</h3>
+    <table>
+      <thead><tr><th>Command</th><th>Phase</th><th>Consumes → Produces</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag">/paper-start</span></td><td>→ scoped</td><td>topic → <span class="tag">PAPER.md</span> contract (thesis, C-IDs, non-goals, skeleton) + <span class="tag">outline/</span>. Stops for sign-off.</td></tr>
+        <tr><td><span class="tag">/paper-research</span></td><td>researching</td><td>one source → a deep-dive note + <span class="tag">references.bib</span> entry + claim-evidence links. Re-runnable.</td></tr>
+        <tr><td><span class="tag">/paper-outline</span></td><td>outlining</td><td>refs notes → a section's <span class="tag">## Draft</span> prose; advances draft → review. Serial.</td></tr>
+        <tr><td><span class="tag">/paper-draft</span></td><td>integrating</td><td>review sections → <span class="tag">manuscript.tex</span> (Pass A) + a fresh-agent audit (Pass B); advances review → integrated.</td></tr>
+        <tr><td><span class="tag">/paper-review</span></td><td>in-review → revising</td><td>a human review → capture + <span class="tag">FB-N.NN</span> items + synthesis + revision plan; reopens sections.</td></tr>
+        <tr><td><span class="tag">/paper-release</span></td><td>→ released</td><td>a clean <span class="tag">draft → main</span> ship behind the release guard; optional bump, tag, TAPS package.</td></tr>
+        <tr><td><span class="tag">/paper-harness</span></td><td>meta</td><td><span class="tag">META.md</span> findings → human-gated <span class="tag">[harness]</span> fixes to <span class="tag">.agents/</span>; logged in the ledger.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>The engine (<span class="tag">bin/</span>, stdlib python3)</h3>
+    <table>
+      <thead><tr><th>Script</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag">paper_status.py</span></td><td>"look" — where am I, what's next, what's unproven, what's drifted? (JSON, or <span class="tag">--summary</span>)</td></tr>
+        <tr><td><span class="tag">set_status.py</span></td><td>"move" — the only sanctioned mutation of <span class="tag">PAPER.md</span>; refuses invalid writes.</td></tr>
+        <tr><td><span class="tag">check_paper.py</span></td><td>"the referee" — citation integrity, prose conventions, page + word budget (<span class="tag">make check</span>).</td></tr>
+        <tr><td><span class="tag">meta_status.py</span></td><td>"the suggestion box" — reads the self-improvement findings.</td></tr>
+        <tr><td><span class="tag">_fsm.py</span></td><td>the shared parse/validate engine (no PyYAML); runs its golden self-test.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>The state machine</h3>
+    <p class="codecap">PAPER.md — front-matter (excerpt), the resume point the scripts own</p>
+    <pre><span class="k">macro_phase</span>: integrating      <span class="c"># scoped→researching→outlining→integrating→in-review→revising→released (cyclic)</span>
+<span class="k">sections</span>:
+  - {<span class="k">id</span>: 03-approach, <span class="k">status</span>: <span class="n">review</span>, <span class="k">satisfies</span>: [C4], <span class="k">target_words</span>: <span class="n">500</span>, <span class="k">attempts</span>: <span class="n">1</span>}
+<span class="k">claims</span>:
+  - {<span class="k">id</span>: C2, <span class="k">status</span>: <span class="n">supported</span>, <span class="k">satisfied_by</span>: [00-abstract, 05-conclusion], <span class="k">evidence</span>: [deelman2025hpc]}
+<span class="k">review</span>: {<span class="k">cycle</span>: <span class="n">2</span>, <span class="k">verdict</span>: <span class="n">approved</span>, <span class="k">reviewed_commit</span>: <span class="s">"a1b2c3d"</span>}</pre>
+    <p>Section status runs <span class="tag">draft → review → integrated</span> (plus
+      <span class="tag">blocked</span>), with two file-backed circuit breakers: a section's
+      <span class="tag">attempts</span> (the internal draft↔audit loop; warns at ≥3) and
+      <span class="tag">review.cycle</span> (the external review↔revise loop). Contribution claims are
+      stable <span class="tag">C1…Cn</span>, each <span class="tag">proposed → supported → cut</span>,
+      threaded <span class="tag">claim → section → evidence</span>.</p>
+    <p><b>make targets:</b>
+      <span class="tag">build</span> · <span class="tag">check</span> · <span class="tag">test</span> ·
+      <span class="tag">release</span> · <span class="tag">upload</span> · <span class="tag">watch</span> ·
+      <span class="tag">open</span> · <span class="tag">clean</span> · <span class="tag">distclean</span>.
+      <b>Git discipline:</b> work on <span class="tag">draft</span>, commits prefixed
+      <span class="tag">DRAFT:</span> (except <span class="tag">/paper-harness</span>'s
+      <span class="tag">[harness]</span>); ship to <span class="tag">main</span> via
+      <span class="tag">/paper-release</span>; every file-modifying session logs to
+      <span class="tag">logs/</span> with the verbatim request.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>Hello Computer: HPC in the Agentic Era</b> — Geoffrey Lentner &amp; Ashish, Rosen Center for
+      Advanced Computing, Purdue University. An extended abstract for PEARC&nbsp;'26, written end-to-end as
+      an agent-first workflow. Every commit is public.</p>
+    <p>This page is self-contained and works offline. The same walkthrough in plain markdown lives at
+      <span class="tag">.agents/factory/getting-started.md</span>; the factory itself is under
+      <span class="tag">.agents/</span>.</p>
+    <p class="endline">GREETINGS PROFESSOR. IT'S YOUR MOVE. &nbsp;·&nbsp; END OF LINE.</p>
+  </div>
+</footer>
+
+<div id="hud" title="How much of the world you've explored">◈ EXPLORED <b id="hudn">0</b>/7</div>
+
+<script>
+(function(){
+  "use strict";
+  // Failsafe: any uncaught error must never leave a visitor stuck on the attract screen.
+  window.addEventListener("error", function(){
+    try{ var b=document.getElementById("boot"); if(b) b.style.display="none";
+         document.body.classList.remove("booting"); document.body.classList.add("booted"); }catch(_){}
+  });
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  /* ---------- LIFECYCLE DATA (single source for map, cards, terminal) ---------- */
+  var PHASES = [
+    {key:"start",    phase:"scoped",      name:"The Contract", cmd:"/paper-start",    loc:"loc-start",
+     blurb:"Scope a NEW paper: thesis, 3–5 contribution claims, non-goals, section skeleton. Stops for sign-off."},
+    {key:"research", phase:"researching", name:"The Stacks",   cmd:"/paper-research", loc:"loc-research",
+     blurb:"Deep-read ONE source; write a structured note; wire it to the claim it supports. Re-runnable."},
+    {key:"outline",  phase:"outlining",   name:"The Desk",     cmd:"/paper-outline",  loc:"loc-outline",
+     blurb:"Fold that evidence into a section's prose — markdown, one section, one voice. No LaTeX yet."},
+    {key:"draft",    phase:"integrating", name:"The Press",    cmd:"/paper-draft",    loc:"loc-draft",
+     blurb:"Render the outline into manuscript.tex, then a fresh blind agent audits it. Reports and stops."},
+    {key:"review",   phase:"in-review",   name:"The Arena",    cmd:"/paper-review",   loc:"loc-review",
+     blurb:"Ingest a human peer review; turn it into tracked, severity-tagged, actionable feedback."},
+    {key:"release",  phase:"released",    name:"The Gate",     cmd:"/paper-release",  loc:"loc-release",
+     blurb:"Ship draft → main behind a release guard: build, checks, no open must-fix. Tag & publish."},
+    {key:"harness",  phase:"meta",        name:"The Workshop", cmd:"/paper-harness",  loc:"workshop",
+     blurb:"The tools improve themselves: turn friction findings into human-gated [harness] fixes.", meta:true}
+  ];
+
+  var visited = {};
+  function markVisited(key){
+    if(visited[key]) return; visited[key]=true;
+    var node=document.querySelector('.node[data-key="'+key+'"]'); if(node) node.classList.add("visited");
+    var n=Object.keys(visited).length; var hn=document.getElementById("hudn"); if(hn) hn.textContent=n;
+    if(n>=7){ var h=document.getElementById("hud"); if(h){h.classList.add("full"); h.innerHTML="◈ WORLD EXPLORED <b>7/7</b> ✓";} }
+  }
+
+  /* ---------- BUILD MAP + CARDS ---------- */
+  var mg=document.getElementById("mapgrid");
+  var tc=document.getElementById("toolcards");
+  PHASES.forEach(function(p){
+    if(mg){
+      var b=document.createElement("button");
+      b.className="node"+(p.meta?" workshop":""); b.setAttribute("data-key",p.key);
+      b.innerHTML='<div class="ph">'+p.phase+'</div><div class="nm">'+p.name+'</div><div class="cmd">'+p.cmd+'</div>';
+      b.addEventListener("click",function(){ travel(p.key,true); });
+      mg.appendChild(b);
+    }
+    if(tc){
+      var c=document.createElement("div"); c.className="card"+(p.meta?" meta":"");
+      c.innerHTML='<h4>'+p.cmd+'</h4><p>'+p.blurb+'</p>';
+      tc.appendChild(c);
+    }
+  });
+
+  function travel(key, doScroll){
+    var p=PHASES.filter(function(x){return x.key===key;})[0]; if(!p) return;
+    markVisited(key);
+    if(doScroll){ var el=document.getElementById(p.loc); if(el) el.scrollIntoView({behavior: reduce?"auto":"smooth", block:"start"}); }
+    return p;
+  }
+
+  /* ---------- TERMINAL ---------- */
+  var screen=document.getElementById("screen");
+  var input=document.getElementById("cmd");
+  var form=document.getElementById("form");
+  var history=[], hi=-1;
+
+  function line(text, cls){
+    var d=document.createElement("div"); d.className=cls||"out"; d.innerHTML=text; screen.appendChild(d);
+    screen.scrollTop=screen.scrollHeight;
+  }
+  function say(text){ line(text,"out"); }
+  function sys(text){ line(text,"sys"); }
+
+  var BANNER = [
+    '<span class="sys">HELLO, COMPUTER.</span>',
+    'A strange game. The board is set; the tools are already in the room.',
+    'This is an <b>agent-first</b> walkthrough of writing a research paper — a real one.',
+    'Type <b>help</b> for commands, <b>look</b> to survey the world, or <b>map</b> to travel.'
+  ];
+  BANNER.forEach(say);
+
+  function cmdList(){
+    return 'Commands you can try:\n'+
+    '  <b>look</b>            survey where you are\n'+
+    '  <b>map</b>             show the lifecycle world (then <b>go &lt;place&gt;</b>)\n'+
+    '  <b>go &lt;place&gt;</b>       travel: start · research · outline · draft · review · release · workshop\n'+
+    '  <b>inventory</b> / <b>i</b>   your seven /paper-* commands\n'+
+    '  <b>/paper-…</b>         describe a skill (e.g. <b>/paper-draft</b>)\n'+
+    '  <b>stakes</b>          why this matters, and to whom\n'+
+    '  <b>rules</b>           the invariants — the no-cheat-codes list\n'+
+    '  <b>ship</b>            what it means to release\n'+
+    '  <b>stats</b>           this paper, in real numbers\n'+
+    '  <b>whoami</b> · <b>about</b> · <b>clear</b> · <b>restart</b>';
+  }
+
+  function doCmd(raw){
+    var c=(raw||"").trim(); if(!c) return;
+    line('<span class="dim">&gt; </span><span class="you">'+escapeHtml(c)+'</span>');
+    history.unshift(c); hi=-1;
+    var lc=c.toLowerCase();
+
+    if(lc==="help"||lc==="?"||lc==="commands"){ say(cmdList()); return; }
+    if(lc==="look"||lc==="look around"||lc==="l"){
+      say('You are at a terminal. In front of you: a blank manuscript and a machine that will read every\n'+
+          'paper you point it at, draft in your voice, and argue with itself about whether it got the\n'+
+          'argument right. Behind you: a research culture unsure it trusts the machine — and a funding\n'+
+          'landscape that just called the machine a national priority.');
+      sys('Exits lead to a small world of seven places. Type <b>map</b>.');
+      return;
+    }
+    if(lc==="map"||lc==="m"){
+      say('THE LIFECYCLE WORLD  (cyclic — you may revisit any place):\n');
+      PHASES.forEach(function(p){
+        say('  '+(visited[p.key]?'<b>✓</b>':' ·')+' <b>'+pad(p.key,9)+'</b> '+pad(p.phase,12)+' '+p.name);
+      });
+      sys('Travel with <b>go &lt;place&gt;</b> — e.g. <b>go research</b> — or click a node on the map above.');
+      return;
+    }
+    if(lc.indexOf("go ")===0||lc.indexOf("goto ")===0||lc.indexOf("cd ")===0){
+      var t=lc.replace(/^(go|goto|cd)\s+/,"").replace(/[^a-z]/g,"");
+      var alias={scope:"start",scoped:"start",feature:"start",stacks:"research",researching:"research",desk:"outline",
+                 outlining:"outline",press:"draft",integrating:"draft",arena:"review",inreview:"review",
+                 revising:"review",gate:"release",released:"release",ship:"release",meta:"harness"};
+      t=alias[t]||t;
+      var p=PHASES.filter(function(x){return x.key===t;})[0];
+      if(!p){ line('You can\'t go there. Try <b>map</b>.',"warn"); return; }
+      sys('You travel to <b>'+p.name+'</b>  ('+p.cmd+' · '+p.phase+').');
+      say(p.blurb);
+      travel(p.key,true);
+      return;
+    }
+    if(lc==="inventory"||lc==="i"||lc==="tools"){
+      say('Your seven commands (verbs in this world):');
+      PHASES.forEach(function(p){ say('  <b>'+pad(p.cmd,16)+'</b> '+p.blurb.split(".")[0]+'.'); });
+      return;
+    }
+    if(lc.indexOf("/paper-")===0||lc.indexOf("paper-")===0){
+      var k=lc.replace("/","").replace("paper-","").replace(/[^a-z]/g,"");
+      var p=PHASES.filter(function(x){return x.key===k;})[0];
+      if(p){ sys(p.cmd+'  ·  phase: '+p.phase); say(p.blurb); sys('Travel there: <b>go '+p.key+'</b>'); }
+      else line('Unknown skill. Type <b>inventory</b> for the seven.',"warn");
+      return;
+    }
+    if(lc==="stakes"){
+      say('AI in research is <b>untrusted yet a national imperative</b> — distrusted by peer review and\n'+
+          'reproducibility norms, and simultaneously mandated (MCP at the Linux Foundation; the Genesis\n'+
+          'Mission; HPC "at a crossroads"). You don\'t resolve that by picking a side. You make the method\n'+
+          'explicit, the evidence inspectable, the failures cheap to catch. This paper is that evidence.');
+      document.getElementById("stakes").scrollIntoView({behavior:reduce?"auto":"smooth"});
+      return;
+    }
+    if(lc==="rules"||lc==="invariants"){
+      say('THE INVARIANTS — no cheat codes. You may NOT ship with:');
+      ['over the page budget','a \\cite with no entry (or an entry never cited)','a claim with no evidence',
+       'the manuscript drifting from its source outline','an undisclosed use of AI',
+       'an invented number, a moved goalpost, a silent scope cut'].forEach(function(r){ line('  ✗ '+r,"warn"); });
+      sys('Scope is cuttable. Quality is not. That is the trust contract.');
+      document.getElementById("rules").scrollIntoView({behavior:reduce?"auto":"smooth"});
+      return;
+    }
+    if(lc==="ship"||lc==="release"){
+      sys('> /paper-release'); say('The gate won\'t open over length, with a dangling citation, or with a\n'+
+          '"must-fix" still open — unless a human overrides, on the record. This paper passed it 16 times.');
+      travel("release",true); return;
+    }
+    if(lc==="stats"||lc==="numbers"){
+      say('The real playthrough: <b>126</b> commits · <b>16</b> releases · <b>63</b> session logs ·\n'+
+          '<b>13</b> annotated sources · <b>2</b> peer-review phases · <b>4</b>-page hard limit. All public.');
+      document.getElementById("stats").scrollIntoView({behavior:reduce?"auto":"smooth"}); return;
+    }
+    if(lc==="whoami"){ say('You are a researcher — a player, and the <b>judge</b>. The agent reads, drafts,\nwires, and critiques; it never decides the paper is done. That division is the whole game.'); return; }
+    if(lc==="about"||lc==="credits"){ say('<b>Hello Computer: HPC in the Agentic Era</b> — Lentner &amp; Ashish, RCAC / Purdue.\nPEARC \'26 extended abstract, written end-to-end as an agent-first workflow.\nThe factory that made it repeatable is under <b>.agents/</b>.'); return; }
+    if(lc==="clear"||lc==="cls"){ screen.innerHTML=""; return; }
+    if(lc==="restart"||lc==="reboot"){ replayBoot(); return; }
+    if(lc==="xyzzy"){ line('A hollow voice says: <b>"Fool. The magic word is</b> /paper-start<b>."</b>',"warn"); return; }
+    if(lc==="sudo"||lc.indexOf("sudo ")===0){ line('You already have the power. That was never the problem.',"warn"); return; }
+    if(lc==="git log"||lc==="log"){ say('<b>126</b> commits. <b>16</b> tagged releases. Every one public and inspectable.'); return; }
+    if(lc==="ls"){ say('AGENTS.md  PAPER.md  META.md  manuscript.tex  references.bib  outline/  reviews/  plans/  logs/  .agents/'); return; }
+    if(lc==="hello"||lc==="hi"||lc==="hello computer"){ sys('Hello, professor. Shall we write a paper?'); return; }
+    if(lc==="quit"||lc==="exit"){ line('There is no quitting the agentic era. The only losing move is not to play.',"warn"); return; }
+    line('I don\'t understand "'+escapeHtml(c)+'". Type <b>help</b>.',"dim");
+  }
+
+  function pad(s,n){ s=String(s); while(s.length<n) s+=" "; return s; }
+  function escapeHtml(s){ return s.replace(/[&<>"]/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]);}); }
+
+  if(form){
+    form.addEventListener("submit",function(e){ e.preventDefault(); var v=input.value; input.value=""; doCmd(v); });
+  }
+  if(input){
+    input.addEventListener("keydown",function(e){
+      if(e.key==="ArrowUp"){ if(hi<history.length-1){hi++; input.value=history[hi]||"";} e.preventDefault(); }
+      else if(e.key==="ArrowDown"){ if(hi>0){hi--; input.value=history[hi]||"";} else {hi=-1; input.value="";} e.preventDefault(); }
+    });
+  }
+  // quick-move chips + focus shortcut "/"
+  document.querySelectorAll(".hintbar b[data-cmd]").forEach(function(b){
+    b.addEventListener("click",function(){ doCmd(b.getAttribute("data-cmd")); input && input.focus(); });
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="/" && document.activeElement!==input && !/input|textarea/i.test((document.activeElement||{}).tagName||"")){
+      e.preventDefault(); input && input.focus();
+    }
+  });
+
+  /* ---------- TOGGLES ---------- */
+  function setPressed(btn,on){ btn.setAttribute("aria-pressed", on?"true":"false"); }
+  var crtBtn=document.getElementById("crtBtn"), themeBtn=document.getElementById("themeBtn");
+  if(crtBtn) crtBtn.addEventListener("click",function(){ var on=document.body.classList.toggle("crt"); setPressed(crtBtn,on); });
+  if(themeBtn) themeBtn.addEventListener("click",function(){
+    var on=document.body.classList.toggle("light"); setPressed(themeBtn,on);
+    themeBtn.innerHTML = on ? "◑ DARK" : "◐ LIGHT";
+  });
+
+  /* ---------- SCROLL REVEAL + STAT COUNTERS + VISIT-ON-SCROLL ---------- */
+  var locByEl={}; PHASES.forEach(function(p){ locByEl[p.loc]=p.key; });
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add("in");
+          if(en.target.classList.contains("stats-host")) runCounters();
+          io.unobserve(en.target);
+        }
+      });
+    },{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+
+    // stats host
+    var sh=document.querySelector("#stats .reveal"); if(sh){ sh.classList.add("stats-host"); }
+
+    // mark a location visited when it scrolls into view
+    var lio=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ var k=locByEl[en.target.id]; if(k) markVisited(k); } });
+    },{threshold:.4});
+    document.querySelectorAll(".loc").forEach(function(el){ lio.observe(el); });
+    var wk=document.getElementById("workshop"); if(wk) lio.observe(wk); locByEl["workshop"]="harness";
+  } else {
+    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+    runCounters();
+  }
+
+  var counted=false;
+  function runCounters(){
+    if(counted) return; counted=true;
+    document.querySelectorAll(".stat .n").forEach(function(el){
+      var target=parseInt(el.getAttribute("data-count"),10)||0;
+      if(reduce){ el.textContent=target; return; }
+      var start=0, dur=900, t0=null;
+      function step(ts){ if(!t0) t0=ts; var k=Math.min(1,(ts-t0)/dur); el.textContent=Math.round(start+(target-start)*(k*(2-k))); if(k<1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    });
+  }
+
+  /* ---------- BOOT SEQUENCE ---------- */
+  var boot=document.getElementById("boot"), bl=document.getElementById("bootlines");
+  var SEQ=[
+    {t:"GREETINGS PROFESSOR.", d:60},
+    {t:"", d:120},
+    {t:"HELLO, COMPUTER.", d:60, prompt:true},
+    {t:"", d:150},
+    {t:"A STRANGE GAME.", d:60},
+    {t:"WOULD YOU LIKE TO WRITE A PAPER?", d:55}
+  ];
+  function endBoot(){
+    if(!boot) return;
+    boot.style.opacity="0";
+    document.body.classList.remove("booting"); document.body.classList.add("booted");
+    setTimeout(function(){ if(boot&&boot.parentNode) boot.parentNode.removeChild(boot); },650);
+    document.removeEventListener("keydown",skip,true);
+  }
+  function skip(){ endBoot(); }
+  function typeLine(obj, done){
+    var wrap=document.createElement("div"); wrap.className="line"+(obj.prompt?" prompt":""); bl.appendChild(wrap);
+    if(obj.prompt){ wrap.textContent="> "; }
+    var txt=obj.t, i=0;
+    (function tick(){
+      if(i<=txt.length){ wrap.textContent=(obj.prompt?"> ":"")+txt.slice(0,i)+"▋"; i++; setTimeout(tick, obj.d||55); }
+      else { wrap.textContent=(obj.prompt?"> ":"")+txt; done&&done(); }
+    })();
+  }
+  function runBoot(){
+    if(!boot){ document.body.classList.remove("booting"); return; }
+    if(reduce){ // no animation: show final frame briefly, allow skip
+      bl.innerHTML='<div class="line">HELLO, COMPUTER.</div><div class="line prompt">&gt; WOULD YOU LIKE TO WRITE A PAPER?</div>';
+      return;
+    }
+    var idx=0;
+    (function next(){ if(idx>=SEQ.length) return; typeLine(SEQ[idx], function(){ idx++; setTimeout(next, 220); }); })();
+  }
+  function replayBoot(){
+    var b=document.createElement("div"); b.id="boot"; b.setAttribute("role","button"); b.setAttribute("tabindex","0");
+    b.innerHTML='<div class="term"><div id="bootlines"></div><div class="hint">[ CLICK OR PRESS ANY KEY TO BEGIN ]</div></div>';
+    document.body.appendChild(b); boot=b; bl=b.querySelector("#bootlines");
+    document.body.classList.add("booting"); document.body.classList.remove("booted");
+    b.addEventListener("click",endBoot); document.addEventListener("keydown",skip,true);
+    runBoot();
+  }
+  if(boot){
+    boot.addEventListener("click",endBoot);
+    document.addEventListener("keydown",skip,true);
+    runBoot();
+    // Failsafe: never leave a visitor stuck on the attract screen.
+    setTimeout(function(){ if(document.getElementById("boot")) endBoot(); }, 16000);
+  } else { document.body.classList.remove("booting"); }
+
+  /* ---------- KONAMI EASTER EGG ---------- */
+  var seq=[38,38,40,40,37,39,37,39,66,65], pos=0;
+  document.addEventListener("keydown",function(e){
+    pos = (e.keyCode===seq[pos]) ? pos+1 : (e.keyCode===seq[0]?1:0);
+    if(pos===seq.length){ pos=0; document.body.classList.add("crt"); if(crtBtn) setPressed(crtBtn,true);
+      if(screen){ sys('<b>A STRANGE GAME.</b>'); say('The only winning move for research facilitators is to <b>play</b> — in the open, guardrails on.');
+        document.getElementById("console").scrollIntoView({behavior:reduce?"auto":"smooth"}); input&&input.focus(); } }
+  });
+})();
+</script>
+</body>
+</html>
