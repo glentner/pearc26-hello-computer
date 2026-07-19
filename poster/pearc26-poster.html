@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hello Computer — PEARC '26 Poster (48×36)</title>
+<!--
+  ============================================================================
+  PEARC '26 POSTER · Hello Computer: HPC in the Agentic Era
+  48in (wide) × 36in (tall) · self-contained · dark CRT, tuned for large-format
+  Three-column "magazine" layout (WHY | HOW | WHAT), styled to match the
+  getting-started.html web experience: open sections, generous whitespace,
+  cyan mono eyebrows, boxes reserved for the terminal / stat tiles / callouts.
+  ----------------------------------------------------------------------------
+  PRINT:  Chrome ▸ File ▸ Print ▸ "Save as PDF".  Paper 48 x 36 in, Landscape,
+          Margins None, Background graphics ON.  On-screen it auto-scales to fit.
+  SWAP BEFORE PRINT: the .qr block → a real QR to your Funnel URL.
+  ============================================================================
+-->
+<style>
+  :root{
+    --bg:#05070b; --panel:#0b111a; --panel2:#0e151f; --code:#080d14;
+    --border:#1b2734; --border-soft:#141d29; --rule:#1a2634;
+    --ink:#dbe4ef; --dim:#8b9cae; --faint:#5f7183;
+    --cyan:#5bd6e0; --cyan-soft:#9cebf1; --amber:#f4a84a; --magenta:#e678ab; --green:#84dd93;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --glow:0 0 .10in rgba(91,214,224,.5),0 0 .34in rgba(91,214,224,.34);
+    --glow-soft:0 0 .1in rgba(91,214,224,.3);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  @page{ size:48in 36in; margin:0; }
+
+  .poster{
+    width:48in; height:36in; background:
+      radial-gradient(150% 80% at 50% -8%, #0a1017 0%, var(--bg) 55%);
+    color:var(--ink); font-family:var(--sans); overflow:hidden; position:relative;
+    display:grid; grid-template-rows:max-content minmax(0,1fr) max-content;
+    padding:.7in .85in .5in; row-gap:.42in;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  @media screen{
+    .poster::before{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
+      background:repeating-linear-gradient(rgba(0,0,0,0) 0 3px, rgba(0,0,0,.14) 3px 4px);mix-blend-mode:multiply;opacity:.45}
+    .poster::after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;
+      background:radial-gradient(135% 95% at 50% 32%, transparent 60%, rgba(0,0,0,.45) 100%)}
+  }
+  .poster>*{position:relative;z-index:6}
+
+  /* ---------------- type ---------------- */
+  .eyebrow{font-family:var(--mono);font-size:20pt;letter-spacing:.26em;text-transform:uppercase;color:var(--cyan);margin:0 0 .16in}
+  .eyebrow .dot{color:var(--faint);margin:0 .55em}
+  h2{font-family:var(--sans);font-weight:800;font-size:37pt;line-height:1.06;letter-spacing:-.015em;margin:0 0 .18in;color:#eef4fb}
+  p{margin:.12in 0;font-size:23.5pt;line-height:1.46;color:var(--ink)}
+  .sub{color:var(--dim)}
+  b,strong{color:#fff;font-weight:700}
+  em{color:var(--cyan-soft);font-style:italic}
+  .tag{font-family:var(--mono);font-size:.85em;color:var(--cyan);background:rgba(91,214,224,.10);
+       border:1px solid rgba(91,214,224,.26);border-radius:.05in;padding:.02in .1in}
+  .amber{color:var(--amber)} .mag{color:var(--magenta)}
+
+  /* ---------------- header ---------------- */
+  .head{text-align:center}
+  .toprow{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:16pt;color:var(--dim);text-align:left}
+  .toprow .wm b{color:var(--ink);letter-spacing:.05em}
+  .toprow .right{text-align:right;line-height:1.45}
+  .toprow .right .au{color:var(--ink)}
+  .head .eyebrow{margin-top:.34in;letter-spacing:.34em}
+  .hero{font-family:var(--sans);font-weight:800;font-size:132pt;line-height:.96;letter-spacing:-.02em;white-space:nowrap;
+        margin:.06in 0 .02in;color:#f3f8fd}
+  .hero .cy{color:var(--cyan);text-shadow:var(--glow)}
+  .subtitle{font-family:var(--sans);font-weight:700;font-size:42pt;color:var(--ink);margin:.08in 0 .22in}
+  .subtitle .amber{color:var(--amber)}
+  .chips{display:flex;justify-content:center;flex-wrap:wrap;gap:.16in}
+  .chip{font-family:var(--mono);font-size:17pt;letter-spacing:.02em;color:var(--dim);
+        background:var(--panel2);border:1px solid var(--border);border-radius:999px;padding:.09in .28in}
+  .chip b{color:var(--cyan);font-weight:400}
+
+  /* ---------------- 3 columns ---------------- */
+  .body{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;min-height:0}
+  .col{min-height:0;padding:0 .62in;display:flex;flex-direction:column;gap:.34in;justify-content:space-between}
+  .col+.col{border-left:1px solid var(--rule)}
+  .col:first-child{padding-left:.15in} .col:last-child{padding-right:.15in}
+  .sec{}
+  .sec .eyebrow{margin-bottom:.1in}
+  .hr{height:1px;background:var(--rule);margin:.04in 0 .02in}
+
+  /* thesis */
+  .thesis{font-family:var(--sans);font-weight:800;font-size:40pt;line-height:1.08;color:var(--cyan);text-shadow:var(--glow-soft);margin:.1in 0 .02in}
+
+  /* callout */
+  .callout{border-left:.055in solid var(--magenta);background:rgba(230,120,171,.06);border-radius:0 .1in .1in 0;padding:.2in .26in;margin:.06in 0}
+  .callout .lbl{font-family:var(--mono);font-size:16pt;letter-spacing:.16em;text-transform:uppercase;color:var(--magenta);display:block;margin-bottom:.1in}
+  .callout p{font-size:21pt;line-height:1.4;margin:.06in 0}
+  .callout.cy{border-left-color:var(--cyan);background:rgba(91,214,224,.06)}
+  .callout.cy .lbl{color:var(--cyan)}
+
+  /* bullets */
+  ul{margin:.1in 0;padding-left:.4in}
+  li{font-size:23pt;line-height:1.38;margin:.11in 0}
+  ul.clean{list-style:none;padding-left:0}
+  ul.clean li{padding-left:.42in;position:relative}
+  ul.clean li::before{content:"▸";position:absolute;left:0;color:var(--cyan)}
+  ul.no li::before{content:"✗";color:var(--amber);font-weight:700}
+  ul.tight li{margin:.09in 0;font-size:24pt}
+
+  /* terminal */
+  .term{background:var(--code);border:1px solid var(--border);border-radius:.1in;overflow:hidden;font-family:var(--mono);box-shadow:0 .1in .4in rgba(0,0,0,.35)}
+  .term .bar{display:flex;align-items:center;gap:.11in;background:var(--panel2);border-bottom:1px solid var(--border);padding:.11in .2in;font-size:16pt;color:var(--faint)}
+  .term .bar i{width:.15in;height:.15in;border-radius:50%;display:block}
+  .term .bar i:nth-child(1){background:#ff5f57}.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
+  .term .termbody{padding:.22in .28in;font-family:var(--mono);font-size:20pt;color:var(--ink)}
+  .term .c{color:var(--cyan)} .term .m{color:var(--magenta)}
+  .term .tline{line-height:1.5;margin:.03in 0}
+  .term .tline.sub{color:var(--faint)}
+  .term .tline.sp{height:.1in;margin:0}
+  .term .tcmd{display:flex;gap:.28in;line-height:1.5;margin:.06in 0;align-items:baseline}
+  .term .tcmd .cmd{color:var(--cyan);white-space:nowrap;flex:0 0 3.0in}
+  .term .tcmd .cmd .p{color:var(--amber)}
+  .term .tcmd .td{color:var(--ink);flex:1;min-width:0}
+
+  /* lifecycle map */
+  .lcmap{display:flex;flex-wrap:wrap;align-items:center;gap:.09in}
+  .lcmap .node{font-family:var(--mono);font-size:16pt;color:var(--ink);background:var(--panel2);border:1px solid var(--border);border-radius:.06in;padding:.07in .15in;white-space:nowrap}
+  .lcmap .node.on{border-color:var(--cyan);color:var(--cyan);box-shadow:var(--glow-soft)}
+  .lcmap .arw{color:var(--cyan);font-family:var(--mono);font-size:17pt}
+  .cap{font-family:var(--mono);font-size:16.5pt;color:var(--faint);line-height:1.5;margin:.02in 0 0}
+
+  /* stat tiles */
+  .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.16in}
+  .stat{text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:.1in;padding:.16in .06in}
+  .stat{text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:.1in;padding:.2in .06in}
+  .stat .n{font-family:var(--mono);font-weight:800;font-size:54pt;color:var(--cyan);text-shadow:var(--glow-soft);line-height:1}
+  .stat .l{font-size:16pt;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;margin-top:.08in;line-height:1.2}
+
+  /* pillars */
+  .pillar h3{font-family:var(--sans);font-weight:800;font-size:30pt;margin:0 0 .06in;color:#eef4fb;display:flex;align-items:baseline;gap:.18in}
+  .pillar h3 .num{font-family:var(--mono);font-size:25pt;color:var(--cyan);text-shadow:var(--glow-soft)}
+  .pillar p{font-size:22.5pt;line-height:1.38;margin:.09in 0}
+  .quote{font-style:italic;color:var(--cyan-soft);font-size:21.5pt;line-height:1.34;border-left:.05in solid var(--border);padding-left:.22in;margin:.12in 0 0}
+  .codechip{font-family:var(--mono);font-size:19pt;background:var(--code);border:1px solid var(--border);border-radius:.07in;padding:.15in .18in;color:var(--dim);line-height:1.55;margin:.12in 0;white-space:pre-wrap}
+  .codechip .c{color:var(--cyan)} .codechip .a{color:var(--amber)}
+
+  /* footer */
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:.5in;
+        border-top:1px solid var(--rule);padding-top:.24in;font-family:var(--mono);font-size:16pt;color:var(--dim)}
+  .foot b{color:var(--ink)} .foot .endline{color:var(--cyan);letter-spacing:.14em;text-shadow:var(--glow-soft);font-size:18pt}
+  .qrwrap{display:flex;align-items:center;gap:.2in}
+  .qr{width:1.35in;height:1.35in;flex:0 0 auto;border:1px solid var(--border);border-radius:.06in;background:var(--code)}
+  .qrcap{font-family:var(--mono);font-size:13pt;color:var(--faint);line-height:1.35;text-align:right}
+  .qrcap b{color:var(--cyan)}
+
+  /* screen preview scaling (not in the PDF) */
+  @media screen{
+    body{background:#02040a}
+    .stage{padding:20px;display:flex;justify-content:center}
+    .poster{box-shadow:0 0 80px rgba(0,0,0,.85);transform-origin:top center}
+    .printhint{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:99;font-family:var(--mono);font-size:12px;
+      color:#bfe9ee;background:#0c121b;border:1px solid #255c63;border-radius:20px;padding:7px 14px}
+  }
+  @media print{ .printhint{display:none} .stage{padding:0} .poster{transform:none!important} }
+</style>
+</head>
+<body>
+<div class="printhint">Print ▸ Save as PDF · 48×36 in landscape · background graphics ON — hidden in the PDF</div>
+<div class="stage">
+<div class="poster" id="poster">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="head">
+    <div class="toprow">
+      <div class="wm"><b>PURDUE</b> · Rosen Center for Advanced Computing</div>
+      <div class="right">
+        <div>PEARC&nbsp;'26 · Minneapolis · July&nbsp;26–30, 2026</div>
+        <div class="au">Geoffrey&nbsp;Lentner · Ashish &nbsp;—&nbsp; RCAC, Purdue University</div>
+      </div>
+    </div>
+    <p class="eyebrow">An agent-first research paper<span class="dot">·</span>written in the open</p>
+    <div class="hero">Shall We Play <span class="cy">a&nbsp;Game?</span></div>
+    <div class="subtitle">Hello Computer: <span class="amber">HPC in the Agentic Era</span></div>
+    <div class="chips">
+      <span class="chip">a paper about agent-first papers</span>
+      <span class="chip">audience: <b>the research community</b></span>
+      <span class="chip"><b>126</b> commits · <b>16</b> releases · in the open</span>
+      <span class="chip">scan → the live, interactive experience</span>
+    </div>
+  </header>
+
+  <!-- ==================== 3 COLUMNS ==================== -->
+  <div class="body">
+
+    <!-- ---------- COL 1 · WHY ---------- -->
+    <div class="col">
+      <div class="sec">
+        <p class="eyebrow">A strange game</p>
+        <h2>Untrusted, yet a national imperative</h2>
+        <p>In <em>WarGames</em> (1983), a computer concludes some games can only be survived, not won:
+          <em>the only winning move is not to play.</em> Research science is tempted by that same
+          fatalism about AI — decline to engage, wait for the norms to settle, keep the machine outside
+          the lab door. But the board is already set:</p>
+        <ul class="clean">
+          <li><b>AI is distrusted — for good reason.</b> Peer review assumed a human behind every
+            sentence; reproducibility assumes a documented method. An agent that will cheerfully write a
+            Slurm script for a cluster you don't operate is not a colleague you trust unsupervised.</li>
+          <li><b>AI is also a mandate.</b> MCP moved to the Linux Foundation; the U.S. <em>Genesis
+            Mission</em> charged the national labs with uniting supercomputers and AI; serious voices
+            call HPC "at a crossroads." The institutions that distrust the machine are told to build on it.</li>
+        </ul>
+        <p>You don't resolve <em>untrusted-yet-imperative</em> by picking a side. You resolve it the way
+          you resolve any hard experiment: make the method explicit, the evidence inspectable, and the
+          failures cheap to catch. <b>This paper was written to be that evidence.</b></p>
+      </div>
+
+      <div class="thesis">Proactive engagement,<br>not prohibition.</div>
+
+      <div class="callout">
+        <span class="lbl">The stakes — to the people who set the rules</span>
+        <p>If you fund research, edit a journal, chair a program committee, or run a lab: the question is
+          no longer <em>whether</em> researchers use these tools, but whether the <b>process is disclosed
+          and reproducible</b> when they do.</p>
+        <p>This factory is one concrete answer — an auditable, honest, agent-first pipeline whose every
+          artifact is committed in the open. A proposal to stress-test, adopt, or better. The winning move
+          is to write the rules of play while the game is young.</p>
+      </div>
+    </div>
+
+    <!-- ---------- COL 2 · HOW ---------- -->
+    <div class="col">
+      <div class="sec">
+        <p class="eyebrow">The agent-first factory</p>
+        <h2>A paper that wrote itself</h2>
+        <p>No prose was written by hand. Humans defined the rules, curated the sources, and judged every
+          claim; agents did the research, drafting, integration, and review — through <b>seven
+          <span class="tag">/paper-*</span> skills</b> and a script-owned state machine.</p>
+      </div>
+
+      <div class="term">
+        <div class="bar"><i></i><i></i><i></i><span>/dev/wopr — agent-first research</span></div>
+        <div class="termbody">
+          <div class="tline"><span class="c">HELLO, COMPUTER.</span></div>
+          <div class="tline sub">A strange game — the only losing move is not to play.</div>
+          <div class="tline sp"></div>
+          <div class="tcmd"><span class="cmd"><span class="p">&gt;</span> /paper-research</span><span class="td">read a source · wire it to a claim</span></div>
+          <div class="tcmd"><span class="cmd"><span class="p">&gt;</span> /paper-outline</span><span class="td">fold the evidence into the prose</span></div>
+          <div class="tcmd"><span class="cmd"><span class="p">&gt;</span> /paper-draft</span><span class="td">integrate → a <span class="m">BLIND</span> agent audits it</span></div>
+          <div class="tcmd"><span class="cmd"><span class="p">&gt;</span> /paper-review</span><span class="td">ingest human peer feedback</span></div>
+          <div class="tcmd"><span class="cmd"><span class="p">&gt;</span> /paper-release</span><span class="td">ship — only if the gate says clean</span></div>
+          <div class="tline sp"></div>
+          <div class="tline sub">the model proposes; the engine disposes.</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="lcmap">
+          <span class="node on">scoped</span><span class="arw">→</span>
+          <span class="node">researching</span><span class="arw">→</span>
+          <span class="node">outlining</span><span class="arw">→</span>
+          <span class="node">integrating</span><span class="arw">→</span>
+          <span class="node">in-review</span><span class="arw">→</span>
+          <span class="node">revising</span><span class="arw">↺</span>
+          <span class="node on">released</span>
+        </div>
+        <p class="cap">A cyclic, additive finite-state machine · self-improving (<span class="tag">/paper-harness</span>) · portable to the next paper by copying one <span class="tag">.agents/</span> tree.</p>
+      </div>
+
+      <div class="sec">
+        <p class="eyebrow">This is not a demo — the real playthrough</p>
+        <div class="stats">
+          <div class="stat"><div class="n">126</div><div class="l">commits, public</div></div>
+          <div class="stat"><div class="n">16</div><div class="l">tagged releases</div></div>
+          <div class="stat"><div class="n">63</div><div class="l">session logs</div></div>
+          <div class="stat"><div class="n">13</div><div class="l">sources annotated</div></div>
+          <div class="stat"><div class="n">2</div><div class="l">peer-review phases</div></div>
+          <div class="stat"><div class="n">4</div><div class="l">pages, hard limit</div></div>
+        </div>
+        <p class="cap">Measured from the repository itself, over ~4.5 months. The same factory then wrote our documentation: 11 pages · <b style="color:var(--cyan)">mkdocs&nbsp;--strict: 0&nbsp;warnings</b> · approved cycle&nbsp;1.</p>
+      </div>
+    </div>
+
+    <!-- ---------- COL 3 · WHAT ---------- -->
+    <div class="col">
+      <div class="sec">
+        <p class="eyebrow">Three pillars at RCAC</p>
+        <h2>What we actually do</h2>
+        <p class="sub">On Gautschi today — and evolving.</p>
+      </div>
+
+      <div class="pillar sec">
+        <h3><span class="num">1</span> Shared context</h3>
+        <p>System-wide agent context deployed to <span class="tag">/etc/agents.d</span> — Markdown that
+          describes the cluster <em>to the agent</em>, concatenated into <span class="tag">AGENTS.md</span>
+          and symlinked per harness. <b>5 modules × 5 harnesses</b> (Claude Code · Codex · Gemini ·
+          opencode · Warp), each shaped <span class="sub">fact → command → "do not…" → why</span>.</p>
+        <div class="codechip"><span class="c"># slurm.md — written to the agent</span>
+every job needs <span class="a">-A</span> (account) and <span class="a">-p</span> (partition)
+do NOT invent module names or partitions</div>
+      </div>
+      <div class="hr"></div>
+
+      <div class="pillar sec">
+        <h3><span class="num">2</span> MCP servers</h3>
+        <p>Three open-source servers so an agent has "context that knows our clusters":
+          <span class="tag">rcac-mcp</span> (~21 tools, local-first over <b>your existing SSH</b>),
+          <span class="tag">globus-mcp</span> (transfers + compute), and a hosted, no-auth
+          <span class="tag">rcac-docs-mcp</span>.</p>
+        <p class="quote">"If you can SSH to the cluster, your agent can too — and only with the access you
+          already hold." No new service, no new credential.</p>
+      </div>
+      <div class="hr"></div>
+
+      <div class="pillar sec">
+        <h3><span class="num">3</span> Docs &amp; training</h3>
+        <p>A new <b>Agentic AI</b> section (11 pages) + a Gautschi "Using AI Agents" chapter — engage
+          honestly rather than pretend the tools don't exist: <b>research vs. operations</b>, verify not
+          trust (<em>augment expertise, don't outsource it</em>), and the blast-radius of destructive
+          commands, allocation burn, and secret leakage.</p>
+        <p class="quote">"These tools are most dangerous precisely where you know the least. Ask
+          <em>why</em>, not just <em>what</em>."</p>
+      </div>
+
+      <div class="callout cy">
+        <span class="lbl">The rules — there are no cheat codes</span>
+        <p>You may not ship over the page budget, with a dangling <span class="tag">\cite</span>, an
+          unsupported claim, an outline-drifted manuscript, or an undisclosed use of AI.
+          <b>Scope is cuttable; quality is not</b> — a disinterested checker enforces it. That is the
+          trust contract.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="foot">
+    <div>
+      <div><b>github.com/glentner/pearc26-hello-computer</b> &nbsp;·&nbsp; DOI 10.1145/3785462.3815825</div>
+      <div class="sub">Code &amp; data: MIT &nbsp;·&nbsp; Manuscript: CC&nbsp;BY&nbsp;4.0 &nbsp;·&nbsp; produced through a documented agent-first workflow</div>
+    </div>
+    <div class="endline">GREETINGS PROFESSOR. IT'S YOUR MOVE. &nbsp;·&nbsp; END OF LINE.</div>
+    <!-- Replace this .qr block with a real QR to your Tailscale Funnel URL before printing -->
+    <div class="qrwrap">
+      <div class="qrcap">SCAN → the live,<br>interactive walkthrough<br><b>[ replace before print ]</b></div>
+      <div class="qr">
+        <svg viewBox="0 0 100 100" width="100%" height="100%" aria-label="QR placeholder">
+          <rect x="0" y="0" width="100" height="100" fill="#080d14"/>
+          <g fill="#5bd6e0"><rect x="8" y="8" width="22" height="22"/><rect x="70" y="8" width="22" height="22"/><rect x="8" y="70" width="22" height="22"/></g>
+          <g fill="#080d14"><rect x="12" y="12" width="14" height="14"/><rect x="74" y="12" width="14" height="14"/><rect x="12" y="74" width="14" height="14"/></g>
+          <g fill="#5bd6e0"><rect x="15" y="15" width="8" height="8"/><rect x="77" y="15" width="8" height="8"/><rect x="15" y="77" width="8" height="8"/></g>
+          <g fill="#255c63"><rect x="40" y="10" width="5" height="5"/><rect x="52" y="10" width="5" height="5"/><rect x="46" y="22" width="5" height="5"/><rect x="10" y="40" width="5" height="5"/><rect x="22" y="46" width="5" height="5"/><rect x="10" y="58" width="5" height="5"/><rect x="40" y="40" width="5" height="5"/><rect x="52" y="46" width="5" height="5"/><rect x="64" y="40" width="5" height="5"/><rect x="46" y="58" width="5" height="5"/><rect x="58" y="58" width="5" height="5"/><rect x="70" y="52" width="5" height="5"/><rect x="82" y="46" width="5" height="5"/><rect x="40" y="70" width="5" height="5"/><rect x="52" y="82" width="5" height="5"/><rect x="64" y="70" width="5" height="5"/><rect x="76" y="76" width="5" height="5"/><rect x="82" y="64" width="5" height="5"/></g>
+        </svg>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /poster -->
+</div><!-- /stage -->
+
+<script>
+(function(){
+  "use strict";
+  window.addEventListener("error",function(){try{document.querySelector(".poster").style.transform="none";}catch(e){}});
+  var poster=document.getElementById("poster"), stage=document.querySelector(".stage");
+  function fit(){
+    try{
+      if(window.matchMedia && window.matchMedia("print").matches) return;
+      var natW=poster.offsetWidth, natH=poster.offsetHeight;
+      var scale=Math.min(1,(Math.max(320,window.innerWidth-40))/natW);
+      poster.style.transform="scale("+scale+")";
+      stage.style.height=(natH*scale+40)+"px";
+    }catch(e){}
+  }
+  window.addEventListener("resize",fit);
+  window.addEventListener("beforeprint",function(){poster.style.transform="none";stage.style.height="auto";});
+  window.addEventListener("afterprint",fit);
+  fit();
+})();
+</script>
+</body>
+</html>
